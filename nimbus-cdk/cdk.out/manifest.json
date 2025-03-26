@@ -1,0 +1,159 @@
+{
+  "version": "39.0.0",
+  "artifacts": {
+    "NimbusCdkStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "NimbusCdkStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "NimbusCdkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "NimbusCdkStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c935012c856a973052a9ad051a1bb6a6c681537af86c20e3b4d2bf7685786a7c.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "NimbusCdkStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "NimbusCdkStack.assets"
+      ],
+      "metadata": {
+        "/NimbusCdkStack/myLambdaFunction": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*"
+            }
+          }
+        ],
+        "/NimbusCdkStack/myLambdaFunction/ServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/NimbusCdkStack/myLambdaFunction/ServiceRole/ImportServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NimbusCdkStack/myLambdaFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myLambdaFunctionServiceRole73F2A75C"
+          }
+        ],
+        "/NimbusCdkStack/myLambdaFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myLambdaFunctionF2B7F422"
+          }
+        ],
+        "/NimbusCdkStack/PredictHttpApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApi7C61632C"
+          }
+        ],
+        "/NimbusCdkStack/PredictHttpApi/DefaultStage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiDefaultStage5A346B35"
+          }
+        ],
+        "/NimbusCdkStack/PredictHttpApi/POST--predict/LambdaIntegration/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiPOSTpredictLambdaIntegration41E6799A"
+          }
+        ],
+        "/NimbusCdkStack/PredictHttpApi/POST--predict/LambdaIntegration-Permission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiPOSTpredictLambdaIntegrationPermissionB780437A"
+          }
+        ],
+        "/NimbusCdkStack/PredictHttpApi/POST--predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiPOSTpredict0CF5D669"
+          }
+        ],
+        "/NimbusCdkStack/HttpApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HttpApiUrl"
+          }
+        ],
+        "/NimbusCdkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/NimbusCdkStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/NimbusCdkStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/NimbusCdkStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "NimbusCdkStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

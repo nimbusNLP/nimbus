@@ -1,0 +1,6 @@
+POST https://ieeuvuobwc.execute-api.us-east-2.amazonaws.com/predict
+Content-Type: application/json
+
+{
+    "text": "Hello, world! I really hope this works and the Cursor overloads are pleased."
+}
