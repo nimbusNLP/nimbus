@@ -1,0 +1,159 @@
+{
+  "version": "39.0.0",
+  "artifacts": {
+    "MyCdkProjectStack3.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MyCdkProjectStack3.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MyCdkProjectStack3": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "MyCdkProjectStack3.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2d0fcca218b6f113034f2e463fb948fa214209d169b69f9c22c2749b2071eb49.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MyCdkProjectStack3.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "MyCdkProjectStack3.assets"
+      ],
+      "metadata": {
+        "/MyCdkProjectStack3/myLambdaFunction": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*"
+            }
+          }
+        ],
+        "/MyCdkProjectStack3/myLambdaFunction/ServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/MyCdkProjectStack3/myLambdaFunction/ServiceRole/ImportServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/MyCdkProjectStack3/myLambdaFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myLambdaFunctionServiceRole73F2A75C"
+          }
+        ],
+        "/MyCdkProjectStack3/myLambdaFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myLambdaFunctionF2B7F422"
+          }
+        ],
+        "/MyCdkProjectStack3/PredictHttpApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApi7C61632C"
+          }
+        ],
+        "/MyCdkProjectStack3/PredictHttpApi/DefaultStage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiDefaultStage5A346B35"
+          }
+        ],
+        "/MyCdkProjectStack3/PredictHttpApi/POST--predict/LambdaIntegration/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiPOSTpredictLambdaIntegration41E6799A"
+          }
+        ],
+        "/MyCdkProjectStack3/PredictHttpApi/POST--predict/LambdaIntegration-Permission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiPOSTpredictLambdaIntegrationPermissionB780437A"
+          }
+        ],
+        "/MyCdkProjectStack3/PredictHttpApi/POST--predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictHttpApiPOSTpredict0CF5D669"
+          }
+        ],
+        "/MyCdkProjectStack3/HttpApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HttpApiUrl"
+          }
+        ],
+        "/MyCdkProjectStack3/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/MyCdkProjectStack3/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/MyCdkProjectStack3/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/MyCdkProjectStack3/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "MyCdkProjectStack3"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

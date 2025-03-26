@@ -1,1 +1,1 @@
-# nimbusCLI
+# deploymentCLI

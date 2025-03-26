@@ -1,0 +1,47 @@
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+// import * as ecr from 'aws-cdk-lib/aws-ecr'; // Import ECR module
+import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import * as path from 'path';
+import { Construct } from 'constructs';
+
+export class MyCdkProjectStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // // ✅ Create an ECR repository to store the Docker image
+    // const repository = new ecr.Repository(this, 'MyRepo', {
+    //   repositoryName: 'new-riches-lambda-docker-repo',  // Name for your ECR repository
+    // });
+
+    // ✅ Create the Lambda function using a Docker image
+    const myLambda = new lambda.DockerImageFunction(this, 'MYLambdaFunction', {
+      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../spacyLargeModel')),
+    });
+
+    // ✅ Create an API Gateway to expose the Lambda function
+    // Change to HTTP Gateway???
+    // Add route
+    // Post /predict
+    // const api = new apigateway.LambdaRestApi(this, 'MyGateway', {
+    //   handler: myLambda,  // Connect API Gateway to Lambda
+    //   proxy: false,        // Forward all requests to Lambda
+    // });
+
+    // const predict = api.root.addResource('predict');
+    // predict.addMethod('POST')
+
+
+    HttpApi.addRoutes({
+      path: '/predict',
+      method: 'POST',
+
+    })
+    // Output the API Gateway URL
+    new cdk.CfnOutput(this, 'ApiUrl', {
+      value: api.url,
+    });
+  }
+}
+
