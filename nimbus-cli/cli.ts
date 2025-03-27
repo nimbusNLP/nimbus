@@ -11,7 +11,7 @@ import { promisify } from 'util';
 
 const execPromise = promisify(exec);
 
-const asciiArt = figlet.textSync('spaCadet', {
+const asciiArt = figlet.textSync('Nimbus', {
   font: 'Standard', 
   horizontalLayout: 'default',
   verticalLayout: 'default'
@@ -36,6 +36,17 @@ if (!fs.existsSync(finishedDir)) {
 }
 
 let cdkDir: string;
+
+
+async function deploy(stackName: string) {
+  try {
+    const { stdout: deployStdout, stderr: deployStderr } = await execPromise(`cdk deploy --require-approval never --context stackName=${stackName}`, { cwd: cdkDir });
+    console.log(`cdk deploy --require-approval never --context stackName=${stackName}:\n${deployStdout}`);
+    if (deployStderr) console.error(`CDK deploy stderr:\n${deployStderr}`);
+  } catch (deployError: any) {
+    console.error(`Error during CDK deploy: ${deployError.message}`);
+  }
+}
 
 async function main() {
   const modelType = await select({
@@ -92,6 +103,24 @@ async function main() {
     }
   }
 
+
+  const stackName = await text({
+    message: 'Please enter a name for your Model:',
+    placeholder: 'myModel',
+    validate(value) {
+      if (value.length === 0) return 'Model name required.';
+      if (value === 'myModel') return 'Please choose a different Model name.';
+      // if (!fs.existsSync(value)) return 'Directory does not exist.'; 
+      // check model again registary for model name match 
+    },
+  });
+
+  if (isCancel(stackName)) {
+    cancel('Operation cancelled.');
+    process.exit(0);
+  }
+
+
   const requirementsContent = 'spacy==3.8.2\n';
   let dockerFileContent = generateDockerfile(modelType, modelNameOrPath, path);
   const lambdaFunctionContent = generateLambdaFile(modelType, modelNameOrPath);
@@ -127,21 +156,12 @@ async function main() {
     return;
   }
 
+
 }
 
 await main();
+await deploy("teststack");
 
-async function deploy() {
-  try {
-    const { stdout: deployStdout, stderr: deployStderr } = await execPromise('cdk deploy --require-approval never', { cwd: cdkDir });
-    console.log(`cdk deploy --require-approval never output:\n${deployStdout}`);
-    if (deployStderr) console.error(`CDK deploy stderr:\n${deployStderr}`);
-  } catch (deployError: any) {
-    console.error(`Error during CDK deploy: ${deployError.message}`);
-  }
-}
-
-await deploy();
 
 const asciiArt3 = figlet.textSync('We did it!', {
   font: 'Standard', 

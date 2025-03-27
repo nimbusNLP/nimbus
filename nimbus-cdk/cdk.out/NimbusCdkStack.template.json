@@ -39,7 +39,7 @@
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:bcc340c3d4c54e94cd98c118f3b9bcdbe9751b199850958cf45f814966704a81"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:f368341157c3b628970c5bfa36fe6141b07e6e37ffd557c4bdd5f31dc47be9e1"
      }
     },
     "MemorySize": 3008,
@@ -57,7 +57,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NimbusCdkStack/myLambdaFunction/Resource",
-    "aws:asset:path": "asset.bcc340c3d4c54e94cd98c118f3b9bcdbe9751b199850958cf45f814966704a81",
+    "aws:asset:path": "asset.f368341157c3b628970c5bfa36fe6141b07e6e37ffd557c4bdd5f31dc47be9e1",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
@@ -250,7 +250,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/5VSy27bMBD8lvBY0GycQxH4pjQoEKAPw+ktMIINuZE3Fh8gVw1UQf9eipJt9dBDT6JmZ2dnlrxR69u1Wl/Be1ppc1w19KL6RwZ9lBl67huwLwZUf+/1EeODhRq/tE4zeffUC+0Nio34IKSwaH3sHun3CWCy6Fsuf4P8D+5efn51pyHjeYvRUkr5b5AEVvU732CeDim1Fs1dJza9CJGcpgBNpbVvHc/KE2dsqIrebEdYcDmK2fqGNGESm6y3xLoqztz9ZGiUGCTq+JwlkZNabKQakbGmdhh8Is7p7iDh015CoBoY36HLtjFxFShPitPpO1hcZJ7r8h5D4zuLjjPVYNKRwtl7jhRoPkVkIHehp/OywZif/quvSUPzYMZ0Oce/8DL8oiLz9ddYRp+ghclSlNmqb6PGkjLX9mck9wWIeL6AAHzYQuS/cxaq/IZ88GbaR0HmngNzmGozQI6xjrBYgi8bSQvVqWEYLk6Kr3I3o2ly9Uj70XJoeZAuP0f1lj7+Wt+qm2v16eotEa1ifjn5Lard9P0DBGy3jB4DAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/5VSy27bMBD8lvBY0GydAkXhm9KgQICkNZzeAiPYkFt5Y/EBkmqgCvr3rijZVg899CRqdnZ2Zslrtf68VusreEsrbY6rhl5U/5hBHyVDz30D9sWA6m+9PmK8s1Dj19bpTN499UJ7g2Ij3gkpLFofu0f6fQIyWfRtLn+D/A/uXn756U5DxvMWo6WU+G+QBFb1O98gT4eUWovmphObXoRITlOAptLaty7PyhNnbKiK3mxHWHAcxWx9Q5owiQ3rLbGuijN3PxkaJQaJOj6zJOakFhupRmSsqR0GnyhzuhtI+LSXEKiGjG/QsW1MuQrEk+J0+gYWF5nnurzF0PjOostMNZh0pHD2zpECzaeIGchd6Om8bDDmh7/3NWlo7syYjnP8Cy/DLyqSr7/GMvoELUyWomSrvo0aS0qu7c8I9wWIeL6AAPmwhZj/zlmo8gHzwZtpHwWZew45h6k2A+Qy1hEWS/BlI2mhOjUMw8VJ8VXuZjRNrh5p39sc2jxIx89Rvab3v64/qk/qw9VrIlpFfjj8FNVu+v4BwXgUeB0DAAA="
    },
    "Metadata": {
     "aws:cdk:path": "NimbusCdkStack/CDKMetadata/Default"
