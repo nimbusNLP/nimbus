@@ -5,8 +5,8 @@
     "nimbus-cdk": "bin/nimbus-cdk.js"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "npx tsc",
+    "watch": "npx tsc -w",
     "test": "jest",
     "cdk": "cdk"
   },
