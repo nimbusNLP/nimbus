@@ -115,7 +115,7 @@ async function main() {
 await main();
 async function deploy() {
     try {
-        const { stdout: deployStdout, stderr: deployStderr } = await execPromise('cdk deploy --require-approval never', { cwd: cdkDir });
+        const { stdout: deployStdout, stderr: deployStderr } = await execPromise('cdk deploy --require-approval never --outputs-file nimbus.json', { cwd: cdkDir });
         console.log(`cdk deploy --require-approval never output:\n${deployStdout}`);
         if (deployStderr)
             console.error(`CDK deploy stderr:\n${deployStderr}`);
