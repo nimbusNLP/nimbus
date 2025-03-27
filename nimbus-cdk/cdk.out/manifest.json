@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c935012c856a973052a9ad051a1bb6a6c681537af86c20e3b4d2bf7685786a7c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/caa0e82ed03f91fc62e65921faa795a06adbd414605e64f4be7f5eb9018d3e8f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -86,40 +86,126 @@
             "data": "myLambdaFunctionF2B7F422"
           }
         ],
-        "/NimbusCdkStack/PredictHttpApi/Resource": [
+        "/NimbusCdkStack/PredictRestApi": [
           {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictHttpApi7C61632C"
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "restApiName": "*"
+            }
           }
         ],
-        "/NimbusCdkStack/PredictHttpApi/DefaultStage/Resource": [
+        "/NimbusCdkStack/PredictRestApi/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictHttpApiDefaultStage5A346B35"
+            "data": "PredictRestApiB33CDE4F"
           }
         ],
-        "/NimbusCdkStack/PredictHttpApi/POST--predict/LambdaIntegration/Resource": [
+        "/NimbusCdkStack/PredictRestApi/Deployment": [
           {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictHttpApiPOSTpredictLambdaIntegration41E6799A"
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "description": "*",
+              "api": "*",
+              "retainDeployments": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToLogicalId": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToLogicalId": [
+                {}
+              ]
+            }
           }
         ],
-        "/NimbusCdkStack/PredictHttpApi/POST--predict/LambdaIntegration-Permission": [
+        "/NimbusCdkStack/PredictRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictHttpApiPOSTpredictLambdaIntegrationPermissionB780437A"
+            "data": "PredictRestApiDeployment49622637eda644f2bab032daaa3bcf7e5140f9a9"
           }
         ],
-        "/NimbusCdkStack/PredictHttpApi/POST--predict/Resource": [
+        "/NimbusCdkStack/PredictRestApi/DeploymentStage.prod": [
           {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictHttpApiPOSTpredict0CF5D669"
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "deployment": "*"
+            }
           }
         ],
-        "/NimbusCdkStack/HttpApiUrl": [
+        "/NimbusCdkStack/PredictRestApi/DeploymentStage.prod/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "HttpApiUrl"
+            "data": "PredictRestApiDeploymentStageprod3D359CF9"
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApiEndpointCE56DB59"
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default/predict": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default/predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApipredictB9825174"
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default/predict/POST": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default/predict/POST/ApiPermission.NimbusCdkStackPredictRestApi81C67A5C.POST..predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApipredictPOSTApiPermissionNimbusCdkStackPredictRestApi81C67A5CPOSTpredict14A6AA12"
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default/predict/POST/ApiPermission.Test.NimbusCdkStackPredictRestApi81C67A5C.POST..predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApipredictPOSTApiPermissionTestNimbusCdkStackPredictRestApi81C67A5CPOSTpredict67B3E2D5"
+          }
+        ],
+        "/NimbusCdkStack/PredictRestApi/Default/predict/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApipredictPOST68331D64"
+          }
+        ],
+        "/NimbusCdkStack/RestApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiUrl"
           }
         ],
         "/NimbusCdkStack/CDKMetadata/Default": [

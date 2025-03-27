@@ -69,7 +69,7 @@ async function main() {
     }
   } else if (modelType === 'fine-tuned') {
     modelNameOrPath = await text({
-      message: 'Please enter the directory path to your fine-tuned model:',
+      message: 'Please enter the directory path to your fine-tuned model. Ensure that it is an absolute path:',
       placeholder: '/path/to/your/model',
       validate(value) {
         if (value.length === 0) return 'Directory path is required.';
@@ -80,6 +80,15 @@ async function main() {
     if (isCancel(modelNameOrPath)) {
       cancel('Operation cancelled.');
       process.exit(0);
+    }
+
+    const destination = path.join(process.cwd(), 'finished_dir', 'model-best');
+
+    try {
+      fs.cpSync(modelNameOrPath, destination, { recursive: true });
+      console.log('Directory copied successfully.');
+    } catch (err) {
+      console.error('Error copying directory:', err);
     }
   }
 
