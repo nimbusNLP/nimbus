@@ -1,0 +1,4 @@
+node_modules/
+./nimbus-cdk/node_modules/
+./nimbus-cli/node_modules/
+./nimbus-cdk/output/
