@@ -39,7 +39,7 @@
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:830c8ddfb39fd27e07d1bb4ee4ace37e5e0c2791c7c3055260e87fa75663bc2d"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:bcc340c3d4c54e94cd98c118f3b9bcdbe9751b199850958cf45f814966704a81"
      }
     },
     "MemorySize": 3008,
@@ -57,7 +57,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NimbusCdkStack/myLambdaFunction/Resource",
-    "aws:asset:path": "asset.830c8ddfb39fd27e07d1bb4ee4ace37e5e0c2791c7c3055260e87fa75663bc2d",
+    "aws:asset:path": "asset.bcc340c3d4c54e94cd98c118f3b9bcdbe9751b199850958cf45f814966704a81",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }

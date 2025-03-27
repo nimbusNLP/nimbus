@@ -21,7 +21,9 @@ RUN python -m spacy download ${String(modelNameOrPath)}
         const modelDirName = platformPath.basename(modelNameOrPath);
         dockerfileContent += `
 # Copy the fine-tuned spaCy model into the container
-COPY ${String(modelNameOrPath)} /var/task/${modelDirName}
+COPY ${String(modelDirName)} /var/task/${modelDirName}
+
+RUN chmod -R 755 /var/task/model-best
 `;
     }
     dockerfileContent += `
