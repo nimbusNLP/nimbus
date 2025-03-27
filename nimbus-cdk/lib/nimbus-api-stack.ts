@@ -16,7 +16,7 @@ export class NimbusApiStack extends cdk.Stack {
 
     // potential usagePlan
 
-    new cdk.CfnOutput(this, 'RestApiUrl', {
+    new cdk.CfnOutput(this, 'url', {
       value: api.url ?? 'Something went wrong',
     });
   }
