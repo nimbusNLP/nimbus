@@ -44,7 +44,7 @@ export class ApiGatewayStack extends cdk.Stack {
     models.forEach((model) => {
       const modelLambda = new lambda.DockerImageFunction(this, `Lambda_${model.modelName}`, {
         code: lambda.DockerImageCode.fromImageAsset(
-          path.join(__dirname, '../../nimbus-cli', 'finished_dir'),
+          path.join(__dirname, '../../nimbus-cli', 'finished_dir', model.modelName),
           {
             platform: Platform.LINUX_AMD64,
           }
