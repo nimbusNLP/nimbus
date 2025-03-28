@@ -9,10 +9,8 @@ RUN dnf install -y gcc
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy the fine-tuned spaCy model into the container
-COPY model-best /var/task/model-best
-
-RUN chmod -R 755 /var/task/model-best
+# Download the spaCy model
+RUN python -m spacy download en_core_web_sm
 
 # Copy the Lambda function code into the container
 COPY lambda_function.py .

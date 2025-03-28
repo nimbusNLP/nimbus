@@ -11,3 +11,9 @@ new NimbusLambdaStack(app, 'myModel', {name: 'myModel'});
 // new NimbusLambdaStack(app, 'Model2', { name: 'name2'});
 
 
+// THE BELOW IS ANOTHER WAY TO DO IT
+// const apiStack = new NimbusApiStack(app, 'NimbusApiStack');
+// new NimbusLambdaStack(app, 'ModelALambdaStack', {
+//   name: 'modelA',
+//   apiId: apiStack.apiId
+// });

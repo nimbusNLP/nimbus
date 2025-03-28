@@ -17,7 +17,7 @@ const asciiArt = figlet.textSync('spaCadet', {
   verticalLayout: 'default'
 });
 
-const fontName = 'small' as figlet.Fonts;
+const fontName = 'Small' as figlet.Fonts;
 
 const asciiArt2 = figlet.textSync("Let's deploy a model!", {
   font: fontName,
@@ -133,8 +133,8 @@ await main();
 
 async function deploy() {
   try {
-    const { stdout: deployStdout, stderr: deployStderr } = await execPromise('cdk deploy --require-approval never --outputs-file nimbus.json', { cwd: cdkDir });
-    console.log(`cdk deploy --require-approval never output:\n${deployStdout}`);
+    const { stdout: deployStdout, stderr: deployStderr } = await execPromise('cdk deploy --all --require-approval never', { cwd: cdkDir });
+    console.log(`cdk deploy --all --require-approval never output:\n${deployStdout}`);
     if (deployStderr) console.error(`CDK deploy stderr:\n${deployStderr}`);
   } catch (deployError: any) {
     console.error(`Error during CDK deploy: ${deployError.message}`);

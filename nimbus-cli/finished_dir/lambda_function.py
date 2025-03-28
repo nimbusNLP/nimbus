@@ -8,7 +8,7 @@ logger.setLevel(logging.INFO)
 
 # Load the spaCy model
 try:
-    nlp = spacy.load("/var/task/model-best")
+    nlp = spacy.load("en_core_web_sm")
     logger.info("Model loaded successfully")
 except Exception as e:
     logger.error(f"Error loading model: {e}")
