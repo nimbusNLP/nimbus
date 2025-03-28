@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/caa0e82ed03f91fc62e65921faa795a06adbd414605e64f4be7f5eb9018d3e8f.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/49b55e2ac5756f4e6265b568df29c8eb8d2412be2cbf9664b540555459f34939.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -34,59 +34,7 @@
         "NimbusCdkStack.assets"
       ],
       "metadata": {
-        "/NimbusCdkStack/myLambdaFunction": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "code": "*",
-              "memorySize": "*",
-              "timeout": "*"
-            }
-          },
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "code": "*",
-              "memorySize": "*",
-              "timeout": "*"
-            }
-          }
-        ],
-        "/NimbusCdkStack/myLambdaFunction/ServiceRole": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "assumedBy": {
-                "principalAccount": "*",
-                "assumeRoleAction": "*"
-              },
-              "managedPolicies": [
-                {
-                  "managedPolicyArn": "*"
-                }
-              ]
-            }
-          }
-        ],
-        "/NimbusCdkStack/myLambdaFunction/ServiceRole/ImportServiceRole": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": "*"
-          }
-        ],
-        "/NimbusCdkStack/myLambdaFunction/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myLambdaFunctionServiceRole73F2A75C"
-          }
-        ],
-        "/NimbusCdkStack/myLambdaFunction/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myLambdaFunctionF2B7F422"
-          }
-        ],
-        "/NimbusCdkStack/PredictRestApi": [
+        "/NimbusCdkStack/NimbusRestApi": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -94,13 +42,13 @@
             }
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Resource": [
+        "/NimbusCdkStack/NimbusRestApi/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiB33CDE4F"
+            "data": "NimbusRestApi4381C0BC"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Deployment": [
+        "/NimbusCdkStack/NimbusRestApi/Deployment": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -116,23 +64,15 @@
                 {}
               ]
             }
-          },
-          {
-            "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToLogicalId": [
-                {}
-              ]
-            }
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Deployment/Resource": [
+        "/NimbusCdkStack/NimbusRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiDeployment49622637eda644f2bab032daaa3bcf7e5140f9a9"
+            "data": "NimbusRestApiDeployment1400B6F9138b8750f105adb01ff09e6a2ff853c5"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/DeploymentStage.prod": [
+        "/NimbusCdkStack/NimbusRestApi/DeploymentStage.prod": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -140,40 +80,25 @@
             }
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/DeploymentStage.prod/Resource": [
+        "/NimbusCdkStack/NimbusRestApi/DeploymentStage.prod/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiDeploymentStageprod3D359CF9"
+            "data": "NimbusRestApiDeploymentStageprodDE60962B"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Endpoint": [
+        "/NimbusCdkStack/NimbusRestApi/Endpoint": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiEndpointCE56DB59"
+            "data": "NimbusRestApiEndpoint13B55775"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Default": [
+        "/NimbusCdkStack/NimbusRestApi/Default": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Default/predict": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "parent": "*",
-              "pathPart": "*"
-            }
-          }
-        ],
-        "/NimbusCdkStack/PredictRestApi/Default/predict/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApipredictB9825174"
-          }
-        ],
-        "/NimbusCdkStack/PredictRestApi/Default/predict/POST": [
+        "/NimbusCdkStack/NimbusRestApi/Default/GET": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -184,28 +109,84 @@
             }
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Default/predict/POST/ApiPermission.NimbusCdkStackPredictRestApi81C67A5C.POST..predict": [
+        "/NimbusCdkStack/NimbusRestApi/Default/GET/ApiPermission.NimbusCdkStackNimbusRestApiEDA9D129.GET..": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApipredictPOSTApiPermissionNimbusCdkStackPredictRestApi81C67A5CPOSTpredict14A6AA12"
+            "data": "NimbusRestApiGETApiPermissionNimbusCdkStackNimbusRestApiEDA9D129GETD6DFA2EB"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Default/predict/POST/ApiPermission.Test.NimbusCdkStackPredictRestApi81C67A5C.POST..predict": [
+        "/NimbusCdkStack/NimbusRestApi/Default/GET/ApiPermission.Test.NimbusCdkStackNimbusRestApiEDA9D129.GET..": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApipredictPOSTApiPermissionTestNimbusCdkStackPredictRestApi81C67A5CPOSTpredict67B3E2D5"
+            "data": "NimbusRestApiGETApiPermissionTestNimbusCdkStackNimbusRestApiEDA9D129GET3685452C"
           }
         ],
-        "/NimbusCdkStack/PredictRestApi/Default/predict/POST/Resource": [
+        "/NimbusCdkStack/NimbusRestApi/Default/GET/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApipredictPOST68331D64"
+            "data": "NimbusRestApiGETA5BEC442"
           }
         ],
-        "/NimbusCdkStack/RestApiUrl": [
+        "/NimbusCdkStack/NimbusLambda": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "handler": "*",
+              "runtime": "*"
+            }
+          }
+        ],
+        "/NimbusCdkStack/NimbusLambda/ServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/NimbusCdkStack/NimbusLambda/ServiceRole/ImportServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/NimbusCdkStack/NimbusLambda/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "RestApiUrl"
+            "data": "NimbusLambdaServiceRoleE5240785"
+          }
+        ],
+        "/NimbusCdkStack/NimbusLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NimbusLambda8A27AFFF"
+          }
+        ],
+        "/NimbusCdkStack/NimbusRestApiId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NimbusRestApiId"
+          }
+        ],
+        "/NimbusCdkStack/NimbusRestApiRootResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NimbusRestApiRootResource"
+          }
+        ],
+        "/NimbusCdkStack/url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "url"
           }
         ],
         "/NimbusCdkStack/CDKMetadata/Default": [
@@ -234,6 +215,264 @@
         ]
       },
       "displayName": "NimbusCdkStack"
+    },
+    "myModel.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "myModel.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "myModel": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "myModel.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5a691eb0440053715c6227cdfe2aa7ebcbe6572986d4bfcbacf46b335b9f065c.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "myModel.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "myModel.assets"
+      ],
+      "metadata": {
+        "/myModel/myModelLambdaFunction": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "functionName": "*",
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "functionName": "*",
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*"
+            }
+          }
+        ],
+        "/myModel/myModelLambdaFunction/ServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/myModel/myModelLambdaFunction/ServiceRole/ImportServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/myModel/myModelLambdaFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myModelLambdaFunctionServiceRole82B8BDD8"
+          }
+        ],
+        "/myModel/myModelLambdaFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myModelLambdaFunction2A5EDE74"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelFD1B784D"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/health": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/health/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelhealth5BE30F51"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/health/GET": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel.health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelhealthGETApiPermissionmyModelImportedRestApi13030E3AGETmyModelhealth0DE79FF2"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel.health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelhealthGETApiPermissionTestmyModelImportedRestApi13030E3AGETmyModelhealth37E587F8"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/health/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelhealthGET7359A71F"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/predict": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelpredict74C23E47"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/predict/POST": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.myModelImportedRestApi13030E3A.POST..myModel.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelpredictPOSTApiPermissionmyModelImportedRestApi13030E3APOSTmyModelpredict2CB9AE59"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.Test.myModelImportedRestApi13030E3A.POST..myModel.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelpredictPOSTApiPermissionTestmyModelImportedRestApi13030E3APOSTmyModelpredict1116E64C"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/predict/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelpredictPOST6BBAF36B"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/GET": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelGETApiPermissionmyModelImportedRestApi13030E3AGETmyModelA47F7B46"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelGETApiPermissionTestmyModelImportedRestApi13030E3AGETmyModelB5F6643D"
+          }
+        ],
+        "/myModel/ImportedRestApi/Default/myModel/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimyModelGETCA6E3D69"
+          }
+        ],
+        "/myModel/RestApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiUrl"
+          }
+        ],
+        "/myModel/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/myModel/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/myModel/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/myModel/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "myModel"
     },
     "Tree": {
       "type": "cdk:tree",
