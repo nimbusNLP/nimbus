@@ -1,6 +1,175 @@
 {
  "Resources": {
-  "myLambdaFunctionServiceRole73F2A75C": {
+  "PredictRestApiB33CDE4F": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Name": "PredictRestApi"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Resource"
+   }
+  },
+  "PredictRestApiDeployment49622637ca93420b21f60af9d7cb9e9e555726af": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Automatically created by the RestApi construct",
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "DependsOn": [
+    "PredictRestApiGETBBFCD66A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Deployment/Resource"
+   }
+  },
+  "PredictRestApiDeploymentStageprod3D359CF9": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "PredictRestApiDeployment49622637ca93420b21f60af9d7cb9e9e555726af"
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    },
+    "StageName": "prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/DeploymentStage.prod/Resource"
+   }
+  },
+  "PredictRestApiGETApiPermissionNimbusCdkStackPredictRestApi81C67A5CGET4403FCFA": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "DefaultLambdaE5505F72",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "PredictRestApiB33CDE4F"
+       },
+       "/",
+       {
+        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
+       },
+       "/GET/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/GET/ApiPermission.NimbusCdkStackPredictRestApi81C67A5C.GET.."
+   }
+  },
+  "PredictRestApiGETApiPermissionTestNimbusCdkStackPredictRestApi81C67A5CGETB4C9C27A": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "DefaultLambdaE5505F72",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "PredictRestApiB33CDE4F"
+       },
+       "/test-invoke-stage/GET/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/GET/ApiPermission.Test.NimbusCdkStackPredictRestApi81C67A5C.GET.."
+   }
+  },
+  "PredictRestApiGETBBFCD66A": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "DefaultLambdaE5505F72",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "PredictRestApiB33CDE4F",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/GET/Resource"
+   }
+  },
+  "DefaultLambdaServiceRole602B1F82": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -31,226 +200,35 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/myLambdaFunction/ServiceRole/Resource"
+    "aws:cdk:path": "NimbusCdkStack/DefaultLambda/ServiceRole/Resource"
    }
   },
-  "myLambdaFunctionF2B7F422": {
+  "DefaultLambdaE5505F72": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:bcc340c3d4c54e94cd98c118f3b9bcdbe9751b199850958cf45f814966704a81"
-     }
+     "ZipFile": "exports.handler = async () => { return { statusCode: 200, body: \"No model deployed yet.\" }; }"
     },
-    "MemorySize": 3008,
-    "PackageType": "Image",
+    "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "myLambdaFunctionServiceRole73F2A75C",
+      "DefaultLambdaServiceRole602B1F82",
       "Arn"
      ]
     },
-    "Timeout": 60
+    "Runtime": "nodejs14.x"
    },
    "DependsOn": [
-    "myLambdaFunctionServiceRole73F2A75C"
+    "DefaultLambdaServiceRole602B1F82"
    ],
    "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/myLambdaFunction/Resource",
-    "aws:asset:path": "asset.bcc340c3d4c54e94cd98c118f3b9bcdbe9751b199850958cf45f814966704a81",
-    "aws:asset:dockerfile-path": "Dockerfile",
-    "aws:asset:property": "Code.ImageUri"
-   }
-  },
-  "PredictRestApiB33CDE4F": {
-   "Type": "AWS::ApiGateway::RestApi",
-   "Properties": {
-    "Name": "PredictRestApi"
-   },
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Resource"
-   }
-  },
-  "PredictRestApiDeployment49622637eda644f2bab032daaa3bcf7e5140f9a9": {
-   "Type": "AWS::ApiGateway::Deployment",
-   "Properties": {
-    "Description": "Automatically created by the RestApi construct",
-    "RestApiId": {
-     "Ref": "PredictRestApiB33CDE4F"
-    }
-   },
-   "DependsOn": [
-    "PredictRestApipredictPOST68331D64",
-    "PredictRestApipredictB9825174"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Deployment/Resource"
-   }
-  },
-  "PredictRestApiDeploymentStageprod3D359CF9": {
-   "Type": "AWS::ApiGateway::Stage",
-   "Properties": {
-    "DeploymentId": {
-     "Ref": "PredictRestApiDeployment49622637eda644f2bab032daaa3bcf7e5140f9a9"
-    },
-    "RestApiId": {
-     "Ref": "PredictRestApiB33CDE4F"
-    },
-    "StageName": "prod"
-   },
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/DeploymentStage.prod/Resource"
-   }
-  },
-  "PredictRestApipredictB9825174": {
-   "Type": "AWS::ApiGateway::Resource",
-   "Properties": {
-    "ParentId": {
-     "Fn::GetAtt": [
-      "PredictRestApiB33CDE4F",
-      "RootResourceId"
-     ]
-    },
-    "PathPart": "predict",
-    "RestApiId": {
-     "Ref": "PredictRestApiB33CDE4F"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/predict/Resource"
-   }
-  },
-  "PredictRestApipredictPOSTApiPermissionNimbusCdkStackPredictRestApi81C67A5CPOSTpredict14A6AA12": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myLambdaFunctionF2B7F422",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "PredictRestApiB33CDE4F"
-       },
-       "/",
-       {
-        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
-       },
-       "/POST/predict"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/predict/POST/ApiPermission.NimbusCdkStackPredictRestApi81C67A5C.POST..predict"
-   }
-  },
-  "PredictRestApipredictPOSTApiPermissionTestNimbusCdkStackPredictRestApi81C67A5CPOSTpredict67B3E2D5": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myLambdaFunctionF2B7F422",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "PredictRestApiB33CDE4F"
-       },
-       "/test-invoke-stage/POST/predict"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/predict/POST/ApiPermission.Test.NimbusCdkStackPredictRestApi81C67A5C.POST..predict"
-   }
-  },
-  "PredictRestApipredictPOST68331D64": {
-   "Type": "AWS::ApiGateway::Method",
-   "Properties": {
-    "AuthorizationType": "NONE",
-    "HttpMethod": "POST",
-    "Integration": {
-     "IntegrationHttpMethod": "POST",
-     "Type": "AWS_PROXY",
-     "Uri": {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":apigateway:",
-        {
-         "Ref": "AWS::Region"
-        },
-        ":lambda:path/2015-03-31/functions/",
-        {
-         "Fn::GetAtt": [
-          "myLambdaFunctionF2B7F422",
-          "Arn"
-         ]
-        },
-        "/invocations"
-       ]
-      ]
-     }
-    },
-    "ResourceId": {
-     "Ref": "PredictRestApipredictB9825174"
-    },
-    "RestApiId": {
-     "Ref": "PredictRestApiB33CDE4F"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "NimbusCdkStack/PredictRestApi/Default/predict/POST/Resource"
+    "aws:cdk:path": "NimbusCdkStack/DefaultLambda/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/5VSy27bMBD8lvBY0GycQxH4pjQoEKAPw+ktMIINuZE3Fh8gVw1UQf9eipJt9dBDT6JmZ2dnlrxR69u1Wl/Be1ppc1w19KL6RwZ9lBl67huwLwZUf+/1EeODhRq/tE4zeffUC+0Nio34IKSwaH3sHun3CWCy6Fsuf4P8D+5efn51pyHjeYvRUkr5b5AEVvU732CeDim1Fs1dJza9CJGcpgBNpbVvHc/KE2dsqIrebEdYcDmK2fqGNGESm6y3xLoqztz9ZGiUGCTq+JwlkZNabKQakbGmdhh8Is7p7iDh015CoBoY36HLtjFxFShPitPpO1hcZJ7r8h5D4zuLjjPVYNKRwtl7jhRoPkVkIHehp/OywZif/quvSUPzYMZ0Oce/8DL8oiLz9ddYRp+ghclSlNmqb6PGkjLX9mck9wWIeL6AAHzYQuS/cxaq/IZ88GbaR0HmngNzmGozQI6xjrBYgi8bSQvVqWEYLk6Kr3I3o2ly9Uj70XJoeZAuP0f1lj7+Wt+qm2v16eotEa1ifjn5Lard9P0DBGy3jB4DAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11RQW7CMBB8Cz5Wxm04VIhbaFWpUlsQ9IZQtdhuWEjsyHaKUOS/105MoD1lszszOzuesGyasWwEJzvm4jguccfatQN+pKH11UKNBTh5gjNrV9K6vMZNS0xffUAlyYzcEUqErEt9XtQOtbJk1hLroJADwPstffpWSYE+d+hKKhfEhLTcYMdMYmFpqox0gOoKt70abQkI8anfdIEcyldBZpvWb/slVzRdRxPdiksr6f5z1/E6MA0WdWO4nIOVmzDb0nfp9lr0V3ejpLF3ru5nqYHKycLAzSH6ksewpCd4WkK1E8Da0FpKU6G1AUhfGsUjIy5rlMMh3j0oUUqT/rgWt8YvLE8RqvBMuow3g7VNJcX8HF+jNqg41lDmnOtmiKHHRELOB9uekgpUyEIsdYkcpY3p/umdc5OwKfMo4X2sFo2rGzfE2EXoqQqO2cHe/2RTNnlgj6ODRRynG9mq//4CL8BEZYwCAAA="
    },
    "Metadata": {
     "aws:cdk:path": "NimbusCdkStack/CDKMetadata/Default"

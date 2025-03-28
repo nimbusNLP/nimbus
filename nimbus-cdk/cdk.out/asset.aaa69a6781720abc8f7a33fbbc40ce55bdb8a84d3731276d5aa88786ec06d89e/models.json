@@ -1,0 +1,37 @@
+[
+  {
+    "modelName": "en-core-web-sm",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "first_model_encorewebsm",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "tryAgainsm",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "correctPath",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "changedOS",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "pathmodelfunc",
+    "modelType": "fine-tuned",
+    "modelPathOrName": "/Users/chelseaoconnor/desktop/model-best"
+  },
+  {
+    "modelName": "gitlit",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_md"
+  }
+]
