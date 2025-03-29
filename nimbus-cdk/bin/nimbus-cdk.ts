@@ -6,7 +6,7 @@ import { NimbusLambdaStack } from '../lib/nimbus-lambda-stack';
 const app = new cdk.App();
 new NimbusApiStack(app, 'NimbusCdkStack');
 
-new NimbusLambdaStack(app, 'myModel', {name: 'myModel'});
+new NimbusLambdaStack(app, 'my2Model', {name: 'my2Model'});
 
 // new NimbusLambdaStack(app, 'Model2', { name: 'name2'});
 

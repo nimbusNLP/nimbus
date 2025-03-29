@@ -2,8 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as path from 'path';
-
-
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
@@ -25,6 +24,14 @@ export class NimbusLambdaStack extends cdk.Stack {
     // I'm very unsure about this code
     // How do we get the name to dynamically come into this stack creation
     const modelName = props?.name || 'default';
+    
+    const restApiId = cdk.Fn.importValue('NimbusRestApi');
+    const rootResourceId = cdk.Fn.importValue('NimbusRestApiRootResource');
+
+    const api = apigateway.RestApi.fromRestApiAttributes(this, 'ImportedRestApi', {
+      restApiId: restApiId,
+      rootResourceId: rootResourceId,
+    });
 
     const myLambda = new lambda.DockerImageFunction(this, `${modelName}LambdaFunction`, {
       functionName: `${modelName}LambdaFunction`,
@@ -38,16 +45,12 @@ export class NimbusLambdaStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(60),
     });
 
-    const restApiId = cdk.Fn.importValue('NimbusRestApi');
-    const rootResourceId = cdk.Fn.importValue('NimbusRestApiRootResource');
-
-    const api = apigateway.RestApi.fromRestApiAttributes(this, 'ImportedRestApi', {
-      restApiId: restApiId,
-      rootResourceId: rootResourceId,
+    myLambda.addPermission(`${modelName}APIGatewayInvoke`, {
+      principal: new iam.ServicePrincipal('apigateway.amazonaws.com'),
+      sourceArn: `arn:aws:execute-api:${this.region}:${this.account}:${restApiId}/*/*/*`,
     });
 
-
-
+    
     const modelNameRoute = api.root.addResource(modelName);
     const health = modelNameRoute.addResource('health');
     const predict = modelNameRoute.addResource('predict');
@@ -61,21 +64,28 @@ export class NimbusLambdaStack extends cdk.Stack {
     // Replace the existing deployment code with this:
     const deployment = new apigateway.Deployment(this, `${modelName}ApiDeployment`, {
       api: api,
-      description: `Deployment for ${modelName} lambda integration`,
-      retainDeployments: true,
     });
+
+
+    const prodStage = new apigateway.Stage(this, 'ProdStage', {
+      deployment,
+      stageName: 'prod'
+    })
+
+    const cfnStage = prodStage.node.defaultChild as apigateway.CfnStage;
+    cfnStage.addDependency(deployment.node.defaultChild as apigateway.CfnDeployment)
 
     // Get reference to existing prod stage
-    const prodStage = apigateway.Stage.fromStageAttributes(this, 'ImportedProdStage', {
-      restApi: api,
-      stageName: 'prod',
-    });
+    // const prodStage = apigateway.Stage.fromStageAttributes(this, 'ImportedProdStage', {
+    //   restApi: api,
+    //   stageName: 'prod',
+    // });
 
     // Create a stage update to point the prod stage to our new deployment
-    new apigateway.StageDeployment(this, `${modelName}StageDeployment`, {
-      stage: prodStage,
-      deployment: deployment,
-    });
+    // new apigateway.StageDeployment(this, `${modelName}StageDeployment`, {
+    //   stage: prodStage,
+    //   deployment: deployment,
+    // });
 
     // Maybe we don't return anything here. 
 

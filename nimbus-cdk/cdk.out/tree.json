@@ -481,21 +481,618 @@
           "version": "2.181.1"
         }
       },
-      "myModel": {
-        "id": "myModel",
-        "path": "myModel",
+      "my2Model": {
+        "id": "my2Model",
+        "path": "my2Model",
         "children": {
-          "myModelLambdaFunction": {
-            "id": "myModelLambdaFunction",
-            "path": "myModel/myModelLambdaFunction",
+          "ImportedRestApi": {
+            "id": "ImportedRestApi",
+            "path": "my2Model/ImportedRestApi",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "my2Model/ImportedRestApi/Default",
+                "children": {
+                  "my2Model": {
+                    "id": "my2Model",
+                    "path": "my2Model/ImportedRestApi/Default/my2Model",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "my2Model/ImportedRestApi/Default/my2Model/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::ImportValue": "NimbusRestApiRootResource"
+                            },
+                            "pathPart": "my2Model",
+                            "restApiId": {
+                              "Fn::ImportValue": "NimbusRestApi"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.181.1"
+                        }
+                      },
+                      "health": {
+                        "id": "health",
+                        "path": "my2Model/ImportedRestApi/Default/my2Model/health",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/health/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                              "aws:cdk:cloudformation:props": {
+                                "parentId": {
+                                  "Ref": "ImportedRestApimy2Model729F1BB2"
+                                },
+                                "pathPart": "health",
+                                "restApiId": {
+                                  "Fn::ImportValue": "NimbusRestApi"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                              "version": "2.181.1"
+                            }
+                          },
+                          "GET": {
+                            "id": "GET",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/health/GET",
+                            "children": {
+                              "ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health": {
+                                "id": "ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health",
+                                "path": "my2Model/ImportedRestApi/Default/my2Model/health/GET/ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::GetAtt": [
+                                        "my2ModelLambdaFunction41F825C7",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":execute-api:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":",
+                                          {
+                                            "Fn::ImportValue": "NimbusRestApi"
+                                          },
+                                          "/*/GET/my2Model/health"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.181.1"
+                                }
+                              },
+                              "ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health": {
+                                "id": "ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health",
+                                "path": "my2Model/ImportedRestApi/Default/my2Model/health/GET/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::GetAtt": [
+                                        "my2ModelLambdaFunction41F825C7",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":execute-api:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":",
+                                          {
+                                            "Fn::ImportValue": "NimbusRestApi"
+                                          },
+                                          "/test-invoke-stage/GET/my2Model/health"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.181.1"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "my2Model/ImportedRestApi/Default/my2Model/health/GET/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "authorizationType": "NONE",
+                                    "httpMethod": "GET",
+                                    "integration": {
+                                      "type": "AWS_PROXY",
+                                      "uri": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":apigateway:",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            },
+                                            ":lambda:path/2015-03-31/functions/",
+                                            {
+                                              "Fn::GetAtt": [
+                                                "my2ModelLambdaFunction41F825C7",
+                                                "Arn"
+                                              ]
+                                            },
+                                            "/invocations"
+                                          ]
+                                        ]
+                                      },
+                                      "integrationHttpMethod": "POST"
+                                    },
+                                    "resourceId": {
+                                      "Ref": "ImportedRestApimy2Modelhealth7ECDDF02"
+                                    },
+                                    "restApiId": {
+                                      "Fn::ImportValue": "NimbusRestApi"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.181.1"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.181.1",
+                              "metadata": [
+                                {
+                                  "resource": "*",
+                                  "httpMethod": "*",
+                                  "integration": "*",
+                                  "options": "*"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                          "version": "2.181.1",
+                          "metadata": [
+                            {
+                              "pathPart": "*"
+                            }
+                          ]
+                        }
+                      },
+                      "predict": {
+                        "id": "predict",
+                        "path": "my2Model/ImportedRestApi/Default/my2Model/predict",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/predict/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                              "aws:cdk:cloudformation:props": {
+                                "parentId": {
+                                  "Ref": "ImportedRestApimy2Model729F1BB2"
+                                },
+                                "pathPart": "predict",
+                                "restApiId": {
+                                  "Fn::ImportValue": "NimbusRestApi"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                              "version": "2.181.1"
+                            }
+                          },
+                          "POST": {
+                            "id": "POST",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST",
+                            "children": {
+                              "ApiPermission.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict": {
+                                "id": "ApiPermission.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict",
+                                "path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST/ApiPermission.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::GetAtt": [
+                                        "my2ModelLambdaFunction41F825C7",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":execute-api:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":",
+                                          {
+                                            "Fn::ImportValue": "NimbusRestApi"
+                                          },
+                                          "/*/POST/my2Model/predict"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.181.1"
+                                }
+                              },
+                              "ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict": {
+                                "id": "ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict",
+                                "path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                                  "aws:cdk:cloudformation:props": {
+                                    "action": "lambda:InvokeFunction",
+                                    "functionName": {
+                                      "Fn::GetAtt": [
+                                        "my2ModelLambdaFunction41F825C7",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "principal": "apigateway.amazonaws.com",
+                                    "sourceArn": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":execute-api:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":",
+                                          {
+                                            "Fn::ImportValue": "NimbusRestApi"
+                                          },
+                                          "/test-invoke-stage/POST/my2Model/predict"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                                  "version": "2.181.1"
+                                }
+                              },
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "authorizationType": "NONE",
+                                    "httpMethod": "POST",
+                                    "integration": {
+                                      "type": "AWS_PROXY",
+                                      "uri": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":apigateway:",
+                                            {
+                                              "Ref": "AWS::Region"
+                                            },
+                                            ":lambda:path/2015-03-31/functions/",
+                                            {
+                                              "Fn::GetAtt": [
+                                                "my2ModelLambdaFunction41F825C7",
+                                                "Arn"
+                                              ]
+                                            },
+                                            "/invocations"
+                                          ]
+                                        ]
+                                      },
+                                      "integrationHttpMethod": "POST"
+                                    },
+                                    "resourceId": {
+                                      "Ref": "ImportedRestApimy2Modelpredict08347565"
+                                    },
+                                    "restApiId": {
+                                      "Fn::ImportValue": "NimbusRestApi"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.181.1"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.181.1",
+                              "metadata": [
+                                {
+                                  "resource": "*",
+                                  "httpMethod": "*",
+                                  "integration": "*",
+                                  "options": "*"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                          "version": "2.181.1",
+                          "metadata": [
+                            {
+                              "pathPart": "*"
+                            }
+                          ]
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "my2Model/ImportedRestApi/Default/my2Model/GET",
+                        "children": {
+                          "ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model": {
+                            "id": "ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/GET/ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "my2ModelLambdaFunction41F825C7",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Fn::ImportValue": "NimbusRestApi"
+                                      },
+                                      "/*/GET/my2Model"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.181.1"
+                            }
+                          },
+                          "ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model": {
+                            "id": "ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/GET/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "my2ModelLambdaFunction41F825C7",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Fn::ImportValue": "NimbusRestApi"
+                                      },
+                                      "/test-invoke-stage/GET/my2Model"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.181.1"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "my2Model/ImportedRestApi/Default/my2Model/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "authorizationType": "NONE",
+                                "httpMethod": "GET",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "my2ModelLambdaFunction41F825C7",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                },
+                                "resourceId": {
+                                  "Ref": "ImportedRestApimy2Model729F1BB2"
+                                },
+                                "restApiId": {
+                                  "Fn::ImportValue": "NimbusRestApi"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.181.1"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.181.1",
+                          "metadata": [
+                            {
+                              "resource": "*",
+                              "httpMethod": "*",
+                              "integration": "*",
+                              "options": "*"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.181.1",
+                      "metadata": [
+                        {
+                          "pathPart": "*"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
+                  "version": "2.181.1",
+                  "metadata": [
+                    "*"
+                  ]
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.RestApiBase",
+              "version": "2.181.1",
+              "metadata": []
+            }
+          },
+          "my2ModelLambdaFunction": {
+            "id": "my2ModelLambdaFunction",
+            "path": "my2Model/my2ModelLambdaFunction",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "myModel/myModelLambdaFunction/ServiceRole",
+                "path": "my2Model/my2ModelLambdaFunction/ServiceRole",
                 "children": {
                   "ImportServiceRole": {
                     "id": "ImportServiceRole",
-                    "path": "myModel/myModelLambdaFunction/ServiceRole/ImportServiceRole",
+                    "path": "my2Model/my2ModelLambdaFunction/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.181.1",
@@ -506,7 +1103,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "myModel/myModelLambdaFunction/ServiceRole/Resource",
+                    "path": "my2Model/my2ModelLambdaFunction/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -564,11 +1161,11 @@
               },
               "AssetImage": {
                 "id": "AssetImage",
-                "path": "myModel/myModelLambdaFunction/AssetImage",
+                "path": "my2Model/my2ModelLambdaFunction/AssetImage",
                 "children": {
                   "Staging": {
                     "id": "Staging",
-                    "path": "myModel/myModelLambdaFunction/AssetImage/Staging",
+                    "path": "my2Model/my2ModelLambdaFunction/AssetImage/Staging",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.181.1"
@@ -576,7 +1173,7 @@
                   },
                   "Repository": {
                     "id": "Repository",
-                    "path": "myModel/myModelLambdaFunction/AssetImage/Repository",
+                    "path": "my2Model/my2ModelLambdaFunction/AssetImage/Repository",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
                       "version": "2.181.1",
@@ -591,21 +1188,21 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "myModel/myModelLambdaFunction/Resource",
+                "path": "my2Model/my2ModelLambdaFunction/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "imageUri": {
-                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:da8c9c43b7bf054255bc638eb68494d1f9428fbcc3261a4c00f1fd08f6051ecd"
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:f368341157c3b628970c5bfa36fe6141b07e6e37ffd557c4bdd5f31dc47be9e1"
                       }
                     },
-                    "functionName": "myModelLambdaFunction",
+                    "functionName": "my2ModelLambdaFunction",
                     "memorySize": 3008,
                     "packageType": "Image",
                     "role": {
                       "Fn::GetAtt": [
-                        "myModelLambdaFunctionServiceRole82B8BDD8",
+                        "my2ModelLambdaFunctionServiceRole57D70026",
                         "Arn"
                       ]
                     },
@@ -614,6 +1211,47 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.181.1"
+                }
+              },
+              "my2ModelAPIGatewayInvoke": {
+                "id": "my2ModelAPIGatewayInvoke",
+                "path": "my2Model/my2ModelLambdaFunction/my2ModelAPIGatewayInvoke",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "my2ModelLambdaFunction41F825C7",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "apigateway.amazonaws.com",
+                    "sourceArn": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:execute-api:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          ":",
+                          {
+                            "Fn::ImportValue": "NimbusRestApi"
+                          },
+                          "/*/*/*"
+                        ]
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
                   "version": "2.181.1"
                 }
               }
@@ -637,606 +1275,76 @@
               ]
             }
           },
-          "ImportedRestApi": {
-            "id": "ImportedRestApi",
-            "path": "myModel/ImportedRestApi",
+          "my2ModelApiDeployment": {
+            "id": "my2ModelApiDeployment",
+            "path": "my2Model/my2ModelApiDeployment",
             "children": {
-              "Default": {
-                "id": "Default",
-                "path": "myModel/ImportedRestApi/Default",
-                "children": {
-                  "myModel": {
-                    "id": "myModel",
-                    "path": "myModel/ImportedRestApi/Default/myModel",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "myModel/ImportedRestApi/Default/myModel/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
-                          "aws:cdk:cloudformation:props": {
-                            "parentId": {
-                              "Fn::ImportValue": "NimbusRestApiRootResource"
-                            },
-                            "pathPart": "myModel",
-                            "restApiId": {
-                              "Fn::ImportValue": "NimbusRestApi"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
-                          "version": "2.181.1"
-                        }
-                      },
-                      "health": {
-                        "id": "health",
-                        "path": "myModel/ImportedRestApi/Default/myModel/health",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "myModel/ImportedRestApi/Default/myModel/health/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
-                              "aws:cdk:cloudformation:props": {
-                                "parentId": {
-                                  "Ref": "ImportedRestApimyModelFD1B784D"
-                                },
-                                "pathPart": "health",
-                                "restApiId": {
-                                  "Fn::ImportValue": "NimbusRestApi"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
-                              "version": "2.181.1"
-                            }
-                          },
-                          "GET": {
-                            "id": "GET",
-                            "path": "myModel/ImportedRestApi/Default/myModel/health/GET",
-                            "children": {
-                              "ApiPermission.myModelImportedRestApi13030E3A.GET..myModel.health": {
-                                "id": "ApiPermission.myModelImportedRestApi13030E3A.GET..myModel.health",
-                                "path": "myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel.health",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                                  "aws:cdk:cloudformation:props": {
-                                    "action": "lambda:InvokeFunction",
-                                    "functionName": {
-                                      "Fn::GetAtt": [
-                                        "myModelLambdaFunction2A5EDE74",
-                                        "Arn"
-                                      ]
-                                    },
-                                    "principal": "apigateway.amazonaws.com",
-                                    "sourceArn": {
-                                      "Fn::Join": [
-                                        "",
-                                        [
-                                          "arn:",
-                                          {
-                                            "Ref": "AWS::Partition"
-                                          },
-                                          ":execute-api:",
-                                          {
-                                            "Ref": "AWS::Region"
-                                          },
-                                          ":",
-                                          {
-                                            "Ref": "AWS::AccountId"
-                                          },
-                                          ":",
-                                          {
-                                            "Fn::ImportValue": "NimbusRestApi"
-                                          },
-                                          "/*/GET/myModel/health"
-                                        ]
-                                      ]
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                                  "version": "2.181.1"
-                                }
-                              },
-                              "ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel.health": {
-                                "id": "ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel.health",
-                                "path": "myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel.health",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                                  "aws:cdk:cloudformation:props": {
-                                    "action": "lambda:InvokeFunction",
-                                    "functionName": {
-                                      "Fn::GetAtt": [
-                                        "myModelLambdaFunction2A5EDE74",
-                                        "Arn"
-                                      ]
-                                    },
-                                    "principal": "apigateway.amazonaws.com",
-                                    "sourceArn": {
-                                      "Fn::Join": [
-                                        "",
-                                        [
-                                          "arn:",
-                                          {
-                                            "Ref": "AWS::Partition"
-                                          },
-                                          ":execute-api:",
-                                          {
-                                            "Ref": "AWS::Region"
-                                          },
-                                          ":",
-                                          {
-                                            "Ref": "AWS::AccountId"
-                                          },
-                                          ":",
-                                          {
-                                            "Fn::ImportValue": "NimbusRestApi"
-                                          },
-                                          "/test-invoke-stage/GET/myModel/health"
-                                        ]
-                                      ]
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                                  "version": "2.181.1"
-                                }
-                              },
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "myModel/ImportedRestApi/Default/myModel/health/GET/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                                  "aws:cdk:cloudformation:props": {
-                                    "authorizationType": "NONE",
-                                    "httpMethod": "GET",
-                                    "integration": {
-                                      "type": "AWS_PROXY",
-                                      "uri": {
-                                        "Fn::Join": [
-                                          "",
-                                          [
-                                            "arn:",
-                                            {
-                                              "Ref": "AWS::Partition"
-                                            },
-                                            ":apigateway:",
-                                            {
-                                              "Ref": "AWS::Region"
-                                            },
-                                            ":lambda:path/2015-03-31/functions/",
-                                            {
-                                              "Fn::GetAtt": [
-                                                "myModelLambdaFunction2A5EDE74",
-                                                "Arn"
-                                              ]
-                                            },
-                                            "/invocations"
-                                          ]
-                                        ]
-                                      },
-                                      "integrationHttpMethod": "POST"
-                                    },
-                                    "resourceId": {
-                                      "Ref": "ImportedRestApimyModelhealth5BE30F51"
-                                    },
-                                    "restApiId": {
-                                      "Fn::ImportValue": "NimbusRestApi"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                                  "version": "2.181.1"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                              "version": "2.181.1",
-                              "metadata": [
-                                {
-                                  "resource": "*",
-                                  "httpMethod": "*",
-                                  "integration": "*",
-                                  "options": "*"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Resource",
-                          "version": "2.181.1",
-                          "metadata": [
-                            {
-                              "pathPart": "*"
-                            }
-                          ]
-                        }
-                      },
-                      "predict": {
-                        "id": "predict",
-                        "path": "myModel/ImportedRestApi/Default/myModel/predict",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "myModel/ImportedRestApi/Default/myModel/predict/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
-                              "aws:cdk:cloudformation:props": {
-                                "parentId": {
-                                  "Ref": "ImportedRestApimyModelFD1B784D"
-                                },
-                                "pathPart": "predict",
-                                "restApiId": {
-                                  "Fn::ImportValue": "NimbusRestApi"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
-                              "version": "2.181.1"
-                            }
-                          },
-                          "POST": {
-                            "id": "POST",
-                            "path": "myModel/ImportedRestApi/Default/myModel/predict/POST",
-                            "children": {
-                              "ApiPermission.myModelImportedRestApi13030E3A.POST..myModel.predict": {
-                                "id": "ApiPermission.myModelImportedRestApi13030E3A.POST..myModel.predict",
-                                "path": "myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.myModelImportedRestApi13030E3A.POST..myModel.predict",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                                  "aws:cdk:cloudformation:props": {
-                                    "action": "lambda:InvokeFunction",
-                                    "functionName": {
-                                      "Fn::GetAtt": [
-                                        "myModelLambdaFunction2A5EDE74",
-                                        "Arn"
-                                      ]
-                                    },
-                                    "principal": "apigateway.amazonaws.com",
-                                    "sourceArn": {
-                                      "Fn::Join": [
-                                        "",
-                                        [
-                                          "arn:",
-                                          {
-                                            "Ref": "AWS::Partition"
-                                          },
-                                          ":execute-api:",
-                                          {
-                                            "Ref": "AWS::Region"
-                                          },
-                                          ":",
-                                          {
-                                            "Ref": "AWS::AccountId"
-                                          },
-                                          ":",
-                                          {
-                                            "Fn::ImportValue": "NimbusRestApi"
-                                          },
-                                          "/*/POST/myModel/predict"
-                                        ]
-                                      ]
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                                  "version": "2.181.1"
-                                }
-                              },
-                              "ApiPermission.Test.myModelImportedRestApi13030E3A.POST..myModel.predict": {
-                                "id": "ApiPermission.Test.myModelImportedRestApi13030E3A.POST..myModel.predict",
-                                "path": "myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.Test.myModelImportedRestApi13030E3A.POST..myModel.predict",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                                  "aws:cdk:cloudformation:props": {
-                                    "action": "lambda:InvokeFunction",
-                                    "functionName": {
-                                      "Fn::GetAtt": [
-                                        "myModelLambdaFunction2A5EDE74",
-                                        "Arn"
-                                      ]
-                                    },
-                                    "principal": "apigateway.amazonaws.com",
-                                    "sourceArn": {
-                                      "Fn::Join": [
-                                        "",
-                                        [
-                                          "arn:",
-                                          {
-                                            "Ref": "AWS::Partition"
-                                          },
-                                          ":execute-api:",
-                                          {
-                                            "Ref": "AWS::Region"
-                                          },
-                                          ":",
-                                          {
-                                            "Ref": "AWS::AccountId"
-                                          },
-                                          ":",
-                                          {
-                                            "Fn::ImportValue": "NimbusRestApi"
-                                          },
-                                          "/test-invoke-stage/POST/myModel/predict"
-                                        ]
-                                      ]
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                                  "version": "2.181.1"
-                                }
-                              },
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "myModel/ImportedRestApi/Default/myModel/predict/POST/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                                  "aws:cdk:cloudformation:props": {
-                                    "authorizationType": "NONE",
-                                    "httpMethod": "POST",
-                                    "integration": {
-                                      "type": "AWS_PROXY",
-                                      "uri": {
-                                        "Fn::Join": [
-                                          "",
-                                          [
-                                            "arn:",
-                                            {
-                                              "Ref": "AWS::Partition"
-                                            },
-                                            ":apigateway:",
-                                            {
-                                              "Ref": "AWS::Region"
-                                            },
-                                            ":lambda:path/2015-03-31/functions/",
-                                            {
-                                              "Fn::GetAtt": [
-                                                "myModelLambdaFunction2A5EDE74",
-                                                "Arn"
-                                              ]
-                                            },
-                                            "/invocations"
-                                          ]
-                                        ]
-                                      },
-                                      "integrationHttpMethod": "POST"
-                                    },
-                                    "resourceId": {
-                                      "Ref": "ImportedRestApimyModelpredict74C23E47"
-                                    },
-                                    "restApiId": {
-                                      "Fn::ImportValue": "NimbusRestApi"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                                  "version": "2.181.1"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                              "version": "2.181.1",
-                              "metadata": [
-                                {
-                                  "resource": "*",
-                                  "httpMethod": "*",
-                                  "integration": "*",
-                                  "options": "*"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Resource",
-                          "version": "2.181.1",
-                          "metadata": [
-                            {
-                              "pathPart": "*"
-                            }
-                          ]
-                        }
-                      },
-                      "GET": {
-                        "id": "GET",
-                        "path": "myModel/ImportedRestApi/Default/myModel/GET",
-                        "children": {
-                          "ApiPermission.myModelImportedRestApi13030E3A.GET..myModel": {
-                            "id": "ApiPermission.myModelImportedRestApi13030E3A.GET..myModel",
-                            "path": "myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                              "aws:cdk:cloudformation:props": {
-                                "action": "lambda:InvokeFunction",
-                                "functionName": {
-                                  "Fn::GetAtt": [
-                                    "myModelLambdaFunction2A5EDE74",
-                                    "Arn"
-                                  ]
-                                },
-                                "principal": "apigateway.amazonaws.com",
-                                "sourceArn": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":execute-api:",
-                                      {
-                                        "Ref": "AWS::Region"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "AWS::AccountId"
-                                      },
-                                      ":",
-                                      {
-                                        "Fn::ImportValue": "NimbusRestApi"
-                                      },
-                                      "/*/GET/myModel"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                              "version": "2.181.1"
-                            }
-                          },
-                          "ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel": {
-                            "id": "ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel",
-                            "path": "myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                              "aws:cdk:cloudformation:props": {
-                                "action": "lambda:InvokeFunction",
-                                "functionName": {
-                                  "Fn::GetAtt": [
-                                    "myModelLambdaFunction2A5EDE74",
-                                    "Arn"
-                                  ]
-                                },
-                                "principal": "apigateway.amazonaws.com",
-                                "sourceArn": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":execute-api:",
-                                      {
-                                        "Ref": "AWS::Region"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "AWS::AccountId"
-                                      },
-                                      ":",
-                                      {
-                                        "Fn::ImportValue": "NimbusRestApi"
-                                      },
-                                      "/test-invoke-stage/GET/myModel"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                              "version": "2.181.1"
-                            }
-                          },
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "myModel/ImportedRestApi/Default/myModel/GET/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "authorizationType": "NONE",
-                                "httpMethod": "GET",
-                                "integration": {
-                                  "type": "AWS_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:",
-                                        {
-                                          "Ref": "AWS::Partition"
-                                        },
-                                        ":apigateway:",
-                                        {
-                                          "Ref": "AWS::Region"
-                                        },
-                                        ":lambda:path/2015-03-31/functions/",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "myModelLambdaFunction2A5EDE74",
-                                            "Arn"
-                                          ]
-                                        },
-                                        "/invocations"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "POST"
-                                },
-                                "resourceId": {
-                                  "Ref": "ImportedRestApimyModelFD1B784D"
-                                },
-                                "restApiId": {
-                                  "Fn::ImportValue": "NimbusRestApi"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.181.1"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.181.1",
-                          "metadata": [
-                            {
-                              "resource": "*",
-                              "httpMethod": "*",
-                              "integration": "*",
-                              "options": "*"
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
-                      "version": "2.181.1",
-                      "metadata": [
-                        {
-                          "pathPart": "*"
-                        }
-                      ]
+              "Resource": {
+                "id": "Resource",
+                "path": "my2Model/my2ModelApiDeployment/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                  "aws:cdk:cloudformation:props": {
+                    "restApiId": {
+                      "Fn::ImportValue": "NimbusRestApi"
                     }
                   }
                 },
                 "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
-                  "version": "2.181.1",
-                  "metadata": [
-                    "*"
-                  ]
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                  "version": "2.181.1"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_apigateway.RestApiBase",
+              "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
               "version": "2.181.1",
-              "metadata": []
+              "metadata": [
+                {
+                  "api": "*"
+                }
+              ]
+            }
+          },
+          "ProdStage": {
+            "id": "ProdStage",
+            "path": "my2Model/ProdStage",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "my2Model/ProdStage/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                  "aws:cdk:cloudformation:props": {
+                    "deploymentId": {
+                      "Ref": "my2ModelApiDeployment7BC3603A"
+                    },
+                    "restApiId": {
+                      "Fn::ImportValue": "NimbusRestApi"
+                    },
+                    "stageName": "prod"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                  "version": "2.181.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+              "version": "2.181.1",
+              "metadata": [
+                {
+                  "deployment": "*",
+                  "stageName": "*"
+                }
+              ]
             }
           },
           "RestApiUrl": {
             "id": "RestApiUrl",
-            "path": "myModel/RestApiUrl",
+            "path": "my2Model/RestApiUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.181.1"
@@ -1244,11 +1352,11 @@
           },
           "CDKMetadata": {
             "id": "CDKMetadata",
-            "path": "myModel/CDKMetadata",
+            "path": "my2Model/CDKMetadata",
             "children": {
               "Default": {
                 "id": "Default",
-                "path": "myModel/CDKMetadata/Default",
+                "path": "my2Model/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.181.1"
@@ -1256,7 +1364,7 @@
               },
               "Condition": {
                 "id": "Condition",
-                "path": "myModel/CDKMetadata/Condition",
+                "path": "my2Model/CDKMetadata/Condition",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnCondition",
                   "version": "2.181.1"
@@ -1270,7 +1378,7 @@
           },
           "BootstrapVersion": {
             "id": "BootstrapVersion",
-            "path": "myModel/BootstrapVersion",
+            "path": "my2Model/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.181.1"
@@ -1278,7 +1386,7 @@
           },
           "CheckBootstrapVersion": {
             "id": "CheckBootstrapVersion",
-            "path": "myModel/CheckBootstrapVersion",
+            "path": "my2Model/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
               "version": "2.181.1"

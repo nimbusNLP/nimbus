@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/49b55e2ac5756f4e6265b568df29c8eb8d2412be2cbf9664b540555459f34939.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b34684e48e816d28f50d33d5907b745baa08acfc876021d63a4b599dd01fdb96.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -216,28 +216,28 @@
       },
       "displayName": "NimbusCdkStack"
     },
-    "myModel.assets": {
+    "my2Model.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "myModel.assets.json",
+        "file": "my2Model.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "myModel": {
+    "my2Model": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://unknown-account/unknown-region",
       "properties": {
-        "templateFile": "myModel.template.json",
+        "templateFile": "my2Model.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5a691eb0440053715c6227cdfe2aa7ebcbe6572986d4bfcbacf46b335b9f065c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4e82643f68356fc3b3e96e8370ba7d1c13d88bb5a2726a05ab12b655d4e6351f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "myModel.assets"
+          "my2Model.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
@@ -246,10 +246,148 @@
         }
       },
       "dependencies": [
-        "myModel.assets"
+        "my2Model.assets"
       ],
       "metadata": {
-        "/myModel/myModelLambdaFunction": [
+        "/my2Model/ImportedRestApi/Default": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2Model729F1BB2"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/health": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/health/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2Modelhealth7ECDDF02"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/health/GET": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/health/GET/ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelhealthGETApiPermissionmy2ModelImportedRestApiEE0DD0BCGETmy2ModelhealthD36AE8D4"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/health/GET/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelhealthGETApiPermissionTestmy2ModelImportedRestApiEE0DD0BCGETmy2Modelhealth5CA72BE0"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/health/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelhealthGETEF5F31FB"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/predict": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parent": "*",
+              "pathPart": "*"
+            }
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2Modelpredict08347565"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/predict/POST": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/predict/POST/ApiPermission.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelpredictPOSTApiPermissionmy2ModelImportedRestApiEE0DD0BCPOSTmy2Modelpredict76BAB785"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/predict/POST/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelpredictPOSTApiPermissionTestmy2ModelImportedRestApiEE0DD0BCPOSTmy2ModelpredictCB4EFC70"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/predict/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelpredictPOST9D322E91"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/GET": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": "*"
+            }
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/GET/ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelGETApiPermissionmy2ModelImportedRestApiEE0DD0BCGETmy2ModelD6130B46"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/GET/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelGETApiPermissionTestmy2ModelImportedRestApiEE0DD0BCGETmy2Model569AE344"
+          }
+        ],
+        "/my2Model/ImportedRestApi/Default/my2Model/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ImportedRestApimy2ModelGETC7D5D7BE"
+          }
+        ],
+        "/my2Model/my2ModelLambdaFunction": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -269,7 +407,7 @@
             }
           }
         ],
-        "/myModel/myModelLambdaFunction/ServiceRole": [
+        "/my2Model/my2ModelLambdaFunction/ServiceRole": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -285,194 +423,91 @@
             }
           }
         ],
-        "/myModel/myModelLambdaFunction/ServiceRole/ImportServiceRole": [
+        "/my2Model/my2ModelLambdaFunction/ServiceRole/ImportServiceRole": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
           }
         ],
-        "/myModel/myModelLambdaFunction/ServiceRole/Resource": [
+        "/my2Model/my2ModelLambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "myModelLambdaFunctionServiceRole82B8BDD8"
+            "data": "my2ModelLambdaFunctionServiceRole57D70026"
           }
         ],
-        "/myModel/myModelLambdaFunction/Resource": [
+        "/my2Model/my2ModelLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "myModelLambdaFunction2A5EDE74"
+            "data": "my2ModelLambdaFunction41F825C7"
           }
         ],
-        "/myModel/ImportedRestApi/Default": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": "*"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "parent": "*",
-              "pathPart": "*"
-            }
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/Resource": [
+        "/my2Model/my2ModelLambdaFunction/my2ModelAPIGatewayInvoke": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelFD1B784D"
+            "data": "my2ModelLambdaFunctionmy2ModelAPIGatewayInvoke550FC995"
           }
         ],
-        "/myModel/ImportedRestApi/Default/myModel/health": [
+        "/my2Model/my2ModelApiDeployment": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
-              "parent": "*",
-              "pathPart": "*"
+              "api": "*"
             }
           }
         ],
-        "/myModel/ImportedRestApi/Default/myModel/health/Resource": [
+        "/my2Model/my2ModelApiDeployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelhealth5BE30F51"
+            "data": "my2ModelApiDeployment7BC3603A"
           }
         ],
-        "/myModel/ImportedRestApi/Default/myModel/health/GET": [
+        "/my2Model/ProdStage": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
-              "resource": "*",
-              "httpMethod": "*",
-              "integration": "*",
-              "options": "*"
+              "deployment": "*",
+              "stageName": "*"
             }
           }
         ],
-        "/myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel.health": [
+        "/my2Model/ProdStage/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelhealthGETApiPermissionmyModelImportedRestApi13030E3AGETmyModelhealth0DE79FF2"
+            "data": "ProdStage6F7F36FB"
           }
         ],
-        "/myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel.health": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelhealthGETApiPermissionTestmyModelImportedRestApi13030E3AGETmyModelhealth37E587F8"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/health/GET/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelhealthGET7359A71F"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/predict": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "parent": "*",
-              "pathPart": "*"
-            }
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/predict/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelpredict74C23E47"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/predict/POST": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "resource": "*",
-              "httpMethod": "*",
-              "integration": "*",
-              "options": "*"
-            }
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.myModelImportedRestApi13030E3A.POST..myModel.predict": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelpredictPOSTApiPermissionmyModelImportedRestApi13030E3APOSTmyModelpredict2CB9AE59"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.Test.myModelImportedRestApi13030E3A.POST..myModel.predict": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelpredictPOSTApiPermissionTestmyModelImportedRestApi13030E3APOSTmyModelpredict1116E64C"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/predict/POST/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelpredictPOST6BBAF36B"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/GET": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "resource": "*",
-              "httpMethod": "*",
-              "integration": "*",
-              "options": "*"
-            }
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelGETApiPermissionmyModelImportedRestApi13030E3AGETmyModelA47F7B46"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelGETApiPermissionTestmyModelImportedRestApi13030E3AGETmyModelB5F6643D"
-          }
-        ],
-        "/myModel/ImportedRestApi/Default/myModel/GET/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ImportedRestApimyModelGETCA6E3D69"
-          }
-        ],
-        "/myModel/RestApiUrl": [
+        "/my2Model/RestApiUrl": [
           {
             "type": "aws:cdk:logicalId",
             "data": "RestApiUrl"
           }
         ],
-        "/myModel/CDKMetadata/Default": [
+        "/my2Model/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/myModel/CDKMetadata/Condition": [
+        "/my2Model/CDKMetadata/Condition": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadataAvailable"
           }
         ],
-        "/myModel/BootstrapVersion": [
+        "/my2Model/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/myModel/CheckBootstrapVersion": [
+        "/my2Model/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "myModel"
+      "displayName": "my2Model"
     },
     "Tree": {
       "type": "cdk:tree",

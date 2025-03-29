@@ -1,6 +1,420 @@
 {
  "Resources": {
-  "myModelLambdaFunctionServiceRole82B8BDD8": {
+  "ImportedRestApimy2Model729F1BB2": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::ImportValue": "NimbusRestApiRootResource"
+    },
+    "PathPart": "my2Model",
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/Resource"
+   }
+  },
+  "ImportedRestApimy2Modelhealth7ECDDF02": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "ImportedRestApimy2Model729F1BB2"
+    },
+    "PathPart": "health",
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/health/Resource"
+   }
+  },
+  "ImportedRestApimy2ModelhealthGETApiPermissionmy2ModelImportedRestApiEE0DD0BCGETmy2ModelhealthD36AE8D4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "my2ModelLambdaFunction41F825C7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Fn::ImportValue": "NimbusRestApi"
+       },
+       "/*/GET/my2Model/health"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/health/GET/ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health"
+   }
+  },
+  "ImportedRestApimy2ModelhealthGETApiPermissionTestmy2ModelImportedRestApiEE0DD0BCGETmy2Modelhealth5CA72BE0": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "my2ModelLambdaFunction41F825C7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Fn::ImportValue": "NimbusRestApi"
+       },
+       "/test-invoke-stage/GET/my2Model/health"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/health/GET/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model.health"
+   }
+  },
+  "ImportedRestApimy2ModelhealthGETEF5F31FB": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "my2ModelLambdaFunction41F825C7",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "ImportedRestApimy2Modelhealth7ECDDF02"
+    },
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/health/GET/Resource"
+   }
+  },
+  "ImportedRestApimy2Modelpredict08347565": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "ImportedRestApimy2Model729F1BB2"
+    },
+    "PathPart": "predict",
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/predict/Resource"
+   }
+  },
+  "ImportedRestApimy2ModelpredictPOSTApiPermissionmy2ModelImportedRestApiEE0DD0BCPOSTmy2Modelpredict76BAB785": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "my2ModelLambdaFunction41F825C7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Fn::ImportValue": "NimbusRestApi"
+       },
+       "/*/POST/my2Model/predict"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST/ApiPermission.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict"
+   }
+  },
+  "ImportedRestApimy2ModelpredictPOSTApiPermissionTestmy2ModelImportedRestApiEE0DD0BCPOSTmy2ModelpredictCB4EFC70": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "my2ModelLambdaFunction41F825C7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Fn::ImportValue": "NimbusRestApi"
+       },
+       "/test-invoke-stage/POST/my2Model/predict"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.POST..my2Model.predict"
+   }
+  },
+  "ImportedRestApimy2ModelpredictPOST9D322E91": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "my2ModelLambdaFunction41F825C7",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "ImportedRestApimy2Modelpredict08347565"
+    },
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/predict/POST/Resource"
+   }
+  },
+  "ImportedRestApimy2ModelGETApiPermissionmy2ModelImportedRestApiEE0DD0BCGETmy2ModelD6130B46": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "my2ModelLambdaFunction41F825C7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Fn::ImportValue": "NimbusRestApi"
+       },
+       "/*/GET/my2Model"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/GET/ApiPermission.my2ModelImportedRestApiEE0DD0BC.GET..my2Model"
+   }
+  },
+  "ImportedRestApimy2ModelGETApiPermissionTestmy2ModelImportedRestApiEE0DD0BCGETmy2Model569AE344": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "my2ModelLambdaFunction41F825C7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Fn::ImportValue": "NimbusRestApi"
+       },
+       "/test-invoke-stage/GET/my2Model"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/GET/ApiPermission.Test.my2ModelImportedRestApiEE0DD0BC.GET..my2Model"
+   }
+  },
+  "ImportedRestApimy2ModelGETC7D5D7BE": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "my2ModelLambdaFunction41F825C7",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "ImportedRestApimy2Model729F1BB2"
+    },
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/ImportedRestApi/Default/my2Model/GET/Resource"
+   }
+  },
+  "my2ModelLambdaFunctionServiceRole57D70026": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -31,75 +445,45 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "myModel/myModelLambdaFunction/ServiceRole/Resource"
+    "aws:cdk:path": "my2Model/my2ModelLambdaFunction/ServiceRole/Resource"
    }
   },
-  "myModelLambdaFunction2A5EDE74": {
+  "my2ModelLambdaFunction41F825C7": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:da8c9c43b7bf054255bc638eb68494d1f9428fbcc3261a4c00f1fd08f6051ecd"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:f368341157c3b628970c5bfa36fe6141b07e6e37ffd557c4bdd5f31dc47be9e1"
      }
     },
-    "FunctionName": "myModelLambdaFunction",
+    "FunctionName": "my2ModelLambdaFunction",
     "MemorySize": 3008,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
-      "myModelLambdaFunctionServiceRole82B8BDD8",
+      "my2ModelLambdaFunctionServiceRole57D70026",
       "Arn"
      ]
     },
     "Timeout": 60
    },
    "DependsOn": [
-    "myModelLambdaFunctionServiceRole82B8BDD8"
+    "my2ModelLambdaFunctionServiceRole57D70026"
    ],
    "Metadata": {
-    "aws:cdk:path": "myModel/myModelLambdaFunction/Resource",
-    "aws:asset:path": "asset.da8c9c43b7bf054255bc638eb68494d1f9428fbcc3261a4c00f1fd08f6051ecd",
+    "aws:cdk:path": "my2Model/my2ModelLambdaFunction/Resource",
+    "aws:asset:path": "asset.f368341157c3b628970c5bfa36fe6141b07e6e37ffd557c4bdd5f31dc47be9e1",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
   },
-  "ImportedRestApimyModelFD1B784D": {
-   "Type": "AWS::ApiGateway::Resource",
-   "Properties": {
-    "ParentId": {
-     "Fn::ImportValue": "NimbusRestApiRootResource"
-    },
-    "PathPart": "myModel",
-    "RestApiId": {
-     "Fn::ImportValue": "NimbusRestApi"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/Resource"
-   }
-  },
-  "ImportedRestApimyModelhealth5BE30F51": {
-   "Type": "AWS::ApiGateway::Resource",
-   "Properties": {
-    "ParentId": {
-     "Ref": "ImportedRestApimyModelFD1B784D"
-    },
-    "PathPart": "health",
-    "RestApiId": {
-     "Fn::ImportValue": "NimbusRestApi"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/health/Resource"
-   }
-  },
-  "ImportedRestApimyModelhealthGETApiPermissionmyModelImportedRestApi13030E3AGETmyModelhealth0DE79FF2": {
+  "my2ModelLambdaFunctionmy2ModelAPIGatewayInvoke550FC995": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "myModelLambdaFunction2A5EDE74",
+      "my2ModelLambdaFunction41F825C7",
       "Arn"
      ]
     },
@@ -108,11 +492,7 @@
      "Fn::Join": [
       "",
       [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
+       "arn:aws:execute-api:",
        {
         "Ref": "AWS::Region"
        },
@@ -124,388 +504,58 @@
        {
         "Fn::ImportValue": "NimbusRestApi"
        },
-       "/*/GET/myModel/health"
+       "/*/*/*"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel.health"
+    "aws:cdk:path": "my2Model/my2ModelLambdaFunction/my2ModelAPIGatewayInvoke"
    }
   },
-  "ImportedRestApimyModelhealthGETApiPermissionTestmyModelImportedRestApi13030E3AGETmyModelhealth37E587F8": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myModelLambdaFunction2A5EDE74",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Fn::ImportValue": "NimbusRestApi"
-       },
-       "/test-invoke-stage/GET/myModel/health"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/health/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel.health"
-   }
-  },
-  "ImportedRestApimyModelhealthGET7359A71F": {
-   "Type": "AWS::ApiGateway::Method",
-   "Properties": {
-    "AuthorizationType": "NONE",
-    "HttpMethod": "GET",
-    "Integration": {
-     "IntegrationHttpMethod": "POST",
-     "Type": "AWS_PROXY",
-     "Uri": {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":apigateway:",
-        {
-         "Ref": "AWS::Region"
-        },
-        ":lambda:path/2015-03-31/functions/",
-        {
-         "Fn::GetAtt": [
-          "myModelLambdaFunction2A5EDE74",
-          "Arn"
-         ]
-        },
-        "/invocations"
-       ]
-      ]
-     }
-    },
-    "ResourceId": {
-     "Ref": "ImportedRestApimyModelhealth5BE30F51"
-    },
-    "RestApiId": {
-     "Fn::ImportValue": "NimbusRestApi"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/health/GET/Resource"
-   }
-  },
-  "ImportedRestApimyModelpredict74C23E47": {
-   "Type": "AWS::ApiGateway::Resource",
-   "Properties": {
-    "ParentId": {
-     "Ref": "ImportedRestApimyModelFD1B784D"
-    },
-    "PathPart": "predict",
-    "RestApiId": {
-     "Fn::ImportValue": "NimbusRestApi"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/predict/Resource"
-   }
-  },
-  "ImportedRestApimyModelpredictPOSTApiPermissionmyModelImportedRestApi13030E3APOSTmyModelpredict2CB9AE59": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myModelLambdaFunction2A5EDE74",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Fn::ImportValue": "NimbusRestApi"
-       },
-       "/*/POST/myModel/predict"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.myModelImportedRestApi13030E3A.POST..myModel.predict"
-   }
-  },
-  "ImportedRestApimyModelpredictPOSTApiPermissionTestmyModelImportedRestApi13030E3APOSTmyModelpredict1116E64C": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myModelLambdaFunction2A5EDE74",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Fn::ImportValue": "NimbusRestApi"
-       },
-       "/test-invoke-stage/POST/myModel/predict"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/predict/POST/ApiPermission.Test.myModelImportedRestApi13030E3A.POST..myModel.predict"
-   }
-  },
-  "ImportedRestApimyModelpredictPOST6BBAF36B": {
-   "Type": "AWS::ApiGateway::Method",
-   "Properties": {
-    "AuthorizationType": "NONE",
-    "HttpMethod": "POST",
-    "Integration": {
-     "IntegrationHttpMethod": "POST",
-     "Type": "AWS_PROXY",
-     "Uri": {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":apigateway:",
-        {
-         "Ref": "AWS::Region"
-        },
-        ":lambda:path/2015-03-31/functions/",
-        {
-         "Fn::GetAtt": [
-          "myModelLambdaFunction2A5EDE74",
-          "Arn"
-         ]
-        },
-        "/invocations"
-       ]
-      ]
-     }
-    },
-    "ResourceId": {
-     "Ref": "ImportedRestApimyModelpredict74C23E47"
-    },
-    "RestApiId": {
-     "Fn::ImportValue": "NimbusRestApi"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/predict/POST/Resource"
-   }
-  },
-  "ImportedRestApimyModelGETApiPermissionmyModelImportedRestApi13030E3AGETmyModelA47F7B46": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myModelLambdaFunction2A5EDE74",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Fn::ImportValue": "NimbusRestApi"
-       },
-       "/*/GET/myModel"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.myModelImportedRestApi13030E3A.GET..myModel"
-   }
-  },
-  "ImportedRestApimyModelGETApiPermissionTestmyModelImportedRestApi13030E3AGETmyModelB5F6643D": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "myModelLambdaFunction2A5EDE74",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Fn::ImportValue": "NimbusRestApi"
-       },
-       "/test-invoke-stage/GET/myModel"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/GET/ApiPermission.Test.myModelImportedRestApi13030E3A.GET..myModel"
-   }
-  },
-  "ImportedRestApimyModelGETCA6E3D69": {
-   "Type": "AWS::ApiGateway::Method",
-   "Properties": {
-    "AuthorizationType": "NONE",
-    "HttpMethod": "GET",
-    "Integration": {
-     "IntegrationHttpMethod": "POST",
-     "Type": "AWS_PROXY",
-     "Uri": {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":apigateway:",
-        {
-         "Ref": "AWS::Region"
-        },
-        ":lambda:path/2015-03-31/functions/",
-        {
-         "Fn::GetAtt": [
-          "myModelLambdaFunction2A5EDE74",
-          "Arn"
-         ]
-        },
-        "/invocations"
-       ]
-      ]
-     }
-    },
-    "ResourceId": {
-     "Ref": "ImportedRestApimyModelFD1B784D"
-    },
-    "RestApiId": {
-     "Fn::ImportValue": "NimbusRestApi"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "myModel/ImportedRestApi/Default/myModel/GET/Resource"
-   }
-  },
-  "myModelApiDeployment3FDA6ECB": {
+  "my2ModelApiDeployment7BC3603A": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
-    "Description": "Deployment for myModel lambda integration",
+    "RestApiId": {
+     "Fn::ImportValue": "NimbusRestApi"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "my2Model/my2ModelApiDeployment/Resource"
+   }
+  },
+  "ProdStage6F7F36FB": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "my2ModelApiDeployment7BC3603A"
+    },
     "RestApiId": {
      "Fn::ImportValue": "NimbusRestApi"
     },
     "StageName": "prod"
    },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain",
+   "DependsOn": [
+    "my2ModelApiDeployment7BC3603A"
+   ],
    "Metadata": {
-    "aws:cdk:path": "myModel/myModelApiDeployment/Resource"
+    "aws:cdk:path": "my2Model/ProdStage/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/8VSS2/bMAz+LdWxULQlpyK3dMWAHbYFztEIClZmHTbWAyK9wBP83wc/EnfX9bCTyI8fP/G1MeuHtVnfwYVXtjqvGnox+SBgzxou/JwbcC8VmPwU7BnTNwc1fm29FQq+zOp1Nn+AQ7VV90orG6qr6dCF1B3o9xUQchhaGb1efyz9qL+8+mspg73H5IiZgu81gTO5CA2WWQFz67B67NQ2q5jIW4rQ7KwNrZdZeeIMCbtRb65QOfBQY7UPDVlCVtsy/4V1uzRzj1NBg0Sv0aZnYEZh825uuwEZYqbAGJgkpO4RGMujhkg1CF6gM7lAll2kOVIghzZZHF11rxakzCpCwlsPEeS0h7RM95+jUyfzN/o7yilUZVZpRuack0icYjNAXrBOcJufViEODt/+/O8KY2dTgn7C2ITOoZfhSCLN/ArZJorvFBIKkF/orLaSWtSKBWq83e4kvtD6flnVuLhx/weBmnw9UH+2ElvptQ8Vmjf+9Gvz2awfzObujYlWqfXDvZtiev8A7hd1aKgDAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/8VTTW/bMAz9LdWxULQlpyI3t8WAHbYFztEIClZmHDbWB0R5gSf4vw+yHSc797CTxPceKepJ3Kj101qtH+DCK12fVy29q7SPoM8SLvyWwFMDES/Qq1Qix8LTMzBWB1kiuy5oHEPxKG5IlYSHgDaKrXgUUniIpx2EKRzkJ9iDfDna6zHyB8aTq6skwozMOacY/cTNANmITYBIzs6I8zng5cz/XmG82ZQgX9G3rjdoY5UEeLpT3Ci5j9Bkq+sFmutyJn6Cwbu8UTzIFsx7DSq9HO0OgyFmcla+On3G8N1Ag986q3NXVRLHebtUkkK7+ro1aFzo9/TnCkQy6LrbK34mfWz52sogCYxKpWvzbYG5M1g/92KbhA9kNXloC61dtxgwaXJCoRe/BykMWGiw3rmWNCGLbZX+wfoizNrD/NNci4NEHd6AGSOrO6eKjGROlegdU3ShnyZjuA3COBajMj8A2SZX/dVF38VBWlej+uAvvzdf1fpJbR4+mGgVOpu9UOW0/gWN5rn7oAMAAA=="
    },
    "Metadata": {
-    "aws:cdk:path": "myModel/CDKMetadata/Default"
+    "aws:cdk:path": "my2Model/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
   }
  },
  "Outputs": {
   "RestApiUrl": {
-   "Value": "\n        The following paths can be called using the base URL:\n        /myModel\n        /myModel/predict\n        /myModel/health\n      "
+   "Value": "\n        The following paths can be called using the base URL:\n        /my2Model\n        /my2Model/predict\n        /my2Model/health\n      "
   }
  },
  "Conditions": {
