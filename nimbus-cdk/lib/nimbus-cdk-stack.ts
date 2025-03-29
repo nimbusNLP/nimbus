@@ -56,8 +56,14 @@ export class ApiGatewayStack extends cdk.Stack {
  
       const modelResource = api.root.addResource(model.modelName);
       const predictResource = modelResource.addResource('predict');
+      predictResource.addCorsPreflight({
+        allowOrigins: apigateway.Cors.ALL_ORIGINS,
+        allowMethods: ['POST', 'OPTIONS'],
+        allowHeaders: ['Content-Type'],
+      });
       predictResource.addMethod('POST', new apigateway.LambdaIntegration(modelLambda));
 
+    
 
       new cdk.CfnOutput(this, `ModelEndpoint_${model.modelName}`, {
         value: `${api.url}${model.modelName}/predict`,
