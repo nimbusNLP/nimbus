@@ -1,0 +1,12 @@
+[
+  {
+    "modelName": "first",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "bah",
+    "modelType": "fine-tuned",
+    "modelPathOrName": "/Users/chelseaoconnor/desktop/model-best"
+  }
+]
