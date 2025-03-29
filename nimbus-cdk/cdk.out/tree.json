@@ -76,6 +76,11 @@
                       "addToLogicalId": [
                         {}
                       ]
+                    },
+                    {
+                      "addToLogicalId": [
+                        {}
+                      ]
                     }
                   ]
                 }
@@ -91,7 +96,7 @@
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
                       "aws:cdk:cloudformation:props": {
                         "deploymentId": {
-                          "Ref": "PredictRestApiDeployment49622637bccf3d6014fb7a69b1abb2a17d79f4f1"
+                          "Ref": "PredictRestApiDeployment4962263788acb7c7f3ceb63583d1d397237a9284"
                         },
                         "restApiId": {
                           "Ref": "PredictRestApiB33CDE4F"
@@ -291,13 +296,13 @@
                       ]
                     }
                   },
-                  "richSatTestModel": {
-                    "id": "richSatTestModel",
-                    "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel",
+                  "richSatSmallTest": {
+                    "id": "richSatSmallTest",
+                    "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/Resource",
+                        "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
                           "aws:cdk:cloudformation:props": {
@@ -307,7 +312,7 @@
                                 "RootResourceId"
                               ]
                             },
-                            "pathPart": "richSatTestModel",
+                            "pathPart": "richSatSmallTest",
                             "restApiId": {
                               "Ref": "PredictRestApiB33CDE4F"
                             }
@@ -320,16 +325,16 @@
                       },
                       "predict": {
                         "id": "predict",
-                        "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict",
+                        "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/Resource",
+                            "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
                               "aws:cdk:cloudformation:props": {
                                 "parentId": {
-                                  "Ref": "PredictRestApirichSatTestModel3B37F0B2"
+                                  "Ref": "PredictRestApirichSatSmallTestF5E8063A"
                                 },
                                 "pathPart": "predict",
                                 "restApiId": {
@@ -342,20 +347,107 @@
                               "version": "2.181.1"
                             }
                           },
+                          "OPTIONS": {
+                            "id": "OPTIONS",
+                            "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/OPTIONS",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/OPTIONS/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "apiKeyRequired": false,
+                                    "authorizationType": "NONE",
+                                    "httpMethod": "OPTIONS",
+                                    "integration": {
+                                      "type": "MOCK",
+                                      "requestTemplates": {
+                                        "application/json": "{ statusCode: 200 }"
+                                      },
+                                      "integrationResponses": [
+                                        {
+                                          "statusCode": "204",
+                                          "responseParameters": {
+                                            "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
+                                            "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                            "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "methodResponses": [
+                                      {
+                                        "statusCode": "204",
+                                        "responseParameters": {
+                                          "method.response.header.Access-Control-Allow-Headers": true,
+                                          "method.response.header.Access-Control-Allow-Origin": true,
+                                          "method.response.header.Access-Control-Allow-Methods": true
+                                        }
+                                      }
+                                    ],
+                                    "resourceId": {
+                                      "Ref": "PredictRestApirichSatSmallTestpredict0B4ABE65"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "PredictRestApiB33CDE4F"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.181.1"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.181.1",
+                              "metadata": [
+                                {
+                                  "resource": "*",
+                                  "httpMethod": "*",
+                                  "integration": "*",
+                                  "options": {
+                                    "authorizer": {
+                                      "authorizerId": "*",
+                                      "authorizationType": "*"
+                                    },
+                                    "apiKeyRequired": false,
+                                    "authorizationType": "*",
+                                    "methodResponses": [
+                                      {
+                                        "statusCode": "*",
+                                        "responseParameters": "*"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "addMethodResponse": [
+                                    {
+                                      "statusCode": "*",
+                                      "responseParameters": "*"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
                           "POST": {
                             "id": "POST",
-                            "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST",
+                            "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST",
                             "children": {
-                              "ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict": {
-                                "id": "ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict",
-                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict",
+                              "ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict": {
+                                "id": "ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict",
+                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                                   "aws:cdk:cloudformation:props": {
                                     "action": "lambda:InvokeFunction",
                                     "functionName": {
                                       "Fn::GetAtt": [
-                                        "LambdarichSatTestModel17DBB5E9",
+                                        "LambdarichSatSmallTestDC7A265E",
                                         "Arn"
                                       ]
                                     },
@@ -384,7 +476,7 @@
                                           {
                                             "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
                                           },
-                                          "/POST/richSatTestModel/predict"
+                                          "/POST/richSatSmallTest/predict"
                                         ]
                                       ]
                                     }
@@ -395,16 +487,16 @@
                                   "version": "2.181.1"
                                 }
                               },
-                              "ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict": {
-                                "id": "ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict",
-                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict",
+                              "ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict": {
+                                "id": "ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict",
+                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                                   "aws:cdk:cloudformation:props": {
                                     "action": "lambda:InvokeFunction",
                                     "functionName": {
                                       "Fn::GetAtt": [
-                                        "LambdarichSatTestModel17DBB5E9",
+                                        "LambdarichSatSmallTestDC7A265E",
                                         "Arn"
                                       ]
                                     },
@@ -429,7 +521,7 @@
                                           {
                                             "Ref": "PredictRestApiB33CDE4F"
                                           },
-                                          "/test-invoke-stage/POST/richSatTestModel/predict"
+                                          "/test-invoke-stage/POST/richSatSmallTest/predict"
                                         ]
                                       ]
                                     }
@@ -442,7 +534,7 @@
                               },
                               "Resource": {
                                 "id": "Resource",
-                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/Resource",
+                                "path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
                                   "aws:cdk:cloudformation:props": {
@@ -465,7 +557,7 @@
                                             ":lambda:path/2015-03-31/functions/",
                                             {
                                               "Fn::GetAtt": [
-                                                "LambdarichSatTestModel17DBB5E9",
+                                                "LambdarichSatSmallTestDC7A265E",
                                                 "Arn"
                                               ]
                                             },
@@ -476,7 +568,7 @@
                                       "integrationHttpMethod": "POST"
                                     },
                                     "resourceId": {
-                                      "Ref": "PredictRestApirichSatTestModelpredict5E5F3528"
+                                      "Ref": "PredictRestApirichSatSmallTestpredict0B4ABE65"
                                     },
                                     "restApiId": {
                                       "Ref": "PredictRestApiB33CDE4F"
@@ -661,17 +753,17 @@
               ]
             }
           },
-          "Lambda_richSatTestModel": {
-            "id": "Lambda_richSatTestModel",
-            "path": "ApiGatewayStack/Lambda_richSatTestModel",
+          "Lambda_richSatSmallTest": {
+            "id": "Lambda_richSatSmallTest",
+            "path": "ApiGatewayStack/Lambda_richSatSmallTest",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "ApiGatewayStack/Lambda_richSatTestModel/ServiceRole",
+                "path": "ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole",
                 "children": {
                   "ImportServiceRole": {
                     "id": "ImportServiceRole",
-                    "path": "ApiGatewayStack/Lambda_richSatTestModel/ServiceRole/ImportServiceRole",
+                    "path": "ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.181.1",
@@ -682,7 +774,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "ApiGatewayStack/Lambda_richSatTestModel/ServiceRole/Resource",
+                    "path": "ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -740,11 +832,11 @@
               },
               "AssetImage": {
                 "id": "AssetImage",
-                "path": "ApiGatewayStack/Lambda_richSatTestModel/AssetImage",
+                "path": "ApiGatewayStack/Lambda_richSatSmallTest/AssetImage",
                 "children": {
                   "Staging": {
                     "id": "Staging",
-                    "path": "ApiGatewayStack/Lambda_richSatTestModel/AssetImage/Staging",
+                    "path": "ApiGatewayStack/Lambda_richSatSmallTest/AssetImage/Staging",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.181.1"
@@ -752,7 +844,7 @@
                   },
                   "Repository": {
                     "id": "Repository",
-                    "path": "ApiGatewayStack/Lambda_richSatTestModel/AssetImage/Repository",
+                    "path": "ApiGatewayStack/Lambda_richSatSmallTest/AssetImage/Repository",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
                       "version": "2.181.1",
@@ -767,20 +859,20 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "ApiGatewayStack/Lambda_richSatTestModel/Resource",
+                "path": "ApiGatewayStack/Lambda_richSatSmallTest/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "imageUri": {
-                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:9362965dcbebd7b06138cd6876e13b85d7a0f6ded3311e3c9974e12566ea8fbc"
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:3e92fc0849909f709fcebecc7afe8093118c4c7d7be7c4d61214b2b5d5548330"
                       }
                     },
                     "memorySize": 3008,
                     "packageType": "Image",
                     "role": {
                       "Fn::GetAtt": [
-                        "LambdarichSatTestModelServiceRole068F3120",
+                        "LambdarichSatSmallTestServiceRoleA7843969",
                         "Arn"
                       ]
                     },
@@ -810,9 +902,9 @@
               ]
             }
           },
-          "ModelEndpoint_richSatTestModel": {
-            "id": "ModelEndpoint_richSatTestModel",
-            "path": "ApiGatewayStack/ModelEndpoint_richSatTestModel",
+          "ModelEndpoint_richSatSmallTest": {
+            "id": "ModelEndpoint_richSatSmallTest",
+            "path": "ApiGatewayStack/ModelEndpoint_richSatSmallTest",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.181.1"

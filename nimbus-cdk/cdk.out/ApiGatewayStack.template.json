@@ -9,7 +9,7 @@
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Resource"
    }
   },
-  "PredictRestApiDeployment49622637bccf3d6014fb7a69b1abb2a17d79f4f1": {
+  "PredictRestApiDeployment4962263788acb7c7f3ceb63583d1d397237a9284": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Automatically created by the RestApi construct",
@@ -19,9 +19,10 @@
    },
    "DependsOn": [
     "PredictRestApiGETBBFCD66A",
-    "PredictRestApirichSatTestModelpredictPOST5D9C1625",
-    "PredictRestApirichSatTestModelpredict5E5F3528",
-    "PredictRestApirichSatTestModel3B37F0B2"
+    "PredictRestApirichSatSmallTestpredictOPTIONSEB2BFDB6",
+    "PredictRestApirichSatSmallTestpredictPOSTB5C0A9E9",
+    "PredictRestApirichSatSmallTestpredict0B4ABE65",
+    "PredictRestApirichSatSmallTestF5E8063A"
    ],
    "Metadata": {
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Deployment/Resource"
@@ -31,7 +32,7 @@
    "Type": "AWS::ApiGateway::Stage",
    "Properties": {
     "DeploymentId": {
-     "Ref": "PredictRestApiDeployment49622637bccf3d6014fb7a69b1abb2a17d79f4f1"
+     "Ref": "PredictRestApiDeployment4962263788acb7c7f3ceb63583d1d397237a9284"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
@@ -172,7 +173,7 @@
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/GET/Resource"
    }
   },
-  "PredictRestApirichSatTestModel3B37F0B2": {
+  "PredictRestApirichSatSmallTestF5E8063A": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
@@ -181,20 +182,20 @@
       "RootResourceId"
      ]
     },
-    "PathPart": "richSatTestModel",
+    "PathPart": "richSatSmallTest",
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/Resource"
    }
   },
-  "PredictRestApirichSatTestModelpredict5E5F3528": {
+  "PredictRestApirichSatSmallTestpredict0B4ABE65": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
-     "Ref": "PredictRestApirichSatTestModel3B37F0B2"
+     "Ref": "PredictRestApirichSatSmallTestF5E8063A"
     },
     "PathPart": "predict",
     "RestApiId": {
@@ -202,16 +203,59 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/Resource"
    }
   },
-  "PredictRestApirichSatTestModelpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTrichSatTestModelpredict7AB61CBC": {
+  "PredictRestApirichSatSmallTestpredictOPTIONSEB2BFDB6": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "PredictRestApirichSatSmallTestpredict0B4ABE65"
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/OPTIONS/Resource"
+   }
+  },
+  "PredictRestApirichSatSmallTestpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTrichSatSmallTestpredictABC77B47": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "LambdarichSatTestModel17DBB5E9",
+      "LambdarichSatSmallTestDC7A265E",
       "Arn"
      ]
     },
@@ -240,22 +284,22 @@
        {
         "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
        },
-       "/POST/richSatTestModel/predict"
+       "/POST/richSatSmallTest/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict"
    }
   },
-  "PredictRestApirichSatTestModelpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTrichSatTestModelpredict40E6497C": {
+  "PredictRestApirichSatSmallTestpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTrichSatSmallTestpredictB99FB8B8": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "LambdarichSatTestModel17DBB5E9",
+      "LambdarichSatSmallTestDC7A265E",
       "Arn"
      ]
     },
@@ -280,16 +324,16 @@
        {
         "Ref": "PredictRestApiB33CDE4F"
        },
-       "/test-invoke-stage/POST/richSatTestModel/predict"
+       "/test-invoke-stage/POST/richSatSmallTest/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict"
    }
   },
-  "PredictRestApirichSatTestModelpredictPOST5D9C1625": {
+  "PredictRestApirichSatSmallTestpredictPOSTB5C0A9E9": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "AuthorizationType": "NONE",
@@ -312,7 +356,7 @@
         ":lambda:path/2015-03-31/functions/",
         {
          "Fn::GetAtt": [
-          "LambdarichSatTestModel17DBB5E9",
+          "LambdarichSatSmallTestDC7A265E",
           "Arn"
          ]
         },
@@ -322,14 +366,14 @@
      }
     },
     "ResourceId": {
-     "Ref": "PredictRestApirichSatTestModelpredict5E5F3528"
+     "Ref": "PredictRestApirichSatSmallTestpredict0B4ABE65"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/Resource"
    }
   },
   "DefaultLambdaServiceRole602B1F82": {
@@ -388,7 +432,7 @@
     "aws:cdk:path": "ApiGatewayStack/DefaultLambda/Resource"
    }
   },
-  "LambdarichSatTestModelServiceRole068F3120": {
+  "LambdarichSatSmallTestServiceRoleA7843969": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -419,33 +463,33 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_richSatTestModel/ServiceRole/Resource"
+    "aws:cdk:path": "ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole/Resource"
    }
   },
-  "LambdarichSatTestModel17DBB5E9": {
+  "LambdarichSatSmallTestDC7A265E": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:9362965dcbebd7b06138cd6876e13b85d7a0f6ded3311e3c9974e12566ea8fbc"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:3e92fc0849909f709fcebecc7afe8093118c4c7d7be7c4d61214b2b5d5548330"
      }
     },
     "MemorySize": 3008,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
-      "LambdarichSatTestModelServiceRole068F3120",
+      "LambdarichSatSmallTestServiceRoleA7843969",
       "Arn"
      ]
     },
     "Timeout": 60
    },
    "DependsOn": [
-    "LambdarichSatTestModelServiceRole068F3120"
+    "LambdarichSatSmallTestServiceRoleA7843969"
    ],
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_richSatTestModel/Resource",
-    "aws:asset:path": "asset.9362965dcbebd7b06138cd6876e13b85d7a0f6ded3311e3c9974e12566ea8fbc",
+    "aws:cdk:path": "ApiGatewayStack/Lambda_richSatSmallTest/Resource",
+    "aws:asset:path": "asset.3e92fc0849909f709fcebecc7afe8093118c4c7d7be7c4d61214b2b5d5548330",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
@@ -453,7 +497,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/71TwW7bMAz9lupYKFqT05Zb2mJAgW0NnN2MoGAl1mFjS4IkL/AE//sg2bHTHYYBG3qyTL73SD5RK7H8uBTLKzj5hVTHRU3PIu4CyCOHk3+KYKmCgCfoRCzQh42lMjI3nL5Bg2zNrhlnCm1tukcbyGjP1pH5ABVOgL7f87sXPSrw+4xuUIcyMoVeOsrMUQwsjSeHAUjPcD+o8chAqe/mi6lIQv2g2LqM/f6/xXOzc1W+S8PkVs+hsb/fpsy8DOYFetM6ibfgsWTXbM+/YjgYNbiXU6PGIQQ75MYA6YCVgwtDzNnXcfh/VMhtDoSpzzIyC26ezEI4bMGFqeYfsue7zUI9r6F5ViDi3YveomvIezKaf261TD0kA1odaFqdA2hVoxv/pFGXZp5Z/N7II7qHBiq8UJrQnDXYGNft6Oc5kEqYdh7gr7H7nhM0IhamTraA922D6rZLa20daUkW6o2Upp38GDCJsJGT6z1nDWioUG1NTZLQp/V6E+s2Tk9F36/UcGGmxp6jdE/gPQYvLizepEjKiQKt8RSM6/Im7/tEfWyDbcO8O7mxtOOZlx4A6arn2igUr/7Dj9VKfBI3V6+eaDFeviiG7y/waFhNgQQAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/71Uy27bMBD8lvAY0GztU+ub46CA0aYx5NwMIdiQa5mx+ChJ1VAE/XtB6uUUaNEiaE+SdndGuzNLLtj8w5zNr+DsZ1ycZqV8Ys0uAD9ROPvHBqwsIOAZatZk6MPKyn1DXPf2FRSSJbkmlAi0panvbZBGe7JsiA9Q4FjQtjldH3TPQG9TtUId9g0R6LmTCdmTgZX9m8MAUk/lvmOjDQEhHswXU0gO5UaQ5b5p838eT0NM3dBdHDKNMIT6vn+aPuFSMc3Qm8pxvAGPe3JNcnqH4WhEp2pK9RzHEGyX6wNSBywcXAhlBr17Ud7A0BCowtE4+YLu9ddmQA+hhH+obT9c8usz1hl+q6RDQZYHKD3+qp4SlVrK0FujPfqobRQsVH5tBI7Od+ktOFAY0PVT5m3vzt0rlr8leZtYo6cdYDR13xALbloDC+G4BRdGg36THQ5IImppCepJAGvWB71Fp6T30mj6qdI89hC3pdJBjufvCFqU0bn0xQcJOtYBRW8NP6HbKCjwgolPgilUxtU7+TIE4i9MNQ3wx7V5SyUo1mSmjLKA95VCcVPH3bJOai4tlCvOTTXq0dVEwIqPqreUKNBQoNiaUnLZ78tlrF45feHr//pVZ5gpsaXI3SN4j8GzC4lXMRJzLENrvAzG1enY522E3lfBVmHandRYvBASLt4WUhct1UYge/bvvi8W7CN7f/XspZz15rOse/4ARd141sYFAAA="
    },
    "Metadata": {
     "aws:cdk:path": "ApiGatewayStack/CDKMetadata/Default"
@@ -488,7 +532,7 @@
     ]
    }
   },
-  "ModelEndpointrichSatTestModel": {
+  "ModelEndpointrichSatSmallTest": {
    "Value": {
     "Fn::Join": [
      "",
@@ -509,7 +553,7 @@
       {
        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
       },
-      "/richSatTestModel/predict"
+      "/richSatSmallTest/predict"
      ]
     ]
    }

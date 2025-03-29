@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a5c6538772155f1abe7dc115654b3d0e80d99a4cd3d7c5ff7e75b54c77a63584.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bae0a932575671e87812990a8916db56751021936a652c8047aee9b00ed6cc23.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -91,12 +91,20 @@
                 {}
               ]
             }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToLogicalId": [
+                {}
+              ]
+            }
           }
         ],
         "/ApiGatewayStack/PredictRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiDeployment49622637bccf3d6014fb7a69b1abb2a17d79f4f1"
+            "data": "PredictRestApiDeployment4962263788acb7c7f3ceb63583d1d397237a9284"
           }
         ],
         "/ApiGatewayStack/PredictRestApi/DeploymentStage.prod": [
@@ -155,7 +163,7 @@
             "data": "PredictRestApiGETBBFCD66A"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -164,13 +172,13 @@
             }
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApirichSatTestModel3B37F0B2"
+            "data": "PredictRestApirichSatSmallTestF5E8063A"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -179,13 +187,54 @@
             }
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApirichSatTestModelpredict5E5F3528"
+            "data": "PredictRestApirichSatSmallTestpredict0B4ABE65"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/OPTIONS": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "resource": "*",
+              "httpMethod": "*",
+              "integration": "*",
+              "options": {
+                "authorizer": {
+                  "authorizerId": "*",
+                  "authorizationType": "*"
+                },
+                "apiKeyRequired": false,
+                "authorizationType": "*",
+                "methodResponses": [
+                  {
+                    "statusCode": "*",
+                    "responseParameters": "*"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addMethodResponse": [
+                {
+                  "statusCode": "*",
+                  "responseParameters": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApirichSatSmallTestpredictOPTIONSEB2BFDB6"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -196,22 +245,22 @@
             }
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApirichSatTestModelpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTrichSatTestModelpredict7AB61CBC"
+            "data": "PredictRestApirichSatSmallTestpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTrichSatSmallTestpredictABC77B47"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatTestModel.predict": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..richSatSmallTest.predict": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApirichSatTestModelpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTrichSatTestModelpredict40E6497C"
+            "data": "PredictRestApirichSatSmallTestpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTrichSatSmallTestpredictB99FB8B8"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/richSatTestModel/predict/POST/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/richSatSmallTest/predict/POST/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApirichSatTestModelpredictPOST5D9C1625"
+            "data": "PredictRestApirichSatSmallTestpredictPOSTB5C0A9E9"
           }
         ],
         "/ApiGatewayStack/DefaultLambda": [
@@ -258,7 +307,7 @@
             "data": "DefaultLambdaE5505F72"
           }
         ],
-        "/ApiGatewayStack/Lambda_richSatTestModel": [
+        "/ApiGatewayStack/Lambda_richSatSmallTest": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -276,7 +325,7 @@
             }
           }
         ],
-        "/ApiGatewayStack/Lambda_richSatTestModel/ServiceRole": [
+        "/ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -292,28 +341,28 @@
             }
           }
         ],
-        "/ApiGatewayStack/Lambda_richSatTestModel/ServiceRole/ImportServiceRole": [
+        "/ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole/ImportServiceRole": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
           }
         ],
-        "/ApiGatewayStack/Lambda_richSatTestModel/ServiceRole/Resource": [
+        "/ApiGatewayStack/Lambda_richSatSmallTest/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "LambdarichSatTestModelServiceRole068F3120"
+            "data": "LambdarichSatSmallTestServiceRoleA7843969"
           }
         ],
-        "/ApiGatewayStack/Lambda_richSatTestModel/Resource": [
+        "/ApiGatewayStack/Lambda_richSatSmallTest/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "LambdarichSatTestModel17DBB5E9"
+            "data": "LambdarichSatSmallTestDC7A265E"
           }
         ],
-        "/ApiGatewayStack/ModelEndpoint_richSatTestModel": [
+        "/ApiGatewayStack/ModelEndpoint_richSatSmallTest": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ModelEndpointrichSatTestModel"
+            "data": "ModelEndpointrichSatSmallTest"
           }
         ],
         "/ApiGatewayStack/RestApiUrl": [

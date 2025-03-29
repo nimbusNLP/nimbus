@@ -8,7 +8,7 @@ logger.setLevel(logging.INFO)
 
 # Load the spaCy model
 try:
-    nlp = spacy.load("en_core_web_md")
+    nlp = spacy.load("en_core_web_sm")
     logger.info("Model loaded successfully")
 except Exception as e:
     logger.error(f"Error loading model: {e}")
@@ -26,6 +26,7 @@ def lambda_handler(event, context):
         logger.error(f"Invalid JSON input: {e}")
         return {
             "statusCode": 400,
+            "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
             "body": json.dumps({"error": "Invalid JSON input", "message": str(e)})
         }
 
@@ -33,6 +34,7 @@ def lambda_handler(event, context):
         logger.warning("No text provided")
         return {
             "statusCode": 400,
+            "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
             "body": json.dumps({"error": "No text provided"})
         }
 
@@ -54,6 +56,6 @@ def lambda_handler(event, context):
 
     return {
         "statusCode": 200,
-        "headers": {"Content-Type": "application/json"},
+        "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
         "body": json.dumps(doc_json)
     }
