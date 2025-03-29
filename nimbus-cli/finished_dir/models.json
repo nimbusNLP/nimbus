@@ -1,11 +1,21 @@
 [
   {
-    "modelName": "first",
+    "modelName": "maka",
     "modelType": "pre-trained",
     "modelPathOrName": "en_core_web_sm"
   },
   {
-    "modelName": "bob",
+    "modelName": "jack",
+    "modelType": "fine-tuned",
+    "modelPathOrName": "/Users/chelseaoconnor/desktop/model-best"
+  },
+  {
+    "modelName": "hii",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  },
+  {
+    "modelName": "byee",
     "modelType": "fine-tuned",
     "modelPathOrName": "/Users/chelseaoconnor/desktop/model-best"
   }

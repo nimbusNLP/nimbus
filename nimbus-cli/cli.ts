@@ -10,14 +10,14 @@ import { promisify } from 'util';
 
 const execPromise = promisify(exec);
 
-const asciiArt = figlet.textSync('spaCadet', {
+const asciiArt = figlet.textSync('NimbuS', {
   font: 'Standard', 
   horizontalLayout: 'default',
   verticalLayout: 'default'
 });
 
 const fontName = 'small' as figlet.Fonts;
-const asciiArt2 = figlet.textSync("Let's deploy your apps!", {
+const asciiArt2 = figlet.textSync("Let's deploy your models!", {
   font: fontName,
   horizontalLayout: 'default',
   verticalLayout: 'default'
@@ -69,7 +69,7 @@ async function main() {
   }
 
   const deployModelChoice = await select({
-    message: 'Do you want to deploy a model?',
+    message: 'Are you ready to deploy a model?',
     options: [
       { value: 'yes', label: 'Yes' },
       { value: 'no', label: 'No' }
