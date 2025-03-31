@@ -1,7 +1,8 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import path from 'path';
-import { spinner } from '@clack/prompts';
+import { spinner, note } from '@clack/prompts';
+import chalk from 'chalk';
 
 const execPromise = promisify(exec);
 
@@ -10,9 +11,13 @@ export async function deployApiGateway(currentDir: string): Promise<void> {
     const spin = spinner();
     spin.start('Deploying API Gateway...');
     
-    await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+    const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
+    const apiUrl = res.stderr.split('ApiGatewayStack.RestApiUrl')[1];
+    const regex = /(https?:\/\/[^\s]+)/;
+    const apiGatewayURL = apiUrl.match(regex)[0];
+    note(`${chalk.green.underline(apiGatewayURL)}`, `${chalk.bold('⭐️ Your API endpoint ⭐️')}`)
     
     spin.stop('API Gateway deployed!!!');
   } catch (error: any) {
@@ -26,7 +31,7 @@ export async function deployUpdatedStack(currentDir: string): Promise<void> {
     const spin = spinner();
     spin.start('Deploying model...');
     
-    await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+    const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
     
