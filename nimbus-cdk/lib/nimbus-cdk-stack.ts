@@ -25,7 +25,7 @@ export class ApiGatewayStack extends cdk.Stack {
     });
 
     const defaultLambda = new lambda.Function(this, 'DefaultLambda', {
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'index.handler',
       code: lambda.Code.fromInline(
         'exports.handler = async () => { return { statusCode: 200, body: "No model deployed yet." }; }'
