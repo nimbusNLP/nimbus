@@ -65,7 +65,7 @@ async function main() {
   });
 
   // Deploy the updated stack
-  await deployUpdatedStack(currentDir);
+  await deployUpdatedStack(currentDir, modelName);
   displayCompletionMessage();
 }
 

@@ -22,17 +22,32 @@ export async function deployApiGateway(currentDir) {
         throw error;
     }
 }
-export async function deployUpdatedStack(currentDir) {
+export async function deployUpdatedStack(currentDir, modelName) {
     try {
         const spin = spinner();
         spin.start('Deploying model...');
-        await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+        const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
             cwd: path.join(currentDir, '../nimbus-cdk')
         });
+        note(`${chalk.green.underline(parseModelURL(res.stderr, modelName))}`, `${chalk.bold('⭐️ Your model endpoint ⭐️')}`);
         spin.stop('Model deployed!!!');
     }
     catch (error) {
         console.error(`Error deploying updated stack: ${error.message}`);
         throw error;
     }
+}
+/**
+ * Parses the model URL from CDK output.
+ * Note: CDK sanitizes output keys by removing special characters,
+ * so ModelEndpoint_${modelName} becomes ModelEndpoint${modelName}
+ */
+function parseModelURL(cdkOutput, modelName) {
+    return cdkOutput
+        .split('Outputs')[1]
+        .split(`ApiGatewayStack.ModelEndpoint${modelName} = `)[1]
+        .split(' ')[0]
+        .split('ApiGatewayStack.')[0]
+        .replace(/\r?\n/g, '')
+        .trim();
 }
