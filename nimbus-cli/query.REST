@@ -1,4 +1,4 @@
-POST https://g0xznvd2ve.execute-api.us-east-2.amazonaws.com/prod/first/predict
+POST https://g0xznvd2ve.execute-api.us-east-2.amazonaws.com/prod/a/predict
 Content-Type: application/json
 
 {

@@ -1,0 +1,7 @@
+[
+  {
+    "modelName": "a",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm"
+  }
+]
