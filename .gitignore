@@ -1,5 +1,5 @@
 node_modules/
 ./nimbus-cdk/node_modules/
 ./nimbus-cli/node_modules/
-./nimbus-cdk/output/
-./nimbus-cli/finished_dir/model-best
+./nimbus-cli/finished_dir
+./nimbus-cdk/cdk.out
