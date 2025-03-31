@@ -60,7 +60,7 @@ async function main() {
 
   // Deploy the updated stack
   await deployUpdatedStack(currentDir);
+  displayCompletionMessage();
 }
 
 await main();
-displayCompletionMessage();
