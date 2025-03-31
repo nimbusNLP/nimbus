@@ -28,6 +28,8 @@ console.log(chalk.blue(asciiArt2));
 
 const currentDir = process.cwd();
 const finishedDir = path.join(currentDir, 'finished_dir');
+let apiGatewayURL; 
+let modelURL; 
 
 if (!fs.existsSync(finishedDir)) { 
   fs.mkdirSync(finishedDir);
@@ -59,9 +61,12 @@ async function main() {
 
   if (deployApi) {
     try {
-      const { stdout, stderr } = await execPromise('cdk deploy ApiGatewayStack --require-approval never', { cwd: path.join(currentDir, '../nimbus-cdk') });
-      console.log(`API Gateway deployed:\n${stdout}`);
-      if (stderr) console.error(`API Gateway deploy stderr:\n${stderr}`);
+      const currPath = path.join(currentDir, '../nimbus-cdk')
+      const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', { cwd: currPath });  
+      const apiUrl = res.stderr.split('ApiGatewayStack.RestApiUrl')[1];
+      const regex = /(https?:\/\/[^\s]+)/;
+      apiGatewayURL = apiUrl.match(regex)[0];
+      console.log(`${chalk.bold('⭐️ Your API endpoint is:')} ${chalk.green.underline(apiGatewayURL)} ${chalk.bold('⭐️')}`);
     } catch (error: any) {
       console.error(`Error deploying API Gateway: ${error.message}`);
       process.exit(1);
@@ -133,7 +138,6 @@ async function main() {
     const destination = path.join(finishedDir, modelName, 'model-best');
     try {
       fs.cpSync(modelPathOrName, destination, { recursive: true });
-      console.log('Model directory copied successfully.');
     } catch (err) {
       console.error('Error copying model directory:', err);
     }
@@ -157,12 +161,12 @@ async function main() {
   const modelsConfig = JSON.parse(fs.readFileSync(modelsConfigPath, 'utf8'));
   modelsConfig.push({ modelName, modelType, modelPathOrName });
   fs.writeFileSync(modelsConfigPath, JSON.stringify(modelsConfig, null, 2));
-  console.log(`Model ${modelName} configuration updated.`);
+
 
   try {
     const { stdout, stderr } = await execPromise(`cdk deploy ApiGatewayStack --require-approval never`, { cwd: path.join(currentDir, '../nimbus-cdk') });
-    console.log(`Updated stack deployed:\n${stdout}`);
-    if (stderr) console.error(`Deploy stderr:\n${stderr}`);
+    const modelURL = stderr.split('Outputs')[1].split(`ApiGatewayStack.ModelEndpoint${modelName} = `)[1].split(' ')[0].split('ApiGatewayStack.')[0].replace(/\r?\n/g, '').trim();
+    console.log(`${chalk.bold('⭐️ Your model API endpoint is: ')}${chalk.green.underline(modelURL)}${chalk.bold(' ⭐️')}`);
   } catch (error: any) {
     console.error(`Error deploying updated stack: ${error.message}`);
   }
