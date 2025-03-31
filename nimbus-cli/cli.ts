@@ -40,7 +40,7 @@ if (!fs.existsSync(modelsConfigPath)) {
   fs.writeFileSync(modelsConfigPath, JSON.stringify([]));
 }
 
-async function main() {
+async function deployAPI() {
   let deployApi = false;
   if (fs.readFileSync(modelsConfigPath, 'utf8') === '[]') {
     const deployChoice = await select({
@@ -165,6 +165,20 @@ async function main() {
     if (stderr) console.error(`Deploy stderr:\n${stderr}`);
   } catch (error: any) {
     console.error(`Error deploying updated stack: ${error.message}`);
+  }
+}
+
+async function main() {
+  const args = process.argv;
+  const [command, ...arg] = args[0];
+
+  switch (command) {
+    case 'deploy': {
+      await deployAPI();
+    }
+    case 'list': {
+      console.log('How are you today!');
+    }
   }
 }
 
