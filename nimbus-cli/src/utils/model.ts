@@ -74,14 +74,33 @@ export async function getFineTunedModelPath(): Promise<string> {
   return modelPath;
 }
 
+export async function getModelDescription(): Promise<string> {
+  const description = await text({
+    message: 'Enter a description for your model:',
+    placeholder: 'This model is used for...',
+    validate(value): string | Error {
+      if (value.length === 0) return 'Description is required.';
+      return '';
+    },
+  });
+
+  if (isCancel(description)) {
+    cancel('Operation cancelled.');
+    process.exit(0);
+  }
+
+  return description;
+}
+
 export function generateModelFiles(
   modelType: 'pre-trained' | 'fine-tuned',
   modelPathOrName: string,
-  modelDir: string
+  modelDir: string,
+  modelDescription: string
 ): void {
   const requirementsContent = 'spacy==3.8.2\n';
   const dockerFileContent = generateDockerfile(modelType, modelPathOrName, path);
   const lambdaFunctionContent = generateLambdaFile(modelType, modelPathOrName);
 
-  writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent);
+  writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent, modelDescription);
 } 

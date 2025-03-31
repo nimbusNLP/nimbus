@@ -1,7 +1,8 @@
 [
   {
-    "modelName": "small",
+    "modelName": "first",
     "modelType": "pre-trained",
-    "modelPathOrName": "en_core_web_sm"
+    "modelPathOrName": "en_core_web_sm",
+    "description": "no"
   }
 ]

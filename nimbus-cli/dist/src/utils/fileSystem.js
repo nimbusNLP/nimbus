@@ -28,8 +28,9 @@ export function copyModelDirectory(source, destination) {
         throw err;
     }
 }
-export function writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent) {
+export function writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent, modelDescription) {
     fs.writeFileSync(path.join(modelDir, 'requirements.txt'), requirementsContent);
     fs.writeFileSync(path.join(modelDir, 'Dockerfile'), dockerFileContent);
     fs.writeFileSync(path.join(modelDir, 'lambda_function.py'), lambdaFunctionContent);
+    fs.writeFileSync(path.join(modelDir, 'description.txt'), modelDescription);
 }

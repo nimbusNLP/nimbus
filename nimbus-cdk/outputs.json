@@ -1,7 +1,7 @@
 {
   "ApiGatewayStack": {
-    "ModelEndpointsmall": "https://a7izi7v0y1.execute-api.us-east-2.amazonaws.com/prod/small/predict",
-    "PredictRestApiEndpointCE56DB59": "https://a7izi7v0y1.execute-api.us-east-2.amazonaws.com/prod/",
-    "RestApiUrl": "https://a7izi7v0y1.execute-api.us-east-2.amazonaws.com/prod/"
+    "PredictRestApiEndpointCE56DB59": "https://82tgqarehl.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointfirst": "https://82tgqarehl.execute-api.us-east-2.amazonaws.com/prod/first/predict",
+    "RestApiUrl": "https://82tgqarehl.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }

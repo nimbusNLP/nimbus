@@ -62,9 +62,25 @@ export async function getFineTunedModelPath() {
     }
     return modelPath;
 }
-export function generateModelFiles(modelType, modelPathOrName, modelDir) {
+export async function getModelDescription() {
+    const description = await text({
+        message: 'Enter a description for your model:',
+        placeholder: 'This model is used for...',
+        validate(value) {
+            if (value.length === 0)
+                return 'Description is required.';
+            return '';
+        },
+    });
+    if (isCancel(description)) {
+        cancel('Operation cancelled.');
+        process.exit(0);
+    }
+    return description;
+}
+export function generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription) {
     const requirementsContent = 'spacy==3.8.2\n';
     const dockerFileContent = generateDockerfile(modelType, modelPathOrName, path);
     const lambdaFunctionContent = generateLambdaFile(modelType, modelPathOrName);
-    writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent);
+    writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent, modelDescription);
 }

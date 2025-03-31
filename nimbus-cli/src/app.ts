@@ -2,7 +2,7 @@ import path from 'path';
 import { displayWelcomeMessage, displayCompletionMessage } from './utils/ui.js';
 import { deployApiGateway, deployUpdatedStack } from './utils/deployment.js';
 import { shouldDeployApiGateway, shouldDeployModel } from './utils/cli.js';
-import { getModelType, getModelName, getPreTrainedModel, getFineTunedModelPath, generateModelFiles } from './utils/model.js';
+import { getModelType, getModelName, getPreTrainedModel, getFineTunedModelPath, generateModelFiles, getModelDescription } from './utils/model.js';
 import { 
   ensureDirectoryExists, 
   initializeModelsConfig, 
@@ -39,6 +39,7 @@ async function main() {
   // Get model details
   const modelType = await getModelType();
   const modelName = await getModelName();
+  const modelDescription = await getModelDescription();
   const modelPathOrName = modelType === 'pre-trained' 
     ? await getPreTrainedModel()
     : await getFineTunedModelPath();
@@ -53,10 +54,15 @@ async function main() {
   }
 
   // Generate and write model files
-  generateModelFiles(modelType, modelPathOrName, modelDir);
+  generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription);
 
   // Update models configuration
-  updateModelsConfig(modelsConfigPath, { modelName, modelType, modelPathOrName });
+  updateModelsConfig(modelsConfigPath, { 
+    modelName, 
+    modelType, 
+    modelPathOrName,
+    description: modelDescription 
+  });
 
   // Deploy the updated stack
   await deployUpdatedStack(currentDir);

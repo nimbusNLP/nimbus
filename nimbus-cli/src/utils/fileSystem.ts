@@ -5,6 +5,7 @@ export interface ModelConfig {
   modelName: string;
   modelType: 'pre-trained' | 'fine-tuned';
   modelPathOrName: string;
+  description: string;
 }
 
 export function ensureDirectoryExists(dirPath: string): void {
@@ -43,9 +44,11 @@ export function writeModelFiles(
   modelDir: string,
   requirementsContent: string,
   dockerFileContent: string,
-  lambdaFunctionContent: string
+  lambdaFunctionContent: string,
+  modelDescription: string
 ): void {
   fs.writeFileSync(path.join(modelDir, 'requirements.txt'), requirementsContent);
   fs.writeFileSync(path.join(modelDir, 'Dockerfile'), dockerFileContent);
   fs.writeFileSync(path.join(modelDir, 'lambda_function.py'), lambdaFunctionContent);
+  fs.writeFileSync(path.join(modelDir, 'description.txt'), modelDescription);
 } 
