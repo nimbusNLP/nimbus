@@ -1,7 +1,7 @@
 {
   "version": "39.0.0",
   "files": {
-    "bae0a932575671e87812990a8916db56751021936a652c8047aee9b00ed6cc23": {
+    "dd07072aad7e16804463812707e3d52cd34c7be3c8e4873820e409ad010756db": {
       "source": {
         "path": "ApiGatewayStack.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "bae0a932575671e87812990a8916db56751021936a652c8047aee9b00ed6cc23.json",
+          "objectKey": "dd07072aad7e16804463812707e3d52cd34c7be3c8e4873820e409ad010756db.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

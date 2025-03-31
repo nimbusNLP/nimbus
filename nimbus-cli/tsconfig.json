@@ -7,5 +7,5 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*", "cli.ts"]
+  "include": ["src/**/*", "src/app.ts"]
 }

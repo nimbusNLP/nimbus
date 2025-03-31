@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npx tsc",
     "watch": "npx tsc -w",
-    "start": "node dist/cli.js",
+    "start": "node dist/src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
