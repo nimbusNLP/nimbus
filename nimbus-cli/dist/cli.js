@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import figlet from 'figlet';
 import chalk from 'chalk';
 import { select, text, isCancel, cancel } from '@clack/prompts';
@@ -13,7 +14,7 @@ const asciiArt = figlet.textSync('NimbuS', {
     horizontalLayout: 'default',
     verticalLayout: 'default'
 });
-const fontName = 'small';
+const fontName = 'Small';
 const asciiArt2 = figlet.textSync("Let's deploy your models!", {
     font: fontName,
     horizontalLayout: 'default',
@@ -30,7 +31,7 @@ const modelsConfigPath = path.join(finishedDir, 'models.json');
 if (!fs.existsSync(modelsConfigPath)) {
     fs.writeFileSync(modelsConfigPath, JSON.stringify([]));
 }
-async function main() {
+async function deployAPI() {
     let deployApi = false;
     if (fs.readFileSync(modelsConfigPath, 'utf8') === '[]') {
         const deployChoice = await select({
@@ -147,15 +148,37 @@ async function main() {
         console.log(`Updated stack deployed:\n${stdout}`);
         if (stderr)
             console.error(`Deploy stderr:\n${stderr}`);
+        const asciiArt3 = figlet.textSync('Deployment Complete!', {
+            font: 'Standard',
+            horizontalLayout: 'default',
+            verticalLayout: 'default'
+        });
+        console.log(chalk.greenBright(asciiArt3));
     }
     catch (error) {
         console.error(`Error deploying updated stack: ${error.message}`);
     }
 }
+function listModels() {
+    const data = fs.readFileSync('./finished_dir/models.json', 'utf8');
+    const json = JSON.parse(data);
+    json.forEach(modelData => console.log(modelData.modelName));
+}
+async function main() {
+    const args = process.argv;
+    const [runtime, path, command] = args;
+    switch (command) {
+        case 'deploy': {
+            await deployAPI();
+            break;
+        }
+        case 'list': {
+            listModels();
+            break;
+        }
+        default: {
+            console.log('Please enter a command.', args);
+        }
+    }
+}
 await main();
-const asciiArt3 = figlet.textSync('Deployment Complete!', {
-    font: 'Standard',
-    horizontalLayout: 'default',
-    verticalLayout: 'default'
-});
-console.log(chalk.greenBright(asciiArt3));

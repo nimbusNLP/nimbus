@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import figlet from 'figlet';
 import chalk from 'chalk';
 import { select, text, isCancel, cancel } from '@clack/prompts';
@@ -16,7 +18,7 @@ const asciiArt = figlet.textSync('NimbuS', {
   verticalLayout: 'default'
 });
 
-const fontName = 'small' as figlet.Fonts;
+const fontName = 'Small' as figlet.Fonts;
 const asciiArt2 = figlet.textSync("Let's deploy your models!", {
   font: fontName,
   horizontalLayout: 'default',
@@ -163,30 +165,50 @@ async function deployAPI() {
     const { stdout, stderr } = await execPromise(`cdk deploy ApiGatewayStack --require-approval never`, { cwd: path.join(currentDir, '../nimbus-cdk') });
     console.log(`Updated stack deployed:\n${stdout}`);
     if (stderr) console.error(`Deploy stderr:\n${stderr}`);
+    
+    const asciiArt3 = figlet.textSync('Deployment Complete!', {
+      font: 'Standard', 
+      horizontalLayout: 'default',
+      verticalLayout: 'default'
+    });
+    console.log(chalk.greenBright(asciiArt3));
+    
   } catch (error: any) {
     console.error(`Error deploying updated stack: ${error.message}`);
   }
+
+}
+
+interface ModelDataType {
+  modelName: string;
+  modelType: string;
+  modelPathOrName: string;
+}
+
+function listModels() {
+  const data = fs.readFileSync('./finished_dir/models.json', 'utf8');
+  const json: ModelDataType[] = JSON.parse(data);
+
+  json.forEach(modelData => console.log(modelData.modelName));
 }
 
 async function main() {
   const args = process.argv;
-  const [command, ...arg] = args[0];
+  const [runtime, path, command] = args;
 
   switch (command) {
     case 'deploy': {
       await deployAPI();
+      break;
     }
     case 'list': {
-      console.log('How are you today!');
+      listModels();
+      break;
+    }
+    default: {
+      console.log('Please enter a command.', args);
     }
   }
 }
 
 await main();
-
-const asciiArt3 = figlet.textSync('Deployment Complete!', {
-  font: 'Standard', 
-  horizontalLayout: 'default',
-  verticalLayout: 'default'
-});
-console.log(chalk.greenBright(asciiArt3));
