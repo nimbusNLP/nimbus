@@ -59,6 +59,21 @@ export async function deleteModelFromStack(currentDir: string, modelName: string
 }
 
 
+export async function destroyStack(currentDir: string): Promise<void> {
+  try {
+    const spin = spinner();
+    spin.start('Destroying stack...');
+    
+    const res = await execPromise('cdk destroy ApiGatewayStack --force', {
+      cwd: path.join(currentDir, '../nimbus-cdk')
+    });
+    spin.stop('Stack destroyed! 💥');
+  } catch (error: any) {
+    console.error(`Error destroying stack: ${error.message}`);
+    throw error;
+  }
+}
+
 
 /**
  * Parses the model URL from CDK output.
