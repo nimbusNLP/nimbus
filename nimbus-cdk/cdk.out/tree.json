@@ -732,7 +732,7 @@
                         "Arn"
                       ]
                     },
-                    "runtime": "nodejs16.x"
+                    "runtime": "nodejs20.x"
                   }
                 },
                 "constructInfo": {
