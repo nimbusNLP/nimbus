@@ -1,7 +1,6 @@
 import { select, text, isCancel, cancel } from '@clack/prompts';
 import fs from 'fs';
 import path from 'path';
-import { ModelConfig } from './fileSystem.js';
 import { writeModelFiles } from './fileSystem.js';
 import generateDockerfile from '../docker_code.js';
 import generateLambdaFile from '../lambda_code.js';

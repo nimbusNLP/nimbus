@@ -25,7 +25,7 @@ export class ApiGatewayStack extends cdk.Stack {
     });
 
     const defaultLambda = new lambda.Function(this, 'DefaultLambda', {
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'index.handler',
       code: lambda.Code.fromInline(
         'exports.handler = async () => { return { statusCode: 200, body: "No model deployed yet." }; }'
@@ -33,8 +33,9 @@ export class ApiGatewayStack extends cdk.Stack {
     });
     api.root.addMethod('GET', new apigateway.LambdaIntegration(defaultLambda));
 
- 
-    const modelsConfigPath = path.join(__dirname, '../../nimbus-cli', 'finished_dir', 'models.json');
+    const pathToFinishedDir = path.join(__dirname, '../../../', 'Nimbus_Model_Storage', 'finished_dir')
+
+    const modelsConfigPath = path.join(pathToFinishedDir, 'models.json');
     let models: ModelConfig[] = [];
     if (fs.existsSync(modelsConfigPath)) {
       models = JSON.parse(fs.readFileSync(modelsConfigPath, 'utf8'));
@@ -44,7 +45,7 @@ export class ApiGatewayStack extends cdk.Stack {
     models.forEach((model) => {
       const modelLambda = new lambda.DockerImageFunction(this, `Lambda_${model.modelName}`, {
         code: lambda.DockerImageCode.fromImageAsset(
-          path.join(__dirname, '../../nimbus-cli', 'finished_dir', model.modelName),
+          path.join(pathToFinishedDir, model.modelName),
           {
             platform: Platform.LINUX_AMD64,
           }

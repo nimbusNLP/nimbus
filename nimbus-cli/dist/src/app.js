@@ -7,8 +7,10 @@ import { ensureDirectoryExists, initializeModelsConfig, readModelsConfig, update
 async function main() {
     displayWelcomeMessage();
     const currentDir = process.cwd();
-    const finishedDir = path.join(currentDir, 'finished_dir');
+    const nimbusModelStorage = path.join(currentDir, '..', '..', 'Nimbus_Model_Storage');
+    const finishedDir = path.join(nimbusModelStorage, 'finished_dir');
     const modelsConfigPath = path.join(finishedDir, 'models.json');
+    ensureDirectoryExists(nimbusModelStorage);
     ensureDirectoryExists(finishedDir);
     initializeModelsConfig(modelsConfigPath);
     // Check if we need to deploy API Gateway
