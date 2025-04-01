@@ -3,3 +3,6 @@ node_modules/
 ./nimbus-cli/node_modules/
 ./nimbus-cdk/output/
 ./nimbus-cli/finished_dir/model-best
+# CDK output directory
+./nimbus-cdk/cdk.out/
+./nimbus-cdk/outputs.json
