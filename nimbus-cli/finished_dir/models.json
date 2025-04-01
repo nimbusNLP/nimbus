@@ -4,5 +4,11 @@
     "modelType": "pre-trained",
     "modelPathOrName": "en_core_web_sm",
     "description": "this is a model"
+  },
+  {
+    "modelName": "second",
+    "modelType": "pre-trained",
+    "modelPathOrName": "en_core_web_sm",
+    "description": "sdfa"
   }
 ]
