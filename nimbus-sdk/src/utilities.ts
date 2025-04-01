@@ -44,15 +44,15 @@ export async function addLambdaToApi(
   apiId: string,
   lambdaName: string,
   lambdaArn: string,
-  apiName: string) {
+  /*apiName: string*/) {
   try {
     const resources = await apigateway.getResources({ restApiId: apiId }).promise();
     let rootResourceId = resources.items!.find((res) => res.path === "/")!.id;
 
-    if (!rootResourceId) {
-      // if API doesn't exist, create the api.
-      rootResourceId = await createApiGateway(apiName);
-    }
+    // if (!rootResourceId) {
+    //   // if API doesn't exist, create the api.
+    //   rootResourceId = await createApiGateway(apiName);
+    // }
 
     const resource = await apigateway.createResource({
       restApiId: apiId,
