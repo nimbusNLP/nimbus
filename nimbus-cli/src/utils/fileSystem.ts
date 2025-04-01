@@ -59,6 +59,13 @@ export function copyModelDirectory(source: string, destination: string): void {
   }
 }
 
+export function deleteFinishedDir(baseDir: string): void {
+  const finishedDir = path.join(baseDir, 'finished_dir');
+  if (fs.existsSync(finishedDir)) {
+    fs.rmSync(finishedDir, { recursive: true, force: true });
+  }
+} 
+
 export function writeModelFiles(
   modelDir: string,
   requirementsContent: string,

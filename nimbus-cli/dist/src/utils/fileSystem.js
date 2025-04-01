@@ -45,6 +45,12 @@ export function copyModelDirectory(source, destination) {
         throw err;
     }
 }
+export function deleteFinishedDir(baseDir) {
+    const finishedDir = path.join(baseDir, 'finished_dir');
+    if (fs.existsSync(finishedDir)) {
+        fs.rmSync(finishedDir, { recursive: true, force: true });
+    }
+}
 export function writeModelFiles(modelDir, requirementsContent, dockerFileContent, lambdaFunctionContent, modelDescription) {
     fs.writeFileSync(path.join(modelDir, 'requirements.txt'), requirementsContent);
     fs.writeFileSync(path.join(modelDir, 'Dockerfile'), dockerFileContent);
