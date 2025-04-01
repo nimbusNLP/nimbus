@@ -3,6 +3,9 @@ import AWS from "aws-sdk";
 
 // Set region from environment or default to 'us-east-1'
 const region = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || "us-east-1";
+
+// const region = AWS.config.region;
+// console.log('My Region is:', region);
 AWS.config.update({ region });
 
 const lambda = new AWS.Lambda();
