@@ -4,7 +4,7 @@ import { deployApiGateway, deployUpdatedStack } from './utils/deployment.js';
 import { shouldDeployApiGateway, shouldDeployModel } from './utils/cli.js';
 import { getModelType, getModelName, getPreTrainedModel, getFineTunedModelPath, generateModelFiles, getModelDescription } from './utils/model.js';
 import { ensureDirectoryExists, initializeModelsConfig, readModelsConfig, updateModelsConfig, copyModelDirectory } from './utils/fileSystem.js';
-async function main() {
+export async function app() {
     displayWelcomeMessage();
     const currentDir = process.cwd();
     const finishedDir = path.join(currentDir, 'finished_dir');
@@ -50,4 +50,3 @@ async function main() {
     await deployUpdatedStack(currentDir, modelName);
     displayCompletionMessage();
 }
-await main();

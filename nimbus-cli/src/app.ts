@@ -11,7 +11,7 @@ import {
   copyModelDirectory 
 } from './utils/fileSystem.js';
 
-async function main() {
+export async function app() {
   displayWelcomeMessage();
 
   const currentDir = process.cwd();
@@ -69,4 +69,3 @@ async function main() {
   displayCompletionMessage();
 }
 
-await main();
