@@ -22,7 +22,7 @@ async function main() {
     // Variables to track actions
     let deployingModel = false;
     let modelName = '';
-    let removedModel = false;
+    let removingModel = false;
     // Ask if user wants to deploy a model
     const shouldDeploy = await shouldDeployModel();
     // Handle model deployment if requested
@@ -53,9 +53,9 @@ async function main() {
         });
     }
     // Ask if user wants to remove a model
-    const removeModel = await shouldRemoveModel();
+    const shouldRemove = await shouldRemoveModel();
     // Handle model removal if requested
-    if (removeModel) {
+    if (shouldRemove) {
         const modelToRemove = await selectModelToRemove(modelsConfigPath);
         if (modelToRemove && typeof modelToRemove === 'string') {
             // Remove model from config
@@ -65,12 +65,12 @@ async function main() {
             if (shouldDeleteDir === true) {
                 removeModelDirectory(finishedDir, modelToRemove);
             }
-            removedModel = true;
+            removingModel = true;
         }
     }
     // Deploy the updated stack if any changes were made
-    if (deployingModel || removedModel) {
-        if (removedModel) {
+    if (deployingModel || removingModel) {
+        if (removingModel) {
             await deployUpdatedStack(currentDir, "");
         }
         else {
