@@ -29,13 +29,18 @@ export async function deployApiGateway(currentDir: string): Promise<void> {
 export async function deployUpdatedStack(currentDir: string, modelName: string): Promise<void> {
   try {
     const spin = spinner();
-    spin.start('Deploying model...');
+    spin.start(modelName ? 'Deploying model...' : 'Updating API Gateway after model removal...');
     
     const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
-    note(`${chalk.green.underline(parseModelURL(res.stderr, modelName))}`, `${chalk.bold('⭐️ Your model endpoint ⭐️')}`)
-    spin.stop('Model deployed!!!');
+    
+    if (modelName) {
+      note(`${chalk.green.underline(parseModelURL(res.stderr, modelName))}`, `${chalk.bold('⭐️ Your model endpoint ⭐️')}`);
+      spin.stop('Model deployed!!!');
+    } else {
+      spin.stop('API Gateway updated after model removal!!!');
+    }
   } catch (error: any) {
     console.error(`Error deploying updated stack: ${error.message}`);
     throw error;
@@ -49,6 +54,8 @@ export async function deployUpdatedStack(currentDir: string, modelName: string):
  * so ModelEndpoint_${modelName} becomes ModelEndpoint${modelName}
  */
 function parseModelURL(cdkOutput: string, modelName: string): string {
+  if (!modelName) return '';
+  
   return cdkOutput
     .split('Outputs')[1]
     .split(`ApiGatewayStack.ModelEndpoint${modelName} = `)[1]

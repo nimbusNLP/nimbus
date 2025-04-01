@@ -18,6 +18,24 @@ export function updateModelsConfig(configPath, newConfig) {
     config.push(newConfig);
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 }
+export function removeModelFromConfig(configPath, modelName) {
+    const config = readModelsConfig(configPath);
+    const index = config.findIndex(model => model.modelName === modelName);
+    if (index !== -1) {
+        config.splice(index, 1);
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+    }
+}
+export function removeModelDirectory(baseDir, modelName) {
+    const modelDir = path.join(baseDir, modelName);
+    if (fs.existsSync(modelDir)) {
+        fs.rmSync(modelDir, { recursive: true, force: true });
+        console.log(`Model directory "${modelName}" removed successfully.`);
+    }
+    else {
+        console.log(`Model directory "${modelName}" does not exist.`);
+    }
+}
 export function copyModelDirectory(source, destination) {
     try {
         fs.cpSync(source, destination, { recursive: true });

@@ -1,5 +1,5 @@
 import { select, isCancel, cancel, note, confirm } from '@clack/prompts';
-import { readModelsConfig } from './fileSystem';
+import { readModelsConfig } from './fileSystem.js';
 import path from 'path';
 export async function shouldDeployApiGateway(): Promise<boolean> {
   const deployChoice = await select({
@@ -10,7 +10,7 @@ export async function shouldDeployApiGateway(): Promise<boolean> {
     ],
   });
 
-  if (isCancel(deployChoice) || deployChoice === 'no') {
+  if (isCancel(deployChoice)) {
     cancel('Operation cancelled.');
     process.exit(0);
   }
@@ -28,8 +28,8 @@ export async function shouldDeployModel(): Promise<boolean> {
     ],
   });
 
-  if (isCancel(deployModelChoice) || deployModelChoice === 'no') {
-    console.log('No model deployed.');
+  if (isCancel(deployModelChoice)) {
+    cancel('Operation cancelled.');
     process.exit(0);
   }
 
@@ -45,7 +45,7 @@ export async function shouldRemoveModel(): Promise<boolean> {
     ],
   });
 
-  if (isCancel(removeModelChoice) || removeModelChoice === 'no') {
+  if (isCancel(removeModelChoice)) {
     cancel('Operation cancelled.');
     process.exit(0);
   }
