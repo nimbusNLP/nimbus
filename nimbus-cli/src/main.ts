@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { app } from './app.js';
+import { deploy } from './deploy.js';
+import { deleteModel } from './deleteModel.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -45,17 +46,22 @@ async function main() {
 
   switch (command) {
     case 'deploy': {
-      await app();
+      await deploy();
       break;
     }
     case 'list': {
       listModels();
       break;
     }
+    case 'delete': {
+      await deleteModel();
+      break;
+    }
     default: {
       console.log('Available commands:');
       console.log('  deploy - Deploy a new model');
       console.log('  list   - List all deployed models');
+      console.log('  delete - Delete a model');
     }
   }
 }

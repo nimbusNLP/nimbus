@@ -2,8 +2,8 @@ import { select, text, isCancel, cancel } from '@clack/prompts';
 import fs from 'fs';
 import path from 'path';
 import { writeModelFiles } from './fileSystem.js';
-import generateDockerfile from '../docker_code.js';
-import generateLambdaFile from '../lambda_code.js';
+import generateDockerfile from '../dockerCode.js';
+import generateLambdaFile from '../lambdaCode.js';
 export async function getModelType() {
     const modelType = await select({
         message: 'Please choose the type of model you want to deploy:',

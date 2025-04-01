@@ -11,7 +11,7 @@ import {
   copyModelDirectory 
 } from './utils/fileSystem.js';
 
-export async function app() {
+export async function deploy() {
   displayWelcomeMessage();
 
   const currentDir = process.cwd();

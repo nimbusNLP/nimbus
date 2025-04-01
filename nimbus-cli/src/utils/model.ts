@@ -3,8 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { ModelConfig } from './fileSystem.js';
 import { writeModelFiles } from './fileSystem.js';
-import generateDockerfile from '../docker_code.js';
-import generateLambdaFile from '../lambda_code.js';
+import generateDockerfile from '../dockerCode.js';
+import generateLambdaFile from '../lambdaCode.js';
 
 export async function getModelType(): Promise<'pre-trained' | 'fine-tuned'> {
   const modelType = await select({

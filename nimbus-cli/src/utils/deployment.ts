@@ -42,6 +42,23 @@ export async function deployUpdatedStack(currentDir: string, modelName: string):
   }
 }
 
+export async function deleteModelFromStack(currentDir: string, modelName: string): Promise<void> {
+  try {
+    const spin = spinner();
+    spin.start(`Updating AWS resources removing model ${modelName}...`);
+    
+    const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+      cwd: path.join(currentDir, '../nimbus-cdk')
+    });
+    
+    spin.stop(`AWS resources updated after removing model ${modelName}!`);
+  } catch (error: any) {
+    console.error(`Error deploying updated stack: ${error.message}`);
+    throw error;
+  }
+}
+
+
 
 /**
  * Parses the model URL from CDK output.

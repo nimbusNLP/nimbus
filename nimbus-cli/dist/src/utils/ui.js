@@ -22,3 +22,18 @@ export function displayCompletionMessage() {
     });
     console.log(chalk.greenBright(asciiArt));
 }
+export function displayDeleteWelcomeMessage() {
+    const asciiArt = figlet.textSync('Let\'s delete your models!', {
+        font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default'
+    });
+    console.log(chalk.greenBright(asciiArt));
+}
+export function displayDeleteCompletionMessage() {
+    const asciiArt = figlet.textSync('Deletion Complete!', {
+        font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default'
+    });
+}

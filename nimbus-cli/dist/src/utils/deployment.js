@@ -37,6 +37,20 @@ export async function deployUpdatedStack(currentDir, modelName) {
         throw error;
     }
 }
+export async function deleteModelFromStack(currentDir, modelName) {
+    try {
+        const spin = spinner();
+        spin.start(`Updating AWS resources removing model ${modelName}...`);
+        const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+            cwd: path.join(currentDir, '../nimbus-cdk')
+        });
+        spin.stop(`AWS resources updated after removing model ${modelName}!`);
+    }
+    catch (error) {
+        console.error(`Error deploying updated stack: ${error.message}`);
+        throw error;
+    }
+}
 /**
  * Parses the model URL from CDK output.
  * Note: CDK sanitizes output keys by removing special characters,
