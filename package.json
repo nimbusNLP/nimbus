@@ -3,12 +3,15 @@
   "private": true,
   "workspaces": [
     "nimbus-cli",
-    "nimbus-cdk"  
+    "nimbus-cdk"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
     "start": "cd nimbus-cli && npm run start"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "dotenv": "^16.4.7"
   }
 }
-
