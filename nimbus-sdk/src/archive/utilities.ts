@@ -1,4 +1,4 @@
-import { apigateway, lambda, ecr, iam, region } from "./aws-config";
+import { apigateway, lambda, ecr, iam, region } from "../awsConfig";
 
 export async function createApiGateway(apiName: string) {
   const params = {

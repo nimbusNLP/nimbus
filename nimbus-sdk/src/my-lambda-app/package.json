@@ -1,0 +1,10 @@
+{
+  "name": "lambda-container",
+  "version": "1.0.0",
+  "description": "A simple Lambda function inside a Docker container",
+  "main": "handler.js",
+  "scripts": {
+    "start": "node handler.js"
+  },
+  "dependencies": {}
+}
