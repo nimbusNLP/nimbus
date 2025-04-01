@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/46d8250411a71f696f15e830111d6bd1775db1f23d3f4763c587febec9b8a72f.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/61feaf1f73db09b5c77566646491332d4c0bb9c9733453a572cf59e09bc93d96.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -99,44 +99,12 @@
                 {}
               ]
             }
-          },
-          {
-            "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToLogicalId": [
-                {}
-              ]
-            }
-          },
-          {
-            "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToLogicalId": [
-                {}
-              ]
-            }
-          },
-          {
-            "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToLogicalId": [
-                {}
-              ]
-            }
-          },
-          {
-            "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToLogicalId": [
-                {}
-              ]
-            }
           }
         ],
         "/ApiGatewayStack/PredictRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiDeployment49622637bbc3dbb954bd8996ddaa660d84f80ca6"
+            "data": "PredictRestApiDeployment49622637e10b9092c0c049e8ebf4a5f398aacf3b"
           }
         ],
         "/ApiGatewayStack/PredictRestApi/DeploymentStage.prod": [
@@ -193,106 +161,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "PredictRestApiGETBBFCD66A"
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "parent": "*",
-              "pathPart": "*"
-            }
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiRichSatAF48DB8D"
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "parent": "*",
-              "pathPart": "*"
-            }
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiRichSatpredict14723801"
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/OPTIONS": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "resource": "*",
-              "httpMethod": "*",
-              "integration": "*",
-              "options": {
-                "authorizer": {
-                  "authorizerId": "*",
-                  "authorizationType": "*"
-                },
-                "apiKeyRequired": false,
-                "authorizationType": "*",
-                "methodResponses": [
-                  {
-                    "statusCode": "*",
-                    "responseParameters": "*"
-                  }
-                ]
-              }
-            }
-          },
-          {
-            "type": "aws:cdk:analytics:method",
-            "data": {
-              "addMethodResponse": [
-                {
-                  "statusCode": "*",
-                  "responseParameters": "*"
-                }
-              ]
-            }
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/OPTIONS/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiRichSatpredictOPTIONS7198E387"
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/POST": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "resource": "*",
-              "httpMethod": "*",
-              "integration": "*",
-              "options": "*"
-            }
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..RichSat.predict": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiRichSatpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTRichSatpredictAC64B7D7"
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..RichSat.predict": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiRichSatpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTRichSatpredictED848683"
-          }
-        ],
-        "/ApiGatewayStack/PredictRestApi/Default/RichSat/predict/POST/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiRichSatpredictPOST3A02757E"
           }
         ],
         "/ApiGatewayStack/PredictRestApi/Default/second": [
@@ -437,64 +305,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "DefaultLambdaE5505F72"
-          }
-        ],
-        "/ApiGatewayStack/Lambda_RichSat": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "code": "*",
-              "memorySize": "*",
-              "timeout": "*"
-            }
-          },
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "code": "*",
-              "memorySize": "*",
-              "timeout": "*"
-            }
-          }
-        ],
-        "/ApiGatewayStack/Lambda_RichSat/ServiceRole": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": {
-              "assumedBy": {
-                "principalAccount": "*",
-                "assumeRoleAction": "*"
-              },
-              "managedPolicies": [
-                {
-                  "managedPolicyArn": "*"
-                }
-              ]
-            }
-          }
-        ],
-        "/ApiGatewayStack/Lambda_RichSat/ServiceRole/ImportServiceRole": [
-          {
-            "type": "aws:cdk:analytics:construct",
-            "data": "*"
-          }
-        ],
-        "/ApiGatewayStack/Lambda_RichSat/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "LambdaRichSatServiceRole3EA2AFDD"
-          }
-        ],
-        "/ApiGatewayStack/Lambda_RichSat/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "LambdaRichSatE31F0C91"
-          }
-        ],
-        "/ApiGatewayStack/ModelEndpoint_RichSat": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ModelEndpointRichSat"
           }
         ],
         "/ApiGatewayStack/Lambda_second": [
