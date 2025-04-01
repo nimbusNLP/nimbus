@@ -6,7 +6,7 @@ import { getStoredApiId, storeApiId } from "./utilities/storageUtils.js";
 const command = process.argv[2];
 
 async function initApi() {
-  const apiName = "MyAPI";
+  const apiName = "Nimbus";
   const apiId = await createApi(apiName);
   console.log(`API created with ID: ${apiId}`);
   storeApiId(apiId);
@@ -28,6 +28,12 @@ async function createLambdaAndAttach() {
   await deployApi(apiId);
   console.log(`Lambda '${lambdaName}' attached to API and API deployed successfully.`);
 }
+
+// async function getUrlRoute(modelName) {
+//   try {
+//     const 
+//   }
+// }
 
 async function main() {
   if (command === "initApi") {

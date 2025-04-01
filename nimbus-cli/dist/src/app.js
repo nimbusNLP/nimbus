@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import path from 'path';
 import { displayWelcomeMessage, displayCompletionMessage } from './utils/ui.js';
 import { deployApiGateway, deployUpdatedStack } from './utils/deployment.js';
