@@ -1,7 +1,0 @@
-{
-  "ApiGatewayStack": {
-    "PredictRestApiEndpointCE56DB59": "https://byw2nqdyid.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointsecond": "https://byw2nqdyid.execute-api.us-east-2.amazonaws.com/prod/second/predict",
-    "RestApiUrl": "https://byw2nqdyid.execute-api.us-east-2.amazonaws.com/prod/"
-  }
-}
