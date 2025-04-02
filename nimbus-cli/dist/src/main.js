@@ -3,9 +3,11 @@ import { deploy } from './deploy.js';
 import { deleteModel } from './deleteModel.js';
 import { listModels } from './list.js';
 import { destroy } from './destroy.js';
+import { configureApp } from './utils/config.js';
 async function main() {
     const args = process.argv;
     const [runtime, path, command] = args;
+    let nimbusConfigPath = await configureApp();
     switch (command) {
         case 'deploy': {
             await deploy();
