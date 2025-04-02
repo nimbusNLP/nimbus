@@ -16,12 +16,15 @@ export function modelNameNotUnique(modelName: string | symbol, modelsConfigPath:
 }
 
 export function isSafeDescription(description: string | symbol): boolean {
+  if (description === undefined) return true;
   return (
-    typeof description === "string" &&
-    description.length <= 200 && description.length > 0 &&
-    !/[<>]/.test(description) &&              
-    !/[\x00-\x1F\x7F]/.test(description) &&  
-    !/[$`;]/.test(description)              
+    typeof description === "string" && 
+    (description === "" || (
+      description.length <= 200 &&
+      !/[<>]/.test(description) &&              
+      !/[\x00-\x1F\x7F]/.test(description) &&  
+      !/[$`;]/.test(description)
+    ))
   );
 }
 

@@ -13,11 +13,13 @@ export function modelNameNotUnique(modelName, modelsConfigPath) {
     return !!present;
 }
 export function isSafeDescription(description) {
+    if (description === undefined)
+        return true;
     return (typeof description === "string" &&
-        description.length <= 200 && description.length > 0 &&
-        !/[<>]/.test(description) &&
-        !/[\x00-\x1F\x7F]/.test(description) &&
-        !/[$`;]/.test(description));
+        (description === "" || (description.length <= 200 &&
+            !/[<>]/.test(description) &&
+            !/[\x00-\x1F\x7F]/.test(description) &&
+            !/[$`;]/.test(description))));
 }
 export function optionToExitApp(loc) {
     if (isCancel(loc)) {
