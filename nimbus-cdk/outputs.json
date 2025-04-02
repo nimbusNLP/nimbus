@@ -2,7 +2,6 @@
   "ApiGatewayStack": {
     "ModelEndpointrichard": "https://fzzar7czia.execute-api.us-east-2.amazonaws.com/prod/richard/predict",
     "PredictRestApiEndpointCE56DB59": "https://fzzar7czia.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointsatya": "https://fzzar7czia.execute-api.us-east-2.amazonaws.com/prod/satya/predict",
     "RestApiUrl": "https://fzzar7czia.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }

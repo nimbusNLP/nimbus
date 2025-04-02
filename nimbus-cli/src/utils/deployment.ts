@@ -65,12 +65,12 @@ export async function deleteModelFromStack(currentDir: string, finishedDirPath: 
 }
 
 
-export async function destroyStack(currentDir: string): Promise<void> {
+export async function destroyStack(currentDir: string, finishedDirPath: string): Promise<void> {
   try {
     const spin = spinner();
     spin.start('Destroying stack...');
     
-    const res = await execPromise('cdk destroy ApiGatewayStack --force', {
+    const res = await execPromise(`cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}"`, {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
     spin.stop('Stack destroyed! 💥');

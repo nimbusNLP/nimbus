@@ -24,7 +24,7 @@ async function main() {
       break;
     }
     case 'destroy': {
-      await destroy();
+      await destroy(nimbusLocalStoragePath);
       break;
     }
     default: {
