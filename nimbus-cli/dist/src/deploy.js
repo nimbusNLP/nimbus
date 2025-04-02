@@ -27,7 +27,7 @@ export async function deploy() {
     }
     // Get model details
     const modelType = await getModelType();
-    const modelName = await getModelName();
+    const modelName = await getModelName(modelsConfigPath);
     const modelDescription = await getModelDescription();
     const modelPathOrName = modelType === 'pre-trained'
         ? await getPreTrainedModel()
