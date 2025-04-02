@@ -1,0 +1,7 @@
+### 
+POST  https://fzzar7czia.execute-api.us-east-2.amazonaws.com/prod/satya/predict 
+Content-Type: application/json
+
+{
+    "text": "Hello, world!"
+}

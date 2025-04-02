@@ -11,11 +11,11 @@ import {
   copyModelDirectory 
 } from './utils/fileSystem.js';
 
-export async function deploy() {
+export async function deploy(nimbusLocalStoragePath: string) {
   displayWelcomeMessage();
 
   const currentDir = process.cwd();
-  const finishedDir = path.join(currentDir, 'finished_dir');
+  const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDir, 'models.json');
 
   ensureDirectoryExists(finishedDir);
@@ -28,7 +28,7 @@ export async function deploy() {
   }
 
   if (deployApi) {
-    await deployApiGateway(currentDir);
+    await deployApiGateway(currentDir, finishedDir);
   }
 
   // Check if user wants to deploy a model
@@ -65,7 +65,7 @@ export async function deploy() {
   });
 
   // Deploy the updated stack
-  await deployUpdatedStack(currentDir, modelName);
+  await deployUpdatedStack(currentDir, finishedDir, modelName);
   displayCompletionMessage();
 }
 

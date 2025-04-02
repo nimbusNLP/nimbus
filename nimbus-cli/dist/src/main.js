@@ -7,18 +7,18 @@ import { configureApp } from './utils/config.js';
 async function main() {
     const args = process.argv;
     const [runtime, path, command] = args;
-    let nimbusConfigPath = await configureApp();
+    let nimbusLocalStoragePath = await configureApp();
     switch (command) {
         case 'deploy': {
-            await deploy();
+            await deploy(nimbusLocalStoragePath);
             break;
         }
         case 'list': {
-            listModels();
+            listModels(nimbusLocalStoragePath);
             break;
         }
         case 'delete': {
-            await deleteModel();
+            await deleteModel(nimbusLocalStoragePath);
             break;
         }
         case 'destroy': {

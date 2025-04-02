@@ -1,8 +1,7 @@
 import path from "path";
 import fs from "fs";
-export function listModels() {
-    const currentDir = process.cwd();
-    const finishedDir = path.join(currentDir, 'finished_dir');
+export function listModels(nimbusLocalStoragePath) {
+    const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
     const modelsConfigPath = path.join(finishedDir, 'models.json');
     try {
         const data = fs.readFileSync(modelsConfigPath, 'utf8');

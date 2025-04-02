@@ -8,9 +8,8 @@ export interface ModelDataType {
   description: string;
 }
 
-export function listModels() {
-  const currentDir = process.cwd();
-  const finishedDir = path.join(currentDir, 'finished_dir');
+export function listModels(nimbusLocalStoragePath: string) {
+  const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDir, 'models.json');
 
   try {

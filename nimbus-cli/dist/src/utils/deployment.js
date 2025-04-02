@@ -4,11 +4,12 @@ import path from 'path';
 import { spinner, note } from '@clack/prompts';
 import chalk from 'chalk';
 const execPromise = promisify(exec);
-export async function deployApiGateway(currentDir) {
+export async function deployApiGateway(currentDir, finishedDirPath) {
     try {
         const spin = spinner();
         spin.start('Deploying API Gateway...');
-        const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+        const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+        const res = await execPromise(command, {
             cwd: path.join(currentDir, '../nimbus-cdk')
         });
         const apiUrl = res.stderr.split('ApiGatewayStack.RestApiUrl')[1];
@@ -22,11 +23,12 @@ export async function deployApiGateway(currentDir) {
         throw error;
     }
 }
-export async function deployUpdatedStack(currentDir, modelName) {
+export async function deployUpdatedStack(currentDir, finishedDirPath, modelName) {
     try {
         const spin = spinner();
         spin.start('Deploying model...');
-        const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+        const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+        const res = await execPromise(command, {
             cwd: path.join(currentDir, '../nimbus-cdk')
         });
         note(`${chalk.green.underline(parseModelURL(res.stderr, modelName))}`, `${chalk.bold('⭐️ Your model endpoint ⭐️')}`);
@@ -37,11 +39,12 @@ export async function deployUpdatedStack(currentDir, modelName) {
         throw error;
     }
 }
-export async function deleteModelFromStack(currentDir, modelName) {
+export async function deleteModelFromStack(currentDir, finishedDirPath, modelName) {
     try {
         const spin = spinner();
         spin.start(`Updating AWS resources removing model ${modelName}...`);
-        const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+        const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+        const res = await execPromise(command, {
             cwd: path.join(currentDir, '../nimbus-cdk')
         });
         spin.stop(`AWS resources updated after removing model ${modelName}!`);

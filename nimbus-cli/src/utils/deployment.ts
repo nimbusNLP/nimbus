@@ -6,12 +6,14 @@ import chalk from 'chalk';
 
 const execPromise = promisify(exec);
 
-export async function deployApiGateway(currentDir: string): Promise<void> {
+export async function deployApiGateway(currentDir: string, finishedDirPath: string): Promise<void> {
   try {
     const spin = spinner();
     spin.start('Deploying API Gateway...');
     
-    const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+    const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+    
+    const res = await execPromise(command, {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
     const apiUrl = res.stderr.split('ApiGatewayStack.RestApiUrl')[1];
@@ -26,12 +28,14 @@ export async function deployApiGateway(currentDir: string): Promise<void> {
   }
 }
 
-export async function deployUpdatedStack(currentDir: string, modelName: string): Promise<void> {
+export async function deployUpdatedStack(currentDir: string, finishedDirPath: string, modelName: string): Promise<void> {
   try {
     const spin = spinner();
     spin.start('Deploying model...');
     
-    const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+    const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+
+    const res = await execPromise(command, {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
     note(`${chalk.green.underline(parseModelURL(res.stderr, modelName))}`, `${chalk.bold('⭐️ Your model endpoint ⭐️')}`)
@@ -42,12 +46,14 @@ export async function deployUpdatedStack(currentDir: string, modelName: string):
   }
 }
 
-export async function deleteModelFromStack(currentDir: string, modelName: string): Promise<void> {
+export async function deleteModelFromStack(currentDir: string, finishedDirPath: string, modelName: string): Promise<void> {
   try {
     const spin = spinner();
     spin.start(`Updating AWS resources removing model ${modelName}...`);
     
-    const res = await execPromise('cdk deploy ApiGatewayStack --require-approval never', {
+    const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+
+    const res = await execPromise(command, {
       cwd: path.join(currentDir, '../nimbus-cdk')
     });
     

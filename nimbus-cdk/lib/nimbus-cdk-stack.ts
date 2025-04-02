@@ -10,12 +10,22 @@ interface ModelConfig {
   modelName: string;
   modelType: string;
   modelPathOrName: string;
+  description?: string;
 }
 
 export class ApiGatewayStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    const finishedDirPath = this.node.tryGetContext('finishedDirPath');
+
+    if (!finishedDirPath || typeof finishedDirPath !== 'string') {
+      throw new Error('CDK context variable "finishedDirPath" is required and must be a string.');
+    }
+    
+    if (!fs.existsSync(finishedDirPath)) {
+      console.warn(`Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`);
+    }
 
     const api = new apigateway.RestApi(this, 'PredictRestApi', {
       restApiName: 'PredictRestApi',
@@ -33,18 +43,28 @@ export class ApiGatewayStack extends cdk.Stack {
     });
     api.root.addMethod('GET', new apigateway.LambdaIntegration(defaultLambda));
 
- 
-    const modelsConfigPath = path.join(__dirname, '../../nimbus-cli', 'finished_dir', 'models.json');
+    const modelsConfigPath = path.join(finishedDirPath, 'models.json');
     let models: ModelConfig[] = [];
+    
     if (fs.existsSync(modelsConfigPath)) {
-      models = JSON.parse(fs.readFileSync(modelsConfigPath, 'utf8'));
+      try {
+        models = JSON.parse(fs.readFileSync(modelsConfigPath, 'utf8'));
+      } catch (error) {
+        console.error(`Error reading or parsing models.json from ${modelsConfigPath}:`, error);
+      }
     }
 
-   
     models.forEach((model) => {
+      const modelDirPath = path.join(finishedDirPath, model.modelName);
+      
+      if (!fs.existsSync(modelDirPath)) {
+         console.warn(`Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`);
+         return;
+      }
+      
       const modelLambda = new lambda.DockerImageFunction(this, `Lambda_${model.modelName}`, {
         code: lambda.DockerImageCode.fromImageAsset(
-          path.join(__dirname, '../../nimbus-cli', 'finished_dir', model.modelName),
+          modelDirPath,
           {
             platform: Platform.LINUX_AMD64,
           }
@@ -53,7 +73,6 @@ export class ApiGatewayStack extends cdk.Stack {
         timeout: cdk.Duration.seconds(60),
       });
 
- 
       const modelResource = api.root.addResource(model.modelName);
       const predictResource = modelResource.addResource('predict');
       predictResource.addCorsPreflight({
@@ -63,13 +82,10 @@ export class ApiGatewayStack extends cdk.Stack {
       });
       predictResource.addMethod('POST', new apigateway.LambdaIntegration(modelLambda));
 
-    
-
       new cdk.CfnOutput(this, `ModelEndpoint_${model.modelName}`, {
         value: `${api.url}${model.modelName}/predict`,
       });
     });
-
 
     new cdk.CfnOutput(this, 'RestApiUrl', {
       value: api.url,
