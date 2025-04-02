@@ -1,0 +1,8 @@
+{
+  "ApiGatewayStack": {
+    "PredictRestApiEndpointCE56DB59": "https://yzeog1jowg.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointfirst": "https://yzeog1jowg.execute-api.us-east-2.amazonaws.com/prod/first/predict",
+    "ModelEndpointsecond": "https://yzeog1jowg.execute-api.us-east-2.amazonaws.com/prod/second/predict",
+    "RestApiUrl": "https://yzeog1jowg.execute-api.us-east-2.amazonaws.com/prod/"
+  }
+}
