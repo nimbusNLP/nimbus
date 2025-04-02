@@ -27,7 +27,7 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
   const modelToRemove = await selectModelToRemove(modelsConfigPath);
   
   if (modelToRemove) {
-    await shouldRemoveModel();
+    await shouldRemoveModel(modelToRemove);
     
     console.log(`Proceeding to remove model: ${modelToRemove}`);
     removeModelFromConfig(modelsConfigPath, modelToRemove);
