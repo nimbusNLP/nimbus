@@ -6,3 +6,4 @@ node_modules/
 # CDK output directory
 ./nimbus-cdk/cdk.out/
 ./nimbus-cdk/outputs.json
+./nimbus-cli/nimbus-config.json

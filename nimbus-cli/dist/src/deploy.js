@@ -4,11 +4,10 @@ import { deployApiGateway, deployUpdatedStack } from './utils/deployment.js';
 import { shouldDeployApiGateway, shouldDeployModel } from './utils/cli.js';
 import { getModelType, getModelName, getPreTrainedModel, getFineTunedModelPath, generateModelFiles, getModelDescription } from './utils/model.js';
 import { ensureDirectoryExists, initializeModelsConfig, readModelsConfig, updateModelsConfig, copyModelDirectory } from './utils/fileSystem.js';
-export async function deploy() {
+export async function deploy(nimbusLocalStoragePath) {
     displayWelcomeMessage();
     const currentDir = process.cwd();
-    const nimbusModelStorage = path.join(currentDir, '..', '..', 'Nimbus_Model_Storage');
-    const finishedDir = path.join(nimbusModelStorage, 'finished_dir');
+    const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
     const modelsConfigPath = path.join(finishedDir, 'models.json');
     ensureDirectoryExists(nimbusModelStorage);
     ensureDirectoryExists(finishedDir);
@@ -19,7 +18,7 @@ export async function deploy() {
         deployApi = await shouldDeployApiGateway();
     }
     if (deployApi) {
-        await deployApiGateway(currentDir);
+        await deployApiGateway(currentDir, finishedDir);
     }
     // Check if user wants to deploy a model
     if (!await shouldDeployModel()) {
@@ -49,6 +48,6 @@ export async function deploy() {
         description: modelDescription
     });
     // Deploy the updated stack
-    await deployUpdatedStack(currentDir, modelName);
+    await deployUpdatedStack(currentDir, finishedDir, modelName);
     displayCompletionMessage();
 }

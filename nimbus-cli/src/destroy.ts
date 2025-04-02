@@ -1,10 +1,11 @@
 import { destroyStack } from "./utils/deployment.js";
 import { deleteFinishedDir } from "./utils/fileSystem.js";
+import path from 'path';
 
-
-export async function destroy() {
+export async function destroy(nimbusLocalStoragePath: string) {
   const currentDir = process.cwd();
-  await destroyStack(currentDir);
-
-  deleteFinishedDir(currentDir);  
+  const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
+  
+  await destroyStack(currentDir, finishedDirPath);
+  deleteFinishedDir(finishedDirPath);  
 } 

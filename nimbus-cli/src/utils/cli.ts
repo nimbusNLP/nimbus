@@ -34,9 +34,9 @@ export async function shouldDeployModel(): Promise<boolean> {
 
   return deployModelChoice === 'yes';
 } 
-export async function shouldRemoveModel(): Promise<void> {
+export async function shouldRemoveModel(modelName: string): Promise<void> {
   const removeModelChoice = await select({
-    message: 'Are you sure you want to remove a model?',
+    message: `Are you sure you want to remove the model "${modelName}"? This will delete its cloud resources.`,
     options: [
       { value: 'yes', label: 'Yes' },
       { value: 'no', label: 'No' }
@@ -48,7 +48,6 @@ export async function shouldRemoveModel(): Promise<void> {
     process.exit(0);
   }
 }
-
 
 export async function selectModelToRemove(modelsConfigPath: string): Promise<string | null> {
   const models = readModelsConfig(modelsConfigPath);
@@ -71,15 +70,6 @@ export async function selectModelToRemove(modelsConfigPath: string): Promise<str
 
   if (isCancel(selectedModel)) {
      process.exit(0);
-  }
-  
-  const shouldRemove = await confirm({
-      message: `Are you sure you want to remove the model "${selectedModel}"? This will delete its cloud resources.`,
-  });
-
-  if (isCancel(shouldRemove) || !shouldRemove) {
-    cancel('Model removal cancelled.');
-    process.exit(0);
   }
 
   return selectedModel as string;
