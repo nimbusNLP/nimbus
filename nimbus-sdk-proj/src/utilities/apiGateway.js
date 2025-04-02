@@ -1,6 +1,8 @@
 // src/utilities/apiGateway.js
-import { apigateway, region, lambda } from "../awsConfig.js";
+import { apigateway, region, lambda, iam } from "../awsConfig.js";
 
+
+// create API and LambdaExecutionRole
 export async function createApi(apiName) {
   try {
     const response = await apigateway.createRestApi({ name: apiName }).promise();
@@ -12,6 +14,64 @@ export async function createApi(apiName) {
     process.exit(1);
   }
 }
+
+export async function createLambdaExecutionRole(roleName) {
+  const assumeRolePolicyDocument = JSON.stringify({
+      Version: "2012-10-17",
+      Statement: [
+          {
+              Effect: "Allow",
+              Principal: {
+                  Service: "lambda.amazonaws.com"
+              },
+              Action: "sts:AssumeRole"
+          }
+      ]
+  });
+
+  try {
+      // Create the IAM Role
+      const role = await iam.createRole({
+          RoleName: roleName,
+          AssumeRolePolicyDocument: assumeRolePolicyDocument
+      }).promise();
+
+      console.log(`Created Role ARN: ${role.Role.Arn}`);
+
+      // Attach AWSLambdaBasicExecutionRole Policy (for CloudWatch Logs)
+      await iam.attachRolePolicy({
+          RoleName: roleName,
+          PolicyArn: "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      }).promise();
+
+      console.log(`Attached AWSLambdaBasicExecutionRole policy to ${roleName}`);
+
+      return role.Role.Arn;
+  } catch (error) {
+      if (error.code === 'EntityAlreadyExists') {
+          console.log(`Role ${roleName} already exists.`);
+
+          const existingRole = await iam.getRole({ RoleName: roleName }).promise();
+          return existingRole.Role.Arn;
+      } else {
+          console.error(`Error creating role: ${error.message}`);
+      }
+  }
+}
+
+export async function getLambdaExecutionRole(roleName) {
+  try {
+    const roleData = await iam.getRole({ RoleName: roleName }).promise();
+    console.log(`Reusing existing role ${roleData.Role.Arn}`);
+    return roleData.Role.Arn;
+  } catch (error) {
+    if (error.code === "NoSuchEntity") {
+      console.log(`Role ${roleName} does not exist.`)
+    } else {
+      throw error;
+    }
+  }
+} 
 
 export async function attachLambdaToApi(apiId, lambdaName, lambdaArn) {
   try {

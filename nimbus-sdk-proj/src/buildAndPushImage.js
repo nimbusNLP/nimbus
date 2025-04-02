@@ -1,82 +1,11 @@
-// // src/buildAndPushImage.js
-// import { execSync } from "child_process";
-// import path from "path";
-// import { fileURLToPath } from "url";
-// import { sts, ecr, lambda, region } from "./awsConfig.js";
-// import { createLambdaExecutionRole } from "./utilities/iamUtils.js";
-
-// // Create __dirname for ES Modules
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// // Get absolute path to the my-lambda-app directory
-// const localDirectory = path.join(__dirname, "..", "my-lambda-app");
-// const repositoryName = "my-lambda-repo";
-// const imageTag = "latest";
-
-// async function buildAndPushImage(lambdaName) {
-//   try {
-//     // Get AWS Account ID from STS
-//     const identity = await sts.getCallerIdentity().promise();
-//     const accountId = identity.Account;
-//     const repositoryUri = `${accountId}.dkr.ecr.${region}.amazonaws.com/${repositoryName}:${imageTag}`;
-
-//     console.log("Authenticating with ECR...");
-//     execSync(
-//       `aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${accountId}.dkr.ecr.${region}.amazonaws.com`,
-//       { stdio: "inherit" }
-//     );
-
-//     console.log("Building Docker image...");
-//     execSync(`docker build -t ${repositoryName} ${localDirectory}`, { stdio: "inherit" });
-
-//     console.log("Tagging Docker image...");
-//     execSync(`docker tag ${repositoryName}:latest ${repositoryUri}`, { stdio: "inherit" });
-
-//     console.log("Pushing Docker image to ECR...");
-//     execSync(`docker push ${repositoryUri}`, { stdio: "inherit" });
-//     console.log(`Image successfully pushed: ${repositoryUri}`);
-
-//     return repositoryUri;
-//   } catch (error) {
-//     console.error("Error building or pushing image:", error);
-//     process.exit(1);
-//   }
-// }
-
-// async function createLambdaFunction(lambdaName, imageUri) {
-//   try {
-//     // Create or retrieve the Lambda execution role based on lambdaName
-//     const roleArn = await createLambdaExecutionRole(lambdaName);
-//     const params = {
-//       FunctionName: lambdaName,
-//       Role: roleArn,
-//       Code: { ImageUri: imageUri },
-//       PackageType: "Image",
-//       Timeout: 15,
-//     };
-//     const result = await lambda.createFunction(params).promise();
-//     console.log("Lambda function deployed:", result.FunctionArn);
-//     return result.FunctionArn;
-//   } catch (error) {
-//     console.error("Error creating Lambda function:", error);
-//     process.exit(1);
-//   }
-// }
-
-// export async function buildPushAndDeployLambda(lambdaName) {
-//   const imageUri = await buildAndPushImage(lambdaName);
-//   const lambdaArn = await createLambdaFunction(lambdaName, imageUri);
-//   return lambdaArn;
-// }
-
-
 // src/buildAndPushImage.js
 import { execSync } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
 import { sts, ecr, lambda, region } from "./awsConfig.js";
 import { createLambdaExecutionRole } from "./utilities/iamUtils.js";
+import { getStoredApiData } from "./utilities/storageUtils.js";
+import { getLambdaExecutionRole } from "./utilities/apiGateway.js";
 
 // Create __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -149,17 +78,23 @@ async function buildAndPushImage(lambdaName) {
 async function createLambdaFunction(lambdaName, imageUri) {
   try {
     // Create or retrieve the Lambda execution role based on lambdaName
-    const roleArn = await createLambdaExecutionRole(lambdaName);
-    const params = {
-      FunctionName: lambdaName,
-      Role: roleArn,
-      Code: { ImageUri: imageUri },
-      PackageType: "Image",
-      Timeout: 15,
-    };
-    const result = await lambda.createFunction(params).promise();
-    console.log("Lambda function deployed:", result.FunctionArn);
-    return result.FunctionArn;
+    const apiName = getStoredApiData('apiName');
+    const roleArn = await getLambdaExecutionRole(apiName);
+
+    return new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        const params = {
+          FunctionName: lambdaName,
+          Role: roleArn,
+          Code: { ImageUri: imageUri },
+          PackageType: "Image",
+          Timeout: 15,
+        };
+        const result = await lambda.createFunction(params).promise();
+        console.log("Lambda function deployed:", result.FunctionArn);
+        resolve(result.FunctionArn);
+      }, 10000)
+    })
   } catch (error) {
     console.error("Error creating Lambda function:", error);
     process.exit(1);
