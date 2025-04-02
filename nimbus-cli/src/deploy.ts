@@ -18,6 +18,7 @@ export async function deploy(nimbusLocalStoragePath: string) {
   const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDir, 'models.json');
 
+  ensureDirectoryExists(nimbusModelStorage);
   ensureDirectoryExists(finishedDir);
   initializeModelsConfig(modelsConfigPath);
 

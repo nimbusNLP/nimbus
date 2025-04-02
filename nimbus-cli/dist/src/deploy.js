@@ -9,6 +9,7 @@ export async function deploy(nimbusLocalStoragePath) {
     const currentDir = process.cwd();
     const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
     const modelsConfigPath = path.join(finishedDir, 'models.json');
+    ensureDirectoryExists(nimbusModelStorage);
     ensureDirectoryExists(finishedDir);
     initializeModelsConfig(modelsConfigPath);
     // Check if we need to deploy API Gateway
