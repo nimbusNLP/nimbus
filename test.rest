@@ -1,0 +1,15 @@
+###
+POST  https://yzeog1jowg.execute-api.us-east-2.amazonaws.com/prod/first/predict 
+Content-Type: application/json
+
+{
+    "text": "Hello, world!"
+}
+
+###
+POST https://yzeog1jowg.execute-api.us-east-2.amazonaws.com/prod/second/predict
+Content-Type: application/json
+
+{
+    "text": "Hello, world!"
+}
