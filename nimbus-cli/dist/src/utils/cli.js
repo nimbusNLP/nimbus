@@ -61,3 +61,16 @@ export async function selectModelToRemove(modelsConfigPath) {
     }
     return selectedModel;
 }
+export async function shouldDestroyStack() {
+    const destroyChoice = await select({
+        message: `Are you sure you want to destroy the stack? This will delete all deployed AWS resources.`,
+        options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' }
+        ],
+    });
+    if (isCancel(destroyChoice) || destroyChoice === 'no') {
+        cancel('Operation cancelled.');
+        process.exit(0);
+    }
+}

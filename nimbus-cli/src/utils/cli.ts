@@ -74,3 +74,18 @@ export async function selectModelToRemove(modelsConfigPath: string): Promise<str
 
   return selectedModel as string;
 }
+
+export async function shouldDestroyStack(): Promise<void> {
+  const destroyChoice = await select({
+    message: `Are you sure you want to destroy the stack? This will delete all deployed AWS resources.`,
+    options: [
+      { value: 'yes', label: 'Yes' },
+      { value: 'no', label: 'No' }
+    ],
+  });
+
+  if (isCancel(destroyChoice) || destroyChoice === 'no') {
+    cancel('Operation cancelled.');
+    process.exit(0);
+  }
+}
