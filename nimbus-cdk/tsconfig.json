@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "commonjs",
+    "module": "CommonJS",
     "lib": [
       "es2020",
       "dom"
     ],
+    "outDir": "./dist",
+    "rootDir": "./",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -22,10 +24,14 @@
     "strictPropertyInitialization": false,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "types": ["jest"]
   },
   "exclude": [
     "node_modules",
     "cdk.out"
-  ]
+  ],
+  "include": ["src/**/*", "test/**/*"]
 }

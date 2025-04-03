@@ -3,12 +3,18 @@
   "private": true,
   "workspaces": [
     "nimbus-cli",
-    "nimbus-cdk"  
+    "nimbus-cdk"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
     "start": "cd nimbus-cli && npm run start"
+  },
+  "devDependencies": {
+    "@aws-cdk/assertions": "^1.203.0",
+    "@types/jest": "^29.5.14",
+    "aws-cdk-lib": "^2.187.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.1"
   }
 }
-

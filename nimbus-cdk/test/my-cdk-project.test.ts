@@ -1,17 +1,19 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as MyCdkProject from '../lib/my-cdk-project-stack';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import * as NimbusStack from '../lib/nimbus-cdk-stack';
 
 // example test. To run these tests, uncomment this file along with the
 // example resource in lib/my-cdk-project-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new MyCdkProject.MyCdkProjectStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+describe('ApiGatewayStack', () => {
+  test('API is created', () => {
+    const app = new cdk.App();
+    const stack = new NimbusStack.ApiGatewayStack(app, "ApiGatewayStack");
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties('AWS::ApiGateway::RestApi', {
+      Name: 'ApiGatewayStack',
+    });
+  });
+
 });

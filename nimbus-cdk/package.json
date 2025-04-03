@@ -28,5 +28,8 @@
     "@aws-cdk/aws-lambda-event-sources": "^1.203.0",
     "aws-cdk-lib": "2.181.1",
     "constructs": "^10.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js"]
   }
 }
