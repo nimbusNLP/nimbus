@@ -3,6 +3,8 @@ import { promisify } from 'util';
 import path from 'path';
 import { spinner, note } from '@clack/prompts';
 import chalk from 'chalk';
+import fs from 'fs';
+import { readModelsConfig } from './fileSystem.js';
 const execPromise = promisify(exec);
 export async function deployApiGateway(currentDir, finishedDirPath) {
     try {
@@ -28,6 +30,7 @@ export async function deployUpdatedStack(currentDir, finishedDirPath, modelName)
         const spin = spinner();
         spin.start('Deploying model...');
         const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
+        console.log(finishedDirPath);
         const res = await execPromise(command, {
             cwd: path.join(currentDir, '../nimbus-cdk')
         });
@@ -36,6 +39,12 @@ export async function deployUpdatedStack(currentDir, finishedDirPath, modelName)
     }
     catch (error) {
         console.error(`Error deploying updated stack: ${error.message}`);
+        //delete directory and model from finished_dir/ models.json
+        const modelPath = path.join(finishedDirPath, modelName);
+        fs.rmSync(modelPath, { recursive: true, force: true });
+        const modelsJsonArr = readModelsConfig(path.join(finishedDirPath, 'models.json'));
+        const updatedModelsJSON = modelsJsonArr.filter(model => model.modelName !== modelName);
+        fs.writeFileSync(path.join(finishedDirPath, 'models.json'), JSON.stringify(updatedModelsJSON, null, 2));
         throw error;
     }
 }
