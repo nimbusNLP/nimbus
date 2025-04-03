@@ -9,7 +9,7 @@ export async function deploy(nimbusLocalStoragePath) {
     const currentDir = process.cwd();
     const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
     const modelsConfigPath = path.join(finishedDir, 'models.json');
-    ensureDirectoryExists(nimbusModelStorage);
+    ensureDirectoryExists(nimbusLocalStoragePath);
     ensureDirectoryExists(finishedDir);
     initializeModelsConfig(modelsConfigPath);
     // Check if we need to deploy API Gateway
@@ -26,7 +26,7 @@ export async function deploy(nimbusLocalStoragePath) {
     }
     // Get model details
     const modelType = await getModelType();
-    const modelName = await getModelName();
+    const modelName = await getModelName(modelsConfigPath);
     const modelDescription = await getModelDescription();
     const modelPathOrName = modelType === 'pre-trained'
         ? await getPreTrainedModel()

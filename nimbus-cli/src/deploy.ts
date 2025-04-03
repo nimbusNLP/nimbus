@@ -18,7 +18,7 @@ export async function deploy(nimbusLocalStoragePath: string) {
   const finishedDir = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDir, 'models.json');
 
-  ensureDirectoryExists(nimbusModelStorage);
+  ensureDirectoryExists(nimbusLocalStoragePath);
   ensureDirectoryExists(finishedDir);
   initializeModelsConfig(modelsConfigPath);
 
@@ -39,7 +39,7 @@ export async function deploy(nimbusLocalStoragePath: string) {
 
   // Get model details
   const modelType = await getModelType();
-  const modelName = await getModelName();
+  const modelName = await getModelName(modelsConfigPath);
   const modelDescription = await getModelDescription();
   const modelPathOrName = modelType === 'pre-trained' 
     ? await getPreTrainedModel()

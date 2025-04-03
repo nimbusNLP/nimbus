@@ -1,9 +1,10 @@
-import { select, text, isCancel, cancel } from '@clack/prompts';
+import { select, text } from '@clack/prompts';
 import fs from 'fs';
 import path from 'path';
 import { writeModelFiles } from './fileSystem.js';
 import generateDockerfile from '../dockerCode.js';
 import generateLambdaFile from '../lambdaCode.js';
+import { validModelName, modelNameNotUnique, isSafeDescription, optionToExitApp } from './validation.js';
 export async function getModelType() {
     const modelType = await select({
         message: 'Please choose the type of model you want to deploy:',
@@ -12,20 +13,31 @@ export async function getModelType() {
             { value: 'fine-tuned', label: 'Fine-tuned Model' },
         ],
     });
-    if (isCancel(modelType)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
-    }
+    optionToExitApp(modelType);
     return modelType;
 }
-export async function getModelName() {
-    const modelName = await text({
+export async function getModelName(modelsConfigPath) {
+    let modelName = await text({
         message: 'Enter a name for your model (this will be used in the API path):',
         placeholder: 'modelA',
     });
-    if (isCancel(modelName)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
+    optionToExitApp(modelName);
+    //VALIDATE MODEL NAME is unique and appropriate for URL
+    while (!validModelName(modelName, modelsConfigPath)) {
+        if (modelNameNotUnique(modelName, modelsConfigPath)) {
+            modelName = await text({
+                message: '❌ Enter a unique model name',
+                placeholder: 'modelA',
+            });
+            optionToExitApp(modelName);
+        }
+        else {
+            modelName = await text({
+                message: '❌ Only lowercase letters, numbers, hyphens or underscores, and start with a letter:',
+                placeholder: 'modelA',
+            });
+            optionToExitApp(modelName);
+        }
     }
     return modelName;
 }
@@ -38,10 +50,7 @@ export async function getPreTrainedModel() {
             { value: 'en_core_web_lg', label: 'en_core_web_lg' },
         ],
     });
-    if (isCancel(selectedModel)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
-    }
+    optionToExitApp(selectedModel);
     return selectedModel;
 }
 export async function getFineTunedModelPath() {
@@ -56,26 +65,23 @@ export async function getFineTunedModelPath() {
             return '';
         },
     });
-    if (isCancel(modelPath)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
-    }
+    optionToExitApp(modelPath);
     return modelPath;
 }
 export async function getModelDescription() {
-    const description = await text({
+    let description = await text({
         message: 'Enter a description for your model:',
-        placeholder: 'This model is used for...',
-        validate(value) {
-            if (value.length === 0)
-                return 'Description is required.';
-            return '';
-        },
+        placeholder: 'This model is used for...'
     });
-    if (isCancel(description)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
+    //VALIDATE DESCRIPTION
+    while (!isSafeDescription(description)) {
+        description = await text({
+            message: '❌ Invalid description. Use plain text under 200 characters. No special symbols like < > $ ; or backticks.',
+            placeholder: 'modelA',
+        });
+        optionToExitApp(description);
     }
+    optionToExitApp(description);
     return description;
 }
 export function generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription) {
