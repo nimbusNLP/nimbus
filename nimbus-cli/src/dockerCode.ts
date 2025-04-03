@@ -1,10 +1,9 @@
-import type { PlatformPath } from 'path/posix';
-
+import type { PlatformPath } from "path/posix";
 
 const generateDockerfile = (
   modelType: string,
   modelNameOrPath: string | symbol,
-  platformPath: PlatformPath
+  platformPath: PlatformPath,
 ) => {
   let dockerfileContent = `
 # Use the official AWS Lambda Python 3.12 base image
@@ -18,13 +17,13 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 `;
 
-  if (modelType === 'pre-trained') {
+  if (modelType === "pre-trained") {
     dockerfileContent += `
 # Download the spaCy model
 RUN python -m spacy download ${String(modelNameOrPath)}
 `;
-  } else if (modelType === 'fine-tuned') {
-    'WORKDIR /var/task'
+  } else if (modelType === "fine-tuned") {
+    ("WORKDIR /var/task");
     const modelDirName = platformPath.basename(modelNameOrPath as string);
     dockerfileContent += `
 # Copy the fine-tuned spaCy model into the container

@@ -4,6 +4,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cdk = require("aws-cdk-lib");
 const nimbus_cdk_stack_1 = require("../lib/nimbus-cdk-stack");
 const app = new cdk.App();
-new nimbus_cdk_stack_1.ApiGatewayStack(app, 'ApiGatewayStack', {});
+new nimbus_cdk_stack_1.ApiGatewayStack(app, "ApiGatewayStack", {});
 app.synth();
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmltYnVzLWNkay5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm5pbWJ1cy1jZGsudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQ0EsbUNBQW1DO0FBQ25DLDhEQUEwRDtBQUUxRCxNQUFNLEdBQUcsR0FBRyxJQUFJLEdBQUcsQ0FBQyxHQUFHLEVBQUUsQ0FBQztBQUUxQixJQUFJLGtDQUFlLENBQUMsR0FBRyxFQUFFLGlCQUFpQixFQUFFLEVBQzNDLENBQUMsQ0FBQztBQUVILEdBQUcsQ0FBQyxLQUFLLEVBQUUsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIiMhL3Vzci9iaW4vZW52IG5vZGVcbmltcG9ydCAqIGFzIGNkayBmcm9tICdhd3MtY2RrLWxpYic7XG5pbXBvcnQgeyBBcGlHYXRld2F5U3RhY2sgfSBmcm9tICcuLi9saWIvbmltYnVzLWNkay1zdGFjayc7XG5cbmNvbnN0IGFwcCA9IG5ldyBjZGsuQXBwKCk7XG5cbm5ldyBBcGlHYXRld2F5U3RhY2soYXBwLCAnQXBpR2F0ZXdheVN0YWNrJywge1xufSk7XG5cbmFwcC5zeW50aCgpOyJdfQ==

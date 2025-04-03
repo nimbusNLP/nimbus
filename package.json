@@ -3,7 +3,7 @@
   "private": true,
   "workspaces": [
     "nimbus-cli",
-    "nimbus-cdk"  
+    "nimbus-cdk"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
@@ -11,4 +11,3 @@
     "start": "cd nimbus-cli && npm run start"
   }
 }
-
