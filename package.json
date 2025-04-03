@@ -3,7 +3,9 @@
   "private": true,
   "workspaces": [
     "nimbus-cli",
-    "nimbus-cdk"  
+    "nimbus-cdk",
+    "nimbus-ui/server",
+    "nimbus-ui/client"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
