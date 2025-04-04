@@ -2,7 +2,7 @@ import path from "path";
 import { displayDeleteCompletionMessage, displayDeleteWelcomeMessage, } from "./utils/ui.js";
 import { deleteModelFromStack } from "./utils/deployment.js";
 import { shouldRemoveModel, selectModelToRemove } from "./utils/cli.js";
-import { removeModelFromConfig, removeModelDirectory, readModelsConfig, } from "./utils/fileSystem.js";
+import { readModelsConfig, } from "./utils/fileSystem.js";
 import * as fs from 'fs';
 export async function deleteModel(nimbusLocalStoragePath) {
     displayDeleteWelcomeMessage();
@@ -22,8 +22,6 @@ export async function deleteModel(nimbusLocalStoragePath) {
     if (modelToRemove) {
         await shouldRemoveModel(modelToRemove);
         console.log(`Proceeding to remove model: ${modelToRemove}`);
-        removeModelFromConfig(modelsConfigPath, modelToRemove);
-        removeModelDirectory(finishedDir, modelToRemove);
         await deleteModelFromStack(currentDir, finishedDir, modelToRemove);
         displayDeleteCompletionMessage();
     }

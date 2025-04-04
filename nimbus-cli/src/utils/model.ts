@@ -43,7 +43,7 @@ export async function getModelName(modelsConfigPath: string): Promise<string> {
     } else {
       modelName = await text({
         message:
-          "❌ Only lowercase letters, numbers, hyphens or underscores, and start with a letter:",
+          "❌ Only lowercase letters, numbers and start with a letter:",
         placeholder: "modelA",
       });
 

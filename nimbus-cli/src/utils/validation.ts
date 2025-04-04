@@ -8,7 +8,7 @@ export function validModelName(
   if (typeof modelName !== "string" || !modelName.trim()) {
     return false;
   }
-  const isValid = /^[a-z][a-z0-9-_]{0,29}$/.test(String(modelName));
+  const isValid = /^[a-z][a-z0-9]{0,29}$/.test(String(modelName));
   return isValid && !modelNameNotUnique(modelName, modelsConfigPath)
     ? true
     : false;

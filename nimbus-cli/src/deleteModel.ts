@@ -12,6 +12,8 @@ import {
 } from "./utils/fileSystem.js";
 import * as fs from 'fs';
 
+
+
 export async function deleteModel(nimbusLocalStoragePath: string) {
   displayDeleteWelcomeMessage();
 
@@ -35,11 +37,7 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
 
   if (modelToRemove) {
     await shouldRemoveModel(modelToRemove);
-
     console.log(`Proceeding to remove model: ${modelToRemove}`);
-    removeModelFromConfig(modelsConfigPath, modelToRemove);
-    removeModelDirectory(finishedDir, modelToRemove);
-
     await deleteModelFromStack(currentDir, finishedDir, modelToRemove);
     displayDeleteCompletionMessage();
   } else {

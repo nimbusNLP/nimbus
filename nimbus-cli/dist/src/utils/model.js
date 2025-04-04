@@ -33,7 +33,7 @@ export async function getModelName(modelsConfigPath) {
         }
         else {
             modelName = await text({
-                message: "❌ Only lowercase letters, numbers, hyphens or underscores, and start with a letter:",
+                message: "❌ Only lowercase letters, numbers and start with a letter:",
                 placeholder: "modelA",
             });
             optionToExitApp(modelName);

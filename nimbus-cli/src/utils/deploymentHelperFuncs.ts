@@ -7,36 +7,39 @@ import { promisify } from "util";
 
 const execPromise = promisify(exec);
 
-
-export async function deployStackWithCleanup(  
+export async function deployStackWithCleanup(
   startSpinnerMessage: string,
   stopSpinnerMessage: string,
   finishedDirPath: string,
   currentDir: string,
-  modelName: string, 
-  modelDir: string) {
-    try {
-      const result = await deployStack(startSpinnerMessage, stopSpinnerMessage, finishedDirPath, currentDir);
-      return result;
-    } catch (error) {
-        console.log('Deployment failed. Cleaning up...');
-        deleteModelFromFinishedDir(
-          modelDir, 
-          finishedDirPath, 
-          modelName
-        );
-      }
-      throw Error;
+  modelName: string,
+  modelDir: string
+) {
+  try {
+    const result = await deployStack(
+      startSpinnerMessage,
+      stopSpinnerMessage,
+      finishedDirPath,
+      currentDir
+    );
+    return result;
+  } catch (error) {
+    console.log("Deployment failed. Cleaning up...");
+    deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
+  }
+  throw Error;
 }
 
 export async function deployStack(
   startSpinnerMessage: string,
   stopSpinnerMessage: string,
   finishedDirPath: string,
-  currentDir: string,
+  currentDir: string
 ) {
   const spin = spinner();
   spin.start(startSpinnerMessage);
+
+  process.once("SIGINT", () => console.log("HIIIIII"));
 
   const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
 
@@ -47,7 +50,6 @@ export async function deployStack(
   spin.stop(stopSpinnerMessage);
   return res;
 }
-
 
 export function getApiUrlFromLogs(res: { stdout: string; stderr: string }) {
   const apiUrl = res.stderr.split("ApiGatewayStack.RestApiUrl")[1] as string;
@@ -64,7 +66,7 @@ export function deleteModelFromFinishedDir(
   if (fs.existsSync(modelDir)) {
     fs.rmSync(modelDir, { recursive: true, force: true });
   }
-  
+
   const modelsJsonPath = path.join(finishedDirPath, "models.json");
   if (fs.existsSync(modelsJsonPath)) {
     const modelsJsonArr = readModelsConfig(modelsJsonPath);
@@ -86,4 +88,46 @@ export function parseModelURL(cdkOutput: string, modelName: string): string {
     .split("ApiGatewayStack.")[0]
     .replace(/\r?\n/g, "")
     .trim();
+}
+
+export function copyDirectory(source: string, destination: string): void {
+  if (!fs.existsSync(destination)) {
+    fs.mkdirSync(destination, { recursive: true });
+  }
+
+  const entries = fs.readdirSync(source, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const srcPath = path.join(source, entry.name);
+    const destPath = path.join(destination, entry.name);
+
+    if (entry.isDirectory()) {
+      copyDirectory(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+export function restoreModelToConfig(
+  configPath: string,
+  modelBackup: any
+): void {
+  try {
+    const models = readModelsConfig(configPath);
+    const existingModelIndex = models.findIndex(
+      (m) => m.modelName === modelBackup.modelName
+    );
+
+    if (existingModelIndex === -1) {
+      models.push(modelBackup);
+    } else {
+      models[existingModelIndex] = modelBackup;
+    }
+
+    fs.writeFileSync(configPath, JSON.stringify(models, null, 2));
+    console.log(`Model ${modelBackup.modelName} restored to configuration.`);
+  } catch (err) {
+    console.error("Error restoring model configuration:", err);
+  }
 }

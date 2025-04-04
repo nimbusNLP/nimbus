@@ -11,7 +11,7 @@ export async function deployStackWithCleanup(startSpinnerMessage, stopSpinnerMes
         return result;
     }
     catch (error) {
-        console.log('Deployment failed. Cleaning up...');
+        console.log("Deployment failed. Cleaning up...");
         deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
     }
     throw Error;
@@ -19,6 +19,7 @@ export async function deployStackWithCleanup(startSpinnerMessage, stopSpinnerMes
 export async function deployStack(startSpinnerMessage, stopSpinnerMessage, finishedDirPath, currentDir) {
     const spin = spinner();
     spin.start(startSpinnerMessage);
+    process.once("SIGINT", () => console.log("HIIIIII"));
     const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
     const res = await execPromise(command, {
         cwd: path.join(currentDir, "../nimbus-cdk"),
@@ -51,4 +52,37 @@ export function parseModelURL(cdkOutput, modelName) {
         .split("ApiGatewayStack.")[0]
         .replace(/\r?\n/g, "")
         .trim();
+}
+export function copyDirectory(source, destination) {
+    if (!fs.existsSync(destination)) {
+        fs.mkdirSync(destination, { recursive: true });
+    }
+    const entries = fs.readdirSync(source, { withFileTypes: true });
+    for (const entry of entries) {
+        const srcPath = path.join(source, entry.name);
+        const destPath = path.join(destination, entry.name);
+        if (entry.isDirectory()) {
+            copyDirectory(srcPath, destPath);
+        }
+        else {
+            fs.copyFileSync(srcPath, destPath);
+        }
+    }
+}
+export function restoreModelToConfig(configPath, modelBackup) {
+    try {
+        const models = readModelsConfig(configPath);
+        const existingModelIndex = models.findIndex((m) => m.modelName === modelBackup.modelName);
+        if (existingModelIndex === -1) {
+            models.push(modelBackup);
+        }
+        else {
+            models[existingModelIndex] = modelBackup;
+        }
+        fs.writeFileSync(configPath, JSON.stringify(models, null, 2));
+        console.log(`Model ${modelBackup.modelName} restored to configuration.`);
+    }
+    catch (err) {
+        console.error("Error restoring model configuration:", err);
+    }
 }

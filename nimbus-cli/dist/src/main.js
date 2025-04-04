@@ -4,7 +4,7 @@ import { deleteModel } from './deleteModel.js';
 import { listModels } from './list.js';
 import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
-//import { serveUi } from 'nimbus-ui-server';
+// import { serveUi } from 'nimbus-ui-server';
 async function main() {
     const args = process.argv;
     const [runtime, path, command] = args;
