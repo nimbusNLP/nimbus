@@ -25,14 +25,14 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
   }
 
   const modelToRemove = await selectModelToRemove(modelsConfigPath);
-  
+
   if (modelToRemove) {
     await shouldRemoveModel(modelToRemove);
-    
+
     console.log(`Proceeding to remove model: ${modelToRemove}`);
     removeModelFromConfig(modelsConfigPath, modelToRemove);
     removeModelDirectory(finishedDir, modelToRemove);
-    
+
     await deleteModelFromStack(currentDir, finishedDir, modelToRemove);
     displayDeleteCompletionMessage();
   } else {

@@ -19,12 +19,14 @@ Nimbus streamlines the workflow of deploying ML models (both pre-trained and fin
 ## Installation
 
 1. Clone this repository:
+
    ```
    git clone https://github.com/yourusername/nimbus.git
    cd nimbus
    ```
 
 2. Install dependencies for the CLI tool:
+
    ```
    cd nimbus-cli
    npm install
@@ -32,6 +34,7 @@ Nimbus streamlines the workflow of deploying ML models (both pre-trained and fin
    ```
 
 3. Install dependencies for the CDK application:
+
    ```
    cd ../nimbus-cdk
    npm install
@@ -72,6 +75,7 @@ nimbus deploy
 ```
 
 This interactive command will:
+
 1. Set up the API Gateway (if it's your first deployment)
 2. Ask for the model type (pre-trained or fine-tuned)
 3. Prompt for a model name and description
@@ -127,4 +131,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the ISC License. 
+This project is licensed under the ISC License.
