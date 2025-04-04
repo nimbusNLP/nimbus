@@ -37,6 +37,11 @@ export class ApiGatewayStack extends cdk.Stack {
         stageName: "prod",
       },
     });
+    api.root.addCorsPreflight({
+      allowOrigins: apigateway.Cors.ALL_ORIGINS, // Or apigateway.Cors.ALL_ORIGINS
+      allowMethods: ["GET", "OPTIONS"],        // Methods for the root endpoint
+      allowHeaders: ["Content-Type", "Authorization"], // Common headers
+    });
     
     const modelsPath = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../nimbus-cli/nimbus-config.json'), 'utf8'));
     const modelsJSON = fs.readFileSync(path.resolve(modelsPath.localStorage, 'finished_dir/models.json'), 'utf8');
@@ -61,7 +66,7 @@ export class ApiGatewayStack extends cdk.Stack {
         `exports.handler = async () => {
           return {
             statusCode: 200,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
             body: '${JSON.stringify(parsedModels)}'
           };
         };`,

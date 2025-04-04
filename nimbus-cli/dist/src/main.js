@@ -1,18 +1,10 @@
 #!/usr/bin/env node
-<<<<<<< HEAD
 import { deploy } from './deploy.js';
 import { deleteModel } from './deleteModel.js';
 import { listModels } from './list.js';
 import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
 import { serveUi } from 'nimbus-ui-server';
-=======
-import { deploy } from "./deploy.js";
-import { deleteModel } from "./deleteModel.js";
-import { listModels } from "./list.js";
-import { destroy } from "./destroy.js";
-import { configureApp } from "./utils/config.js";
->>>>>>> dev
 async function main() {
     const args = process.argv;
     const [runtime, path, command] = args;
@@ -40,20 +32,12 @@ async function main() {
             break;
         }
         default: {
-<<<<<<< HEAD
             console.log('Available commands:');
             console.log('  deploy - Deploy a new model');
             console.log('  list   - List all deployed models');
             console.log('  delete - Delete a model');
             console.log('  destroy - Destroy the stack');
             console.log('  ui - Serve the UI');
-=======
-            console.log("Available commands:");
-            console.log("  deploy - Deploy a new model");
-            console.log("  list   - List all deployed models");
-            console.log("  delete - Delete a model");
-            console.log("  destroy - Destroy the stack");
->>>>>>> dev
         }
     }
 }

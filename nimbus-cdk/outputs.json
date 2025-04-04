@@ -3,6 +3,7 @@
     "ModelEndpointmediummodel": "https://cfx3hbdfec.execute-api.us-east-2.amazonaws.com/prod/mediummodel/predict",
     "PredictRestApiEndpointCE56DB59": "https://cfx3hbdfec.execute-api.us-east-2.amazonaws.com/prod/",
     "ModelEndpointsmallmodel": "https://cfx3hbdfec.execute-api.us-east-2.amazonaws.com/prod/smallmodel/predict",
+    "ModelEndpointpingme": "https://cfx3hbdfec.execute-api.us-east-2.amazonaws.com/prod/pingme/predict",
     "RestApiUrl": "https://cfx3hbdfec.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }

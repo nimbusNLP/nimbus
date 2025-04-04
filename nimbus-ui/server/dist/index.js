@@ -56,7 +56,7 @@ function serveUi(nimbusLocalStoragePath) {
                 }
                 // Map models to include their full prediction endpoint
                 const modelsWithEndpoints = models.map((model) => {
-                    const endpoint = `${baseUrl}prod/${model.modelName}/predict`; // Assumes 'prod' stage
+                    const endpoint = `${baseUrl}${model.modelName}/predict`; // Assumes 'prod' stage
                     return Object.assign(Object.assign({}, model), { endpoint });
                 });
                 res.json(modelsWithEndpoints); // Send the combined data

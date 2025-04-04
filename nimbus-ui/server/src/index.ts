@@ -50,7 +50,7 @@ export async function serveUi(nimbusLocalStoragePath: string) {
 
       // Map models to include their full prediction endpoint
       const modelsWithEndpoints = models.map((model: any) => {
-        const endpoint = `${baseUrl}prod/${model.modelName}/predict`; // Assumes 'prod' stage
+        const endpoint = `${baseUrl}${model.modelName}/predict`; // Assumes 'prod' stage
         return {
           ...model,
           endpoint,
