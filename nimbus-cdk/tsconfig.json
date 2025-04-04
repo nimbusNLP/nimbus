@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "es6",
     "module": "commonjs",
+    "outDir": "./dist",
     "lib": [
       "es2020",
       "dom"
@@ -22,10 +23,13 @@
     "strictPropertyInitialization": false,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "types": ["jest"]
   },
   "exclude": [
     "node_modules",
-    "cdk.out"
-  ]
+    "cdk.out",
+    "dist" // Exclude the output directory
+  ],
+  "include": ["./**/*.ts"]
 }
