@@ -4,12 +4,14 @@ interface ModelsListProps {
   models: Model[];
   selectedModel: Model;
   setSelectedModel: (model: Model) => void;
+  setModelResponse: (response: string) => void;
 }
 
 const ModelsList = ({
   models,
   selectedModel,
   setSelectedModel,
+  setModelResponse,
 }: ModelsListProps) => {
   const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedModel(
@@ -20,6 +22,7 @@ const ModelsList = ({
         endpoint: "",
       }
     );
+    setModelResponse("");
   };
   return (
     <div>

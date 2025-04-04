@@ -16,6 +16,7 @@ exports.serveUi = serveUi;
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const open_1 = __importDefault(require("open"));
 // Export the function so it can be imported and called by nimbus-cli
 function serveUi(nimbusLocalStoragePath) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -90,6 +91,7 @@ function serveUi(nimbusLocalStoragePath) {
         // Start the server
         app.listen(port, () => {
             console.log(`[server]: Nimbus UI server listening at http://localhost:${port}`);
+            (0, open_1.default)(`http://localhost:${port}`);
         });
     });
 }

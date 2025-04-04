@@ -8,7 +8,7 @@ logger.setLevel(logging.INFO)
 
 # Load the spaCy model
 try:
-    nlp = spacy.load("en_core_web_md")
+    nlp = spacy.load("en_core_web_lg")
     logger.info("Model loaded successfully")
 except Exception as e:
     logger.error(f"Error loading model: {e}")

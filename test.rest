@@ -1,5 +1,5 @@
 ### 
-POST  https://fzzar7czia.execute-api.us-east-2.amazonaws.com/prod/satya/predict 
+POST https://thqk9porqc.execute-api.us-east-2.amazonaws.com/prod/frist/predict
 Content-Type: application/json
 
 {

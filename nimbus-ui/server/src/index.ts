@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
+import open from 'open';
 
 // Export the function so it can be imported and called by nimbus-cli
 export async function serveUi(nimbusLocalStoragePath: string) {
@@ -91,5 +92,6 @@ export async function serveUi(nimbusLocalStoragePath: string) {
   // Start the server
   app.listen(port, () => {
     console.log(`[server]: Nimbus UI server listening at http://localhost:${port}`);
+    open(`http://localhost:${port}`);
   });
 }
