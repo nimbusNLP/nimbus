@@ -1,9 +1,0 @@
-{
-  "ApiGatewayStack": {
-    "ModelEndpointko": "https://9u152o83wa.execute-api.us-east-2.amazonaws.com/prod/ko/predict",
-    "PredictRestApiEndpointCE56DB59": "https://9u152o83wa.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointgt": "https://9u152o83wa.execute-api.us-east-2.amazonaws.com/prod/gt/predict",
-    "ModelEndpointp": "https://9u152o83wa.execute-api.us-east-2.amazonaws.com/prod/p/predict",
-    "RestApiUrl": "https://9u152o83wa.execute-api.us-east-2.amazonaws.com/prod/"
-  }
-}
