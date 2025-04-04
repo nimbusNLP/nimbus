@@ -47,15 +47,24 @@ export async function deploy(nimbusLocalStoragePath: string) {
   // Get model details
   const modelType = await getModelType();
   const modelName = await getModelName(modelsConfigPath);
-  const modelDescription = await getModelDescription();
+  const modelDescription = (await getModelDescription()) ?? "";
   const modelPathOrName =
     modelType === "pre-trained"
       ? await getPreTrainedModel()
       : await getFineTunedModelPath();
 
+
   // Create model directory and copy files if needed
   const modelDir = path.join(finishedDir, modelName);
   ensureDirectoryExists(modelDir);
+  
+  let isCancelled = false;
+
+  process.once("SIGINT", () => {
+    isCancelled = true;
+    console.log("\n❌ Deployment cancelled by user.");
+    process.exit(0);
+  });
 
   if (modelType === "fine-tuned") {
     const destination = path.join(modelDir, "model-best");
@@ -75,5 +84,6 @@ export async function deploy(nimbusLocalStoragePath: string) {
 
   // Deploy the updated stack
   await deployUpdatedStack(currentDir, finishedDir, modelName, modelDir);
+  
   displayCompletionMessage();
 }

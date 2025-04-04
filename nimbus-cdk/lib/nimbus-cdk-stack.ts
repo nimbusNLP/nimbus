@@ -37,12 +37,34 @@ export class ApiGatewayStack extends cdk.Stack {
         stageName: "prod",
       },
     });
+    
+    const modelsPath = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../nimbus-cli/nimbus-config.json'), 'utf8'));
+    const modelsJSON = fs.readFileSync(path.resolve(modelsPath.localStorage, 'finished_dir/models.json'), 'utf8');
+
+    interface ModelEntry {
+      modelName: string;
+      modelType: string;
+      modelPathOrName: string;
+      description: string;
+    }
+    
+    const parsedModels: Record<string, string[]> = { models: [] };
+    
+    (JSON.parse(modelsJSON) as ModelEntry[]).forEach((obj) => {
+      parsedModels.models.push(obj.modelName);
+    });
 
     const defaultLambda = new lambda.Function(this, "DefaultLambda", {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: "index.handler",
       code: lambda.Code.fromInline(
-        'exports.handler = async () => { return { statusCode: 200, body: "No model deployed yet." }; }',
+        `exports.handler = async () => {
+          return {
+            statusCode: 200,
+            headers: { 'Content-Type': 'application/json' },
+            body: '${JSON.stringify(parsedModels)}'
+          };
+        };`,
       ),
     });
     api.root.addMethod("GET", new apigateway.LambdaIntegration(defaultLambda));

@@ -1,6 +1,6 @@
 import path from "path/posix";
 const generateLambdaFile = (modelType, modelNameOrPath) => {
-  return `import json
+    return `import json
 import spacy
 import logging
 
