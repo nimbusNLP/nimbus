@@ -1,13 +1,11 @@
-import type { PlatformPath } from 'path/posix';
-import path from 'path/posix';
-
+import type { PlatformPath } from "path/posix";
+import path from "path/posix";
 
 const generateLambdaFile = (
   modelType: string,
   modelNameOrPath: string | symbol,
 ) => {
-return (
-`import json
+  return `import json
 import spacy
 import logging
 
@@ -17,7 +15,7 @@ logger.setLevel(logging.INFO)
 
 # Load the spaCy model
 try:
-    nlp = spacy.load("${String(modelType) === 'pre-trained' ? String(modelNameOrPath) : '/var/task/' + path.basename(modelNameOrPath as string)}")
+    nlp = spacy.load("${String(modelType) === "pre-trained" ? String(modelNameOrPath) : "/var/task/" + path.basename(modelNameOrPath as string)}")
     logger.info("Model loaded successfully")
 except Exception as e:
     logger.error(f"Error loading model: {e}")
@@ -67,8 +65,7 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
         "body": json.dumps(doc_json)
-    }`)
-
-}
+    }`;
+};
 
 export default generateLambdaFile;

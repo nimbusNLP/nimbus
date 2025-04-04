@@ -13,4 +13,3 @@
     "start": "cd nimbus-cli && npm run start"
   }
 }
-

@@ -13,19 +13,19 @@ async function main() {
   let nimbusLocalStoragePath = await configureApp();
 
   switch (command) {
-    case 'deploy': {
+    case "deploy": {
       await deploy(nimbusLocalStoragePath);
       break;
     }
-    case 'list': {
+    case "list": {
       listModels(nimbusLocalStoragePath);
       break;
     }
-    case 'delete': {
+    case "delete": {
       await deleteModel(nimbusLocalStoragePath);
       break;
     }
-    case 'destroy': {
+    case "destroy": {
       await destroy(nimbusLocalStoragePath);
       break;
     }

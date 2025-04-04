@@ -10,14 +10,14 @@ RUN dnf install -y gcc
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 `;
-    if (modelType === 'pre-trained') {
+    if (modelType === "pre-trained") {
         dockerfileContent += `
 # Download the spaCy model
 RUN python -m spacy download ${String(modelNameOrPath)}
 `;
     }
-    else if (modelType === 'fine-tuned') {
-        'WORKDIR /var/task';
+    else if (modelType === "fine-tuned") {
+        ("WORKDIR /var/task");
         const modelDirName = platformPath.basename(modelNameOrPath);
         dockerfileContent += `
 # Copy the fine-tuned spaCy model into the container
