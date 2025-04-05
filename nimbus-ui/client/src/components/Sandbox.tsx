@@ -20,7 +20,6 @@ const SandBox = () => {
     const fetchModels = async () => {
       const response = await axios.get("http://localhost:3001/api/models");
       setModels(response.data);
-      setSelectedModel(response.data[0]);
     };
     fetchModels();
   }, []);

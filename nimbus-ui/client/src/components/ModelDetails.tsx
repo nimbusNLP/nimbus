@@ -11,18 +11,36 @@ const ModelDetails = ({ selectedModel }: ModelDetailsProps) => {
         <h2 className="text-lg font-medium">Selected Model Information</h2>
       </div>
       <div className="p-4 text-gray-300">
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <p className="text-sm text-indigo-400 mb-1">Name:</p>
-            <p className="font-medium">{selectedModel.modelName}</p>
+        <div className="space-y-3">
+          <div className="flex items-center">
+            <span className="text-sm text-indigo-400 w-24 flex-shrink-0">
+              Name:
+            </span>
+            <span className="font-mono text-sm">
+              {selectedModel.modelName || "Not selected"}
+            </span>
           </div>
-          <div>
-            <p className="text-sm text-indigo-400 mb-1">Endpoint:</p>
-            <p className="font-mono text-sm">{selectedModel.endpoint}</p>
+
+          <div className="flex items-center">
+            <span className="text-sm text-indigo-400 w-24 flex-shrink-0">
+              Endpoint:
+            </span>
+            <div className="overflow-x-auto whitespace-nowrap">
+              <span className="font-mono text-sm">
+                {selectedModel.endpoint || "Not available"}
+              </span>
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-indigo-400 mb-1">Description:</p>
-            <p className="text-sm">{selectedModel.description}</p>
+
+          <div className="flex items-center">
+            <span className="text-sm text-indigo-400 w-24 flex-shrink-0">
+              Description:
+            </span>
+            <div className="overflow-x-auto whitespace-nowrap">
+              <span className="font-mono text-sm">
+                {selectedModel.description || "No description available"}
+              </span>
+            </div>
           </div>
         </div>
       </div>

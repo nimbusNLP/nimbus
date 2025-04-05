@@ -1,8 +1,0 @@
-{
-  "ApiGatewayStack": {
-    "ModelEndpointbeforecssmodel": "https://v5rcsi25e1.execute-api.us-east-2.amazonaws.com/prod/beforecssmodel/predict",
-    "PredictRestApiEndpointCE56DB59": "https://v5rcsi25e1.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointtyui": "https://v5rcsi25e1.execute-api.us-east-2.amazonaws.com/prod/tyui/predict",
-    "RestApiUrl": "https://v5rcsi25e1.execute-api.us-east-2.amazonaws.com/prod/"
-  }
-}
