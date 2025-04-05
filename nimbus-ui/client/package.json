@@ -7,12 +7,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tailwind:init": "tailwindcss init -p"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.14",
     "axios": "^1.8.4",
+    "postcss": "^8.4.24",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

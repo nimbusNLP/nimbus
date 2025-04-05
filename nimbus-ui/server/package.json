@@ -2,6 +2,7 @@
   "name": "nimbus-ui-server",
   "version": "1.0.0",
   "description": "Express backend for Nimbus UI",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
