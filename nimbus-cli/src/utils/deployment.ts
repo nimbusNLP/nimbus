@@ -101,7 +101,7 @@ export async function deleteModelFromStack(
     removeModelDirectory(finishedDirPath, modelName);
 
     await deployStack(
-      `Updating AWS resources removing model ${modelName}...`,
+      `Removing model ${modelName}...`,
       `AWS resources updated after removing model ${modelName}!`,
       finishedDirPath,
       currentDir
@@ -111,10 +111,9 @@ export async function deleteModelFromStack(
       fs.rmSync(backupDir, { recursive: true, force: true });
     }
   } catch (error: any) {
-    console.error(`Error deploying updated stack: ${error.message}`);
+    console.error(chalk.red.bold(`\n\n❗️ ERROR DELETING MODEL ❗️\n\n`));
 
     if (modelBackup) {
-      console.log(`Restoring model ${modelName} configuration...`);
       restoreModelToConfig(
         path.join(finishedDirPath, "models.json"),
         modelBackup
@@ -122,14 +121,12 @@ export async function deleteModelFromStack(
     }
 
     if (modelDirectoryBackupPath && fs.existsSync(modelDirectoryBackupPath)) {
-      console.log(`Restoring model ${modelName} directory...`);
       const modelDir = path.join(finishedDirPath, modelName);
       copyDirectory(modelDirectoryBackupPath, modelDir);
     }
 
     if (fs.existsSync(backupDir)) {
       fs.rmSync(backupDir, { recursive: true, force: true });
-      console.log("Backup directory removed after restoration");
     }
 
     throw error;

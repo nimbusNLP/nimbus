@@ -126,7 +126,6 @@ export function restoreModelToConfig(
     }
 
     fs.writeFileSync(configPath, JSON.stringify(models, null, 2));
-    console.log(`Model ${modelBackup.modelName} restored to configuration.`);
   } catch (err) {
     console.error("Error restoring model configuration:", err);
   }

@@ -10,10 +10,13 @@ export function listModels(nimbusLocalStoragePath) {
             console.log("No models deployed yet.");
             return;
         }
+        const urlDir = path.join(process.cwd(), "../nimbus-cdk/outputs.json");
+        const urlData = fs.readFileSync(urlDir, "utf8");
+        const urlJson = JSON.parse(urlData).ApiGatewayStack.RestApiUrl;
         console.log("\nDeployed Models:");
         console.log("---------------");
         json.forEach((modelData) => {
-            console.log(`- ${modelData.modelName} (${modelData.modelType})`);
+            console.log(`- ${modelData.modelName} (${modelData.modelType}) - ${urlJson}${modelData.modelName}/predict`);
             console.log(`  Description: ${modelData.description}`);
         });
     }
