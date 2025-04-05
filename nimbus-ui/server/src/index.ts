@@ -16,7 +16,7 @@ export async function serveUi(nimbusLocalStoragePath: string) {
   // Paths required for the API route
   const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDirPath, 'models.json');
-  const cdkOutputsPath = path.join(__dirname, '..', '..', '..', 'nimbus-cdk', 'outputs.json');
+  const cdkOutputsPath = path.join(process.cwd(), '..', 'nimbus-cdk', 'outputs.json');
 
   // Restore API Route
   app.get('/api/models', (req: Request, res: Response) => {
@@ -67,7 +67,8 @@ export async function serveUi(nimbusLocalStoragePath: string) {
   });
 
   // Calculate path to the frontend build directory
-  const clientBuildPath = path.join(__dirname, '..', '..', 'client', 'dist');
+  const clientBuildPath = path.join(process.cwd(), '..', 'nimbus-ui', 'client', 'dist');
+  console.log(clientBuildPath);
 
   // Restore Static Serving and Catch-all Logic
   if (fs.existsSync(clientBuildPath)) {

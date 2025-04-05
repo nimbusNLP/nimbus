@@ -12,10 +12,7 @@ export async function serveUi(nimbusLocalStoragePath) {
     // Paths required for the API route
     const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
     const modelsConfigPath = path.join(finishedDirPath, 'models.json');
-    // Use import.meta.url for file paths in ES Modules
-    const __filename = new URL(import.meta.url).pathname;
-    const __dirname = path.dirname(__filename);
-    const cdkOutputsPath = path.join(__dirname, '..', '..', '..', 'nimbus-cdk', 'outputs.json');
+    const cdkOutputsPath = path.join(process.cwd(), '..', 'nimbus-cdk', 'outputs.json');
     // Restore API Route
     app.get('/api/models', (req, res) => {
         try {
@@ -58,7 +55,8 @@ export async function serveUi(nimbusLocalStoragePath) {
         }
     });
     // Calculate path to the frontend build directory
-    const clientBuildPath = path.join(__dirname, '..', '..', 'client', 'dist');
+    const clientBuildPath = path.join(process.cwd(), '..', 'nimbus-ui', 'client', 'dist');
+    console.log(clientBuildPath);
     // Restore Static Serving and Catch-all Logic
     if (fs.existsSync(clientBuildPath)) {
         // Serve static files (HTML, JS, CSS) from the client build directory

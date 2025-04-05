@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import ModelForm from "./ModelForm";
 import { Model } from "../types";
-import Response from './Response'
-import ModelDetails from './ModelDetails'
+import Response from "./Response";
+import ModelDetails from "./ModelDetails";
 
 const SandBox = () => {
   const [models, setModels] = useState<Model[]>([]);
@@ -14,6 +14,7 @@ const SandBox = () => {
     endpoint: "",
   });
   const [modelResponse, setModelResponse] = useState("");
+  const [processingTime, setProcessingTime] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -24,16 +25,19 @@ const SandBox = () => {
     fetchModels();
   }, []);
 
+  console.log(processingTime);
+
   return (
-    <div>
+    <div className="space-y-6">
       <ModelForm
         models={models}
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
         setModelResponse={setModelResponse}
+        setProcessingTime={setProcessingTime}
       />
-      <Response response={modelResponse} />
-       <ModelDetails selectedModel={selectedModel}/>
+      <Response response={modelResponse} processingTime={processingTime} />
+      <ModelDetails selectedModel={selectedModel} />
     </div>
   );
 };
