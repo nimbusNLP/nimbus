@@ -35,8 +35,8 @@ export function isSafeDescription(description: string | symbol): boolean {
   );
 }
 
-export function optionToExitApp(loc: string | symbol): void {
-  if (isCancel(loc)) {
+export function optionToExitApp(input: string | symbol): void {
+  if (isCancel(input)) {
     cancel("Operation cancelled.");
     process.exit(0);
   }

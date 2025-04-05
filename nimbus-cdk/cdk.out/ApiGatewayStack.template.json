@@ -9,7 +9,7 @@
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Resource"
    }
   },
-  "PredictRestApiDeployment49622637c82dec687aa66f9b9072b53a9a70c17e": {
+  "PredictRestApiDeployment49622637a23d392e35ae14cf3459007613b9c09f": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Automatically created by the RestApi construct",
@@ -18,19 +18,19 @@
     }
    },
    "DependsOn": [
+    "PredictRestApicpredictOPTIONS36847DD7",
+    "PredictRestApicpredictPOSTB19047EB",
+    "PredictRestApicpredict6C7FF615",
+    "PredictRestApic5E385646",
     "PredictRestApiGETBBFCD66A",
-    "PredictRestApihipredictOPTIONS74006025",
-    "PredictRestApihipredictPOST4793D23D",
-    "PredictRestApihipredict11FBEB5D",
-    "PredictRestApihiA757547D",
-    "PredictRestApipredictOPTIONSF0AB1B1B",
-    "PredictRestApipredictPOST05742BA1",
-    "PredictRestApipredict329ACCB6",
-    "PredictRestApi8179FC90",
-    "PredictRestApivgpredictOPTIONS357E1CD3",
-    "PredictRestApivgpredictPOST558CA102",
-    "PredictRestApivgpredictE09C6AF6",
-    "PredictRestApivgF2CB0CE9"
+    "PredictRestApimkpredictOPTIONS8A51A4FA",
+    "PredictRestApimkpredictPOSTCC602B52",
+    "PredictRestApimkpredict28D72500",
+    "PredictRestApimkD4F4ED2F",
+    "PredictRestApisdpredictOPTIONS09A113D0",
+    "PredictRestApisdpredictPOSTCDA8B1B5",
+    "PredictRestApisdpredictF4D98828",
+    "PredictRestApisd183D61E6"
    ],
    "Metadata": {
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Deployment/Resource"
@@ -40,7 +40,7 @@
    "Type": "AWS::ApiGateway::Stage",
    "Properties": {
     "DeploymentId": {
-     "Ref": "PredictRestApiDeployment49622637c82dec687aa66f9b9072b53a9a70c17e"
+     "Ref": "PredictRestApiDeployment49622637a23d392e35ae14cf3459007613b9c09f"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
@@ -181,7 +181,7 @@
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/GET/Resource"
    }
   },
-  "PredictRestApihiA757547D": {
+  "PredictRestApimkD4F4ED2F": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
@@ -190,20 +190,20 @@
       "RootResourceId"
      ]
     },
-    "PathPart": "hi",
+    "PathPart": "mk",
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/hi/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/mk/Resource"
    }
   },
-  "PredictRestApihipredict11FBEB5D": {
+  "PredictRestApimkpredict28D72500": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
-     "Ref": "PredictRestApihiA757547D"
+     "Ref": "PredictRestApimkD4F4ED2F"
     },
     "PathPart": "predict",
     "RestApiId": {
@@ -211,10 +211,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/hi/predict/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/mk/predict/Resource"
    }
   },
-  "PredictRestApihipredictOPTIONS74006025": {
+  "PredictRestApimkpredictOPTIONS8A51A4FA": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "ApiKeyRequired": false,
@@ -247,23 +247,23 @@
      }
     ],
     "ResourceId": {
-     "Ref": "PredictRestApihipredict11FBEB5D"
+     "Ref": "PredictRestApimkpredict28D72500"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/hi/predict/OPTIONS/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/mk/predict/OPTIONS/Resource"
    }
   },
-  "PredictRestApihipredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSThipredictFADFE94F": {
+  "PredictRestApimkpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTmkpredict0965CABC": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "Lambdahi7D7D66DF",
+      "Lambdamk24B20845",
       "Arn"
      ]
     },
@@ -292,22 +292,22 @@
        {
         "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
        },
-       "/POST/hi/predict"
+       "/POST/mk/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/hi/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..hi.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/mk/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..mk.predict"
    }
   },
-  "PredictRestApihipredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSThipredictACAAE4B7": {
+  "PredictRestApimkpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTmkpredict37513096": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "Lambdahi7D7D66DF",
+      "Lambdamk24B20845",
       "Arn"
      ]
     },
@@ -332,16 +332,16 @@
        {
         "Ref": "PredictRestApiB33CDE4F"
        },
-       "/test-invoke-stage/POST/hi/predict"
+       "/test-invoke-stage/POST/mk/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/hi/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..hi.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/mk/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..mk.predict"
    }
   },
-  "PredictRestApihipredictPOST4793D23D": {
+  "PredictRestApimkpredictPOSTCC602B52": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "AuthorizationType": "NONE",
@@ -364,7 +364,7 @@
         ":lambda:path/2015-03-31/functions/",
         {
          "Fn::GetAtt": [
-          "Lambdahi7D7D66DF",
+          "Lambdamk24B20845",
           "Arn"
          ]
         },
@@ -374,17 +374,17 @@
      }
     },
     "ResourceId": {
-     "Ref": "PredictRestApihipredict11FBEB5D"
+     "Ref": "PredictRestApimkpredict28D72500"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/hi/predict/POST/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/mk/predict/POST/Resource"
    }
   },
-  "PredictRestApi8179FC90": {
+  "PredictRestApic5E385646": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
@@ -393,20 +393,20 @@
       "RootResourceId"
      ]
     },
-    "PathPart": "i",
+    "PathPart": "c",
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/i/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/c/Resource"
    }
   },
-  "PredictRestApipredict329ACCB6": {
+  "PredictRestApicpredict6C7FF615": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
-     "Ref": "PredictRestApi8179FC90"
+     "Ref": "PredictRestApic5E385646"
     },
     "PathPart": "predict",
     "RestApiId": {
@@ -414,10 +414,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/i/predict/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/c/predict/Resource"
    }
   },
-  "PredictRestApipredictOPTIONSF0AB1B1B": {
+  "PredictRestApicpredictOPTIONS36847DD7": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "ApiKeyRequired": false,
@@ -450,23 +450,23 @@
      }
     ],
     "ResourceId": {
-     "Ref": "PredictRestApipredict329ACCB6"
+     "Ref": "PredictRestApicpredict6C7FF615"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/i/predict/OPTIONS/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/c/predict/OPTIONS/Resource"
    }
   },
-  "PredictRestApipredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTipredictF0D19D4B": {
+  "PredictRestApicpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTcpredict4CD2A770": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "Lambdai219C9A54",
+      "Lambdac949FD888",
       "Arn"
      ]
     },
@@ -495,22 +495,22 @@
        {
         "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
        },
-       "/POST/i/predict"
+       "/POST/c/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/i/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..i.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/c/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..c.predict"
    }
   },
-  "PredictRestApipredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTipredictD481F431": {
+  "PredictRestApicpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTcpredictC9BED3B0": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "Lambdai219C9A54",
+      "Lambdac949FD888",
       "Arn"
      ]
     },
@@ -535,16 +535,16 @@
        {
         "Ref": "PredictRestApiB33CDE4F"
        },
-       "/test-invoke-stage/POST/i/predict"
+       "/test-invoke-stage/POST/c/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/i/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..i.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/c/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..c.predict"
    }
   },
-  "PredictRestApipredictPOST05742BA1": {
+  "PredictRestApicpredictPOSTB19047EB": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "AuthorizationType": "NONE",
@@ -567,7 +567,7 @@
         ":lambda:path/2015-03-31/functions/",
         {
          "Fn::GetAtt": [
-          "Lambdai219C9A54",
+          "Lambdac949FD888",
           "Arn"
          ]
         },
@@ -577,17 +577,17 @@
      }
     },
     "ResourceId": {
-     "Ref": "PredictRestApipredict329ACCB6"
+     "Ref": "PredictRestApicpredict6C7FF615"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/i/predict/POST/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/c/predict/POST/Resource"
    }
   },
-  "PredictRestApivgF2CB0CE9": {
+  "PredictRestApisd183D61E6": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
@@ -596,20 +596,20 @@
       "RootResourceId"
      ]
     },
-    "PathPart": "vg",
+    "PathPart": "sd",
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/vg/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sd/Resource"
    }
   },
-  "PredictRestApivgpredictE09C6AF6": {
+  "PredictRestApisdpredictF4D98828": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
     "ParentId": {
-     "Ref": "PredictRestApivgF2CB0CE9"
+     "Ref": "PredictRestApisd183D61E6"
     },
     "PathPart": "predict",
     "RestApiId": {
@@ -617,10 +617,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/vg/predict/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sd/predict/Resource"
    }
   },
-  "PredictRestApivgpredictOPTIONS357E1CD3": {
+  "PredictRestApisdpredictOPTIONS09A113D0": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "ApiKeyRequired": false,
@@ -653,23 +653,23 @@
      }
     ],
     "ResourceId": {
-     "Ref": "PredictRestApivgpredictE09C6AF6"
+     "Ref": "PredictRestApisdpredictF4D98828"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/vg/predict/OPTIONS/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sd/predict/OPTIONS/Resource"
    }
   },
-  "PredictRestApivgpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTvgpredict8506237F": {
+  "PredictRestApisdpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTsdpredict7E1D6222": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "LambdavgDF9FE152",
+      "Lambdasd26C84884",
       "Arn"
      ]
     },
@@ -698,22 +698,22 @@
        {
         "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
        },
-       "/POST/vg/predict"
+       "/POST/sd/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/vg/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..vg.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sd/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..sd.predict"
    }
   },
-  "PredictRestApivgpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTvgpredict45F5FC2A": {
+  "PredictRestApisdpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTsdpredict2F712ECB": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "LambdavgDF9FE152",
+      "Lambdasd26C84884",
       "Arn"
      ]
     },
@@ -738,16 +738,16 @@
        {
         "Ref": "PredictRestApiB33CDE4F"
        },
-       "/test-invoke-stage/POST/vg/predict"
+       "/test-invoke-stage/POST/sd/predict"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/vg/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..vg.predict"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sd/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..sd.predict"
    }
   },
-  "PredictRestApivgpredictPOST558CA102": {
+  "PredictRestApisdpredictPOSTCDA8B1B5": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "AuthorizationType": "NONE",
@@ -770,7 +770,7 @@
         ":lambda:path/2015-03-31/functions/",
         {
          "Fn::GetAtt": [
-          "LambdavgDF9FE152",
+          "Lambdasd26C84884",
           "Arn"
          ]
         },
@@ -780,14 +780,14 @@
      }
     },
     "ResourceId": {
-     "Ref": "PredictRestApivgpredictE09C6AF6"
+     "Ref": "PredictRestApisdpredictF4D98828"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/vg/predict/POST/Resource"
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sd/predict/POST/Resource"
    }
   },
   "DefaultLambdaServiceRole602B1F82": {
@@ -828,7 +828,7 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "ZipFile": "exports.handler = async () => {\n          return {\n            statusCode: 200,\n            headers: { 'Content-Type': 'application/json' },\n            body: '{\"models\":[\"hi\",\"i\",\"vg\"]}'\n          };\n        };"
+     "ZipFile": "exports.handler = async () => {\n          return {\n            statusCode: 200,\n            headers: { 'Content-Type': 'application/json' },\n            body: '{\"models\":[\"mk\",\"c\",\"sd\"]}'\n          };\n        };"
     },
     "Handler": "index.handler",
     "Role": {
@@ -846,7 +846,7 @@
     "aws:cdk:path": "ApiGatewayStack/DefaultLambda/Resource"
    }
   },
-  "LambdahiServiceRole09A7044D": {
+  "LambdamkServiceRole8E682236": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -877,38 +877,38 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_hi/ServiceRole/Resource"
+    "aws:cdk:path": "ApiGatewayStack/Lambda_mk/ServiceRole/Resource"
    }
   },
-  "Lambdahi7D7D66DF": {
+  "Lambdamk24B20845": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:152d6c3c98e4f411ac0b2f37866f19cd3455ef8aa801cf66a9e0db33d7dd2604"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:f30530263f3f1fffb038c2f106ebe5f3b079523f0fcbedc88c2b8de7f51718c0"
      }
     },
     "MemorySize": 3008,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
-      "LambdahiServiceRole09A7044D",
+      "LambdamkServiceRole8E682236",
       "Arn"
      ]
     },
     "Timeout": 60
    },
    "DependsOn": [
-    "LambdahiServiceRole09A7044D"
+    "LambdamkServiceRole8E682236"
    ],
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_hi/Resource",
-    "aws:asset:path": "asset.152d6c3c98e4f411ac0b2f37866f19cd3455ef8aa801cf66a9e0db33d7dd2604",
+    "aws:cdk:path": "ApiGatewayStack/Lambda_mk/Resource",
+    "aws:asset:path": "asset.f30530263f3f1fffb038c2f106ebe5f3b079523f0fcbedc88c2b8de7f51718c0",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
   },
-  "LambdaiServiceRole51B5E343": {
+  "LambdacServiceRole3AEEFD36": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -939,38 +939,38 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_i/ServiceRole/Resource"
+    "aws:cdk:path": "ApiGatewayStack/Lambda_c/ServiceRole/Resource"
    }
   },
-  "Lambdai219C9A54": {
+  "Lambdac949FD888": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:65ea23a54035ae7f9c322f22a1e1eee443bb09c08cde75cb2aba632d7b0ba94a"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:95d30f66dbdc00f6b72094fa93efc625289a530728b7b380882cf7422e8821fd"
      }
     },
     "MemorySize": 3008,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
-      "LambdaiServiceRole51B5E343",
+      "LambdacServiceRole3AEEFD36",
       "Arn"
      ]
     },
     "Timeout": 60
    },
    "DependsOn": [
-    "LambdaiServiceRole51B5E343"
+    "LambdacServiceRole3AEEFD36"
    ],
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_i/Resource",
-    "aws:asset:path": "asset.65ea23a54035ae7f9c322f22a1e1eee443bb09c08cde75cb2aba632d7b0ba94a",
+    "aws:cdk:path": "ApiGatewayStack/Lambda_c/Resource",
+    "aws:asset:path": "asset.95d30f66dbdc00f6b72094fa93efc625289a530728b7b380882cf7422e8821fd",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
   },
-  "LambdavgServiceRole0B0EADD9": {
+  "LambdasdServiceRoleF4FAD94E": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1001,33 +1001,33 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_vg/ServiceRole/Resource"
+    "aws:cdk:path": "ApiGatewayStack/Lambda_sd/ServiceRole/Resource"
    }
   },
-  "LambdavgDF9FE152": {
+  "Lambdasd26C84884": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:65ea23a54035ae7f9c322f22a1e1eee443bb09c08cde75cb2aba632d7b0ba94a"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:f869b701f9d13910c1b7098189a6f4ab821901c3a3046ce030a45905d1b8de69"
      }
     },
     "MemorySize": 3008,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
-      "LambdavgServiceRole0B0EADD9",
+      "LambdasdServiceRoleF4FAD94E",
       "Arn"
      ]
     },
     "Timeout": 60
    },
    "DependsOn": [
-    "LambdavgServiceRole0B0EADD9"
+    "LambdasdServiceRoleF4FAD94E"
    ],
    "Metadata": {
-    "aws:cdk:path": "ApiGatewayStack/Lambda_vg/Resource",
-    "aws:asset:path": "asset.65ea23a54035ae7f9c322f22a1e1eee443bb09c08cde75cb2aba632d7b0ba94a",
+    "aws:cdk:path": "ApiGatewayStack/Lambda_sd/Resource",
+    "aws:asset:path": "asset.f869b701f9d13910c1b7098189a6f4ab821901c3a3046ce030a45905d1b8de69",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
@@ -1070,7 +1070,7 @@
     ]
    }
   },
-  "ModelEndpointhi": {
+  "ModelEndpointmk": {
    "Value": {
     "Fn::Join": [
      "",
@@ -1091,12 +1091,12 @@
       {
        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
       },
-      "/hi/predict"
+      "/mk/predict"
      ]
     ]
    }
   },
-  "ModelEndpointi": {
+  "ModelEndpointc": {
    "Value": {
     "Fn::Join": [
      "",
@@ -1117,12 +1117,12 @@
       {
        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
       },
-      "/i/predict"
+      "/c/predict"
      ]
     ]
    }
   },
-  "ModelEndpointvg": {
+  "ModelEndpointsd": {
    "Value": {
     "Fn::Join": [
      "",
@@ -1143,7 +1143,7 @@
       {
        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
       },
-      "/vg/predict"
+      "/sd/predict"
      ]
     ]
    }

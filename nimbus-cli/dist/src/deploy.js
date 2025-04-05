@@ -1,9 +1,9 @@
 import path from "path";
 import { displayWelcomeMessage, displayCompletionMessage } from "./utils/ui.js";
-import { deployApiGateway, deployUpdatedStack } from "./utils/deployment.js";
-import { shouldDeployApiGateway, shouldDeployModel } from "./utils/cli.js";
+import { deployUpdatedStack } from "./utils/deployment.js";
+import { shouldDeployModel } from "./utils/cli.js";
 import { getModelType, getModelName, getPreTrainedModel, getFineTunedModelPath, generateModelFiles, getModelDescription, } from "./utils/model.js";
-import { ensureDirectoryExists, initializeModelsConfig, readModelsConfig, updateModelsConfig, copyModelDirectory, } from "./utils/fileSystem.js";
+import { ensureDirectoryExists, initializeModelsConfig, updateModelsConfig, copyModelDirectory, } from "./utils/fileSystem.js";
 export async function deploy(nimbusLocalStoragePath) {
     displayWelcomeMessage();
     const currentDir = process.cwd();
@@ -12,14 +12,6 @@ export async function deploy(nimbusLocalStoragePath) {
     ensureDirectoryExists(nimbusLocalStoragePath);
     ensureDirectoryExists(finishedDir);
     initializeModelsConfig(modelsConfigPath);
-    // Check if we need to deploy API Gateway
-    let deployApi = false;
-    if (readModelsConfig(modelsConfigPath).length === 0) {
-        deployApi = await shouldDeployApiGateway();
-    }
-    if (deployApi) {
-        await deployApiGateway(currentDir, finishedDir);
-    }
     // Check if user wants to deploy a model
     if (!(await shouldDeployModel())) {
         return;
@@ -34,12 +26,6 @@ export async function deploy(nimbusLocalStoragePath) {
     // Create model directory and copy files if needed
     const modelDir = path.join(finishedDir, modelName);
     ensureDirectoryExists(modelDir);
-    let isCancelled = false;
-    process.once("SIGINT", () => {
-        isCancelled = true;
-        console.log("\n❌ Deployment cancelled by user.");
-        process.exit(0);
-    });
     if (modelType === "fine-tuned") {
         const destination = path.join(modelDir, "model-best");
         copyModelDirectory(modelPathOrName, destination);
@@ -53,7 +39,6 @@ export async function deploy(nimbusLocalStoragePath) {
         modelPathOrName,
         description: modelDescription,
     });
-    // Deploy the updated stack
     await deployUpdatedStack(currentDir, finishedDir, modelName, modelDir);
     displayCompletionMessage();
 }

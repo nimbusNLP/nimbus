@@ -52,6 +52,12 @@ export async function deployUpdatedStack(
       modelDir
     );
 
+    const apiGatewayURL = getApiUrlFromLogs(res);
+    note(
+      `${chalk.green.underline(apiGatewayURL)}`,
+      `${chalk.bold("⭐️ Your API endpoint ⭐️")}`
+    );
+
     note(
       `${chalk.green.underline(parseModelURL(res.stderr, modelName))}`,
       `${chalk.bold("⭐️ Your model endpoint ⭐️")}`

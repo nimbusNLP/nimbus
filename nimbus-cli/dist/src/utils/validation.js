@@ -24,8 +24,8 @@ export function isSafeDescription(description) {
                 !/[\x00-\x1F\x7F]/.test(description) &&
                 !/[$`;]/.test(description))));
 }
-export function optionToExitApp(loc) {
-    if (isCancel(loc)) {
+export function optionToExitApp(input) {
+    if (isCancel(input)) {
         cancel("Operation cancelled.");
         process.exit(0);
     }

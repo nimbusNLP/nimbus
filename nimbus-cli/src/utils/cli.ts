@@ -1,22 +1,6 @@
 import { select, isCancel, cancel, note } from "@clack/prompts";
 import { readModelsConfig } from "./fileSystem.js";
-
-export async function shouldDeployApiGateway(): Promise<boolean> {
-  const deployChoice = await select({
-    message: "Do you want to deploy the API Gateway?",
-    options: [
-      { value: "yes", label: "Yes" },
-      { value: "no", label: "No" },
-    ],
-  });
-
-  if (isCancel(deployChoice) || deployChoice === "no") {
-    cancel("Operation cancelled.");
-    process.exit(0);
-  }
-
-  return deployChoice === "yes";
-}
+import { optionToExitApp } from './validation.js'
 
 export async function shouldDeployModel(): Promise<boolean> {
   const deployModelChoice = await select({
@@ -26,8 +10,10 @@ export async function shouldDeployModel(): Promise<boolean> {
       { value: "no", label: "No" },
     ],
   });
+  
+  optionToExitApp(deployModelChoice)
 
-  if (isCancel(deployModelChoice) || deployModelChoice === "no") {
+  if (deployModelChoice === "no") {
     console.log("No model deployed.");
     process.exit(0);
   }

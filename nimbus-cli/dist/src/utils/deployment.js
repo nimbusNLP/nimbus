@@ -19,6 +19,8 @@ export async function deployApiGateway(currentDir, finishedDirPath) {
 export async function deployUpdatedStack(currentDir, finishedDirPath, modelName, modelDir) {
     try {
         const res = await deployStackWithCleanup("Deploying model...", "Model deployed!!!", finishedDirPath, currentDir, modelName, modelDir);
+        const apiGatewayURL = getApiUrlFromLogs(res);
+        note(`${chalk.green.underline(apiGatewayURL)}`, `${chalk.bold("⭐️ Your API endpoint ⭐️")}`);
         note(`${chalk.green.underline(parseModelURL(res.stderr, modelName))}`, `${chalk.bold("⭐️ Your model endpoint ⭐️")}`);
     }
     catch (error) {
