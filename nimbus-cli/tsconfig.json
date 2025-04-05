@@ -5,7 +5,11 @@
     "outDir": "./dist",
     "rootDir": "./",
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["ES2020"],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*", "src/deploy.ts"]
 }
