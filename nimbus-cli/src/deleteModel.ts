@@ -6,8 +6,6 @@ import {
 import { deleteModelFromStack } from "./utils/deployment.js";
 import { shouldRemoveModel, selectModelToRemove } from "./utils/cli.js";
 import {
-  removeModelFromConfig,
-  removeModelDirectory,
   readModelsConfig,
 } from "./utils/fileSystem.js";
 import * as fs from 'fs';

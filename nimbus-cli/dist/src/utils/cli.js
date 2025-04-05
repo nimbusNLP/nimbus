@@ -1,4 +1,4 @@
-import { select, isCancel, cancel, note } from "@clack/prompts";
+import { select, note } from "@clack/prompts";
 import { readModelsConfig } from "./fileSystem.js";
 import { optionToExitApp } from './validation.js';
 export async function shouldDeployModel() {
@@ -24,8 +24,9 @@ export async function shouldRemoveModel(modelName) {
             { value: "no", label: "No" },
         ],
     });
-    if (isCancel(removeModelChoice) || removeModelChoice === "no") {
-        cancel("Operation cancelled.");
+    optionToExitApp(removeModelChoice);
+    if (removeModelChoice === "no") {
+        console.log("No model removed.");
         process.exit(0);
     }
 }
@@ -47,10 +48,7 @@ export async function selectModelToRemove(modelsConfigPath) {
         message: "Which model would you like to remove?",
         options: options,
     });
-    if (isCancel(selectedModel)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
-    }
+    optionToExitApp(selectedModel);
     return selectedModel;
 }
 export async function shouldDestroyStack() {
@@ -61,8 +59,9 @@ export async function shouldDestroyStack() {
             { value: 'no', label: 'No' }
         ],
     });
-    if (isCancel(destroyChoice) || destroyChoice === 'no') {
-        cancel('Operation cancelled.');
+    optionToExitApp(destroyChoice);
+    if (destroyChoice === "no") {
+        console.log("Stack not destroyed.");
         process.exit(0);
     }
 }

@@ -6,8 +6,8 @@ import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
 // import { serveUi } from 'nimbus-ui-server';
 async function main() {
-    const args = process.argv;
-    const [runtime, path, command] = args;
+    const args = process.argv.slice(2);
+    const [command] = args;
     let nimbusLocalStoragePath = await configureApp();
     switch (command) {
         case "deploy": {

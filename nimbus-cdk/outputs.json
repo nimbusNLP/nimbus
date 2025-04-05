@@ -1,7 +1,0 @@
-{
-  "ApiGatewayStack": {
-    "PredictRestApiEndpointCE56DB59": "https://f8ns92wvb2.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointmk": "https://f8ns92wvb2.execute-api.us-east-2.amazonaws.com/prod/mk/predict",
-    "RestApiUrl": "https://f8ns92wvb2.execute-api.us-east-2.amazonaws.com/prod/"
-  }
-}
