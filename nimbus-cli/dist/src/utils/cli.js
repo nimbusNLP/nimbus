@@ -60,6 +60,7 @@ export async function selectModelToRemove(modelsConfigPath) {
         options: options,
     });
     if (isCancel(selectedModel)) {
+        cancel('Operation cancelled.');
         process.exit(0);
     }
     return selectedModel;

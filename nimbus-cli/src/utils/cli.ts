@@ -75,6 +75,7 @@ export async function selectModelToRemove(
   });
 
   if (isCancel(selectedModel)) {
+    cancel('Operation cancelled.');
     process.exit(0);
   }
 
