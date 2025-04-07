@@ -11,7 +11,7 @@ export async function destroy(nimbusLocalStoragePath: string) {
   const finishedDirPath = path.join(nimbusLocalStoragePath, "finished_dir");
 
   if (!fs.existsSync(finishedDirPath)) {
-    console.log("There is nothing to delete.");
+    console.log("❌  There is nothing to delete.");
     return;
   }
 

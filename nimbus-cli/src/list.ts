@@ -39,7 +39,7 @@ export function listModels(nimbusLocalStoragePath: string) {
         'No models deployed yet. Use "nimbus deploy" to deploy your first model.'
       );
     } else {
-      console.error("Error reading models configuration:", error);
+      console.error("❌  Error reading models configuration:", error);
     }
   }
 }

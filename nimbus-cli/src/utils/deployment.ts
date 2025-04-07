@@ -31,7 +31,7 @@ export async function deployApiGateway(
       `${chalk.bold("⭐️ Your API endpoint ⭐️")}`
     );
   } catch (error: any) {
-    console.error(`Error deploying API Gateway: ${error.message}`);
+    console.error(`❌  Error deploying API Gateway: ${error.message}`);
     throw error;
   }
 }
@@ -63,7 +63,7 @@ export async function deployUpdatedStack(
       `${chalk.bold("⭐️ Your model endpoint ⭐️")}`
     );
   } catch (error: any) {
-    console.error("Error deploying updated stack");
+    console.error("❌  Error deploying updated stack");
     //if an error occurs delete model from finished directory
     deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
     throw error;
@@ -111,7 +111,7 @@ export async function deleteModelFromStack(
       fs.rmSync(backupDir, { recursive: true, force: true });
     }
   } catch (error: any) {
-    console.error(chalk.red.bold(`\n\n❗️ ERROR DELETING MODEL ❗️\n\n`));
+    console.error(chalk.red.bold(`\n\n❌  ERROR DELETING MODEL \n\n`));
 
     if (modelBackup) {
       restoreModelToConfig(
@@ -145,7 +145,7 @@ export async function destroyStack(
       currentDir
     );
   } catch (error: any) {
-    console.error(`Error destroying stack: ${error.message}`);
+    console.error(`❌  Error destroying stack: ${error.message}`);
     throw error;
   }
 }

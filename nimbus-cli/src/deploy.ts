@@ -28,12 +28,10 @@ export async function deploy(nimbusLocalStoragePath: string) {
   ensureDirectoryExists(finishedDir);
   initializeModelsConfig(modelsConfigPath);
 
-  // Check if user wants to deploy a model
   if (!(await shouldDeployModel())) {
     return;
   }
 
-  // Get model details
   const modelType = await getModelType();
   const modelName = await getModelName(modelsConfigPath);
   const modelDescription = (await getModelDescription()) ?? "";
@@ -42,8 +40,6 @@ export async function deploy(nimbusLocalStoragePath: string) {
       ? await getPreTrainedModel()
       : await getFineTunedModelPath();
 
-
-  // Create model directory and copy files if needed
   const modelDir = path.join(finishedDir, modelName);
   ensureDirectoryExists(modelDir);
 
@@ -52,10 +48,8 @@ export async function deploy(nimbusLocalStoragePath: string) {
     copyModelDirectory(modelPathOrName, destination);
   }
 
-  // Generate and write model files
   generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription);
 
-  // Update models configuration
   updateModelsConfig(modelsConfigPath, {
     modelName,
     modelType,

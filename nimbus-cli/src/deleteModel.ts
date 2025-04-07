@@ -19,7 +19,7 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
   const finishedDir = path.join(nimbusLocalStoragePath, "finished_dir");
   
   if (!fs.existsSync(finishedDir)) {
-    console.log("No models found to delete.");
+    console.log("❌  No models found to delete.");
     return;
   }
 
@@ -27,7 +27,7 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
   
   const models = readModelsConfig(modelsConfigPath);
   if (models.length === 0) {
-    console.log("No models found to delete.");
+    console.log("❌  No models found to delete.");
     return;
   }
 
@@ -39,6 +39,6 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
     await deleteModelFromStack(currentDir, finishedDir, modelToRemove);
     displayDeleteCompletionMessage();
   } else {
-    console.log("No model selected for deletion.");
+    console.log("❌  No model selected for deletion.");
   }
 }

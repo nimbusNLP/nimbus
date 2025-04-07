@@ -24,7 +24,7 @@ export async function deployStackWithCleanup(
     );
     return result;
   } catch (error) {
-    console.log("Deployment failed. Cleaning up...");
+    console.log("❌  Deployment failed. Cleaning up...");
     deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
   }
   throw Error;
@@ -127,6 +127,6 @@ export function restoreModelToConfig(
 
     fs.writeFileSync(configPath, JSON.stringify(models, null, 2));
   } catch (err) {
-    console.error("Error restoring model configuration:", err);
+    console.error("❌  Error restoring model configuration:", err);
   }
 }

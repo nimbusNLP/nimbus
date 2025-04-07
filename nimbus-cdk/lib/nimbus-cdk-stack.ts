@@ -27,7 +27,7 @@ export class ApiGatewayStack extends cdk.Stack {
 
     if (!fs.existsSync(finishedDirPath)) {
       console.warn(
-        `Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`,
+        `❌  Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`,
       );
     }
 
@@ -77,7 +77,7 @@ export class ApiGatewayStack extends cdk.Stack {
         models = JSON.parse(fs.readFileSync(modelsConfigPath, "utf8"));
       } catch (error) {
         console.error(
-          `Error reading or parsing models.json from ${modelsConfigPath}:`,
+          `❌  Error reading or parsing models.json from ${modelsConfigPath}:`,
           error,
         );
       }
@@ -88,7 +88,7 @@ export class ApiGatewayStack extends cdk.Stack {
 
       if (!fs.existsSync(modelDirPath)) {
         console.warn(
-          `Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`,
+          `❌  Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`,
         );
         return;
       }
