@@ -1,10 +1,58 @@
 import { select, text } from "@clack/prompts";
 import fs from "fs";
 import path from "path";
+import os from "os";
+import chalk from "chalk";
 import { writeModelFiles } from "./fileSystem.js";
 import generateDockerfile from "../dockerCode.js";
 import generateLambdaFile from "../lambdaCode.js";
 import { validModelName, modelNameNotUnique, isSafeDescription, optionToExitApp, } from "./validation.js";
+function getDirectorySize(dirPath, maxSize) {
+    let totalSize = 0;
+    try {
+        const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+        for (const entry of entries) {
+            const fullPath = path.join(dirPath, entry.name);
+            if (entry.isDirectory()) {
+                totalSize += getDirectorySize(fullPath, maxSize);
+            }
+            else if (entry.isFile()) {
+                try {
+                    totalSize += fs.statSync(fullPath).size;
+                }
+                catch (err) {
+                    console.warn(`Could not get size of ${fullPath}: ${err.message}`);
+                }
+            }
+            if (totalSize > maxSize) {
+                return totalSize;
+            }
+        }
+    }
+    catch (err) {
+        console.warn(`Could not read directory ${dirPath} during size check: ${err.message}`);
+    }
+    return totalSize;
+}
+function getDirectoryDepth(dirPath, currentDepth = 0) {
+    let maxDepth = currentDepth;
+    try {
+        const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+        for (const entry of entries) {
+            if (entry.isDirectory()) {
+                const depth = getDirectoryDepth(path.join(dirPath, entry.name), currentDepth + 1);
+                if (depth > maxDepth) {
+                    maxDepth = depth;
+                }
+            }
+        }
+    }
+    catch (err) {
+        console.warn(`Could not read directory ${dirPath} during depth check: ${err.message}`);
+        return currentDepth;
+    }
+    return maxDepth;
+}
 export async function getModelType() {
     const modelType = await select({
         message: "Please choose the type of model you want to deploy:",
@@ -22,7 +70,6 @@ export async function getModelName(modelsConfigPath) {
         placeholder: "modelA",
     });
     optionToExitApp(modelName);
-    //VALIDATE MODEL NAME is unique and appropriate for URL
     while (!validModelName(modelName, modelsConfigPath)) {
         if (modelNameNotUnique(modelName, modelsConfigPath)) {
             modelName = await text({
@@ -54,26 +101,93 @@ export async function getPreTrainedModel() {
     return selectedModel;
 }
 export async function getFineTunedModelPath() {
-    const modelPath = await text({
-        message: "Enter the directory path to your fine-tuned model (absolute path):",
-        placeholder: "/path/to/your/model",
-        validate(value) {
-            if (value.length === 0)
-                return "Directory path is required.";
-            if (!fs.existsSync(value))
-                return "Directory does not exist.";
-            return "";
-        },
-    });
-    optionToExitApp(modelPath);
-    return modelPath;
+    const MAX_DEPTH = 10;
+    const MAX_SIZE_MB = 10;
+    const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+    const VALIDATION_TIMEOUT_MS = 2000;
+    const homeDir = os.homedir();
+    let modelPathInput = null;
+    let normalizedPath = "";
+    let isValid = false;
+    while (!isValid) {
+        modelPathInput = await text({
+            message: "Enter the directory path to your fine-tuned model (absolute path):",
+            placeholder: "/path/to/your/model",
+            validate(value) {
+                if (value.length === 0)
+                    return "Directory path is required.";
+                if (!path.isAbsolute(value))
+                    return "Path must be absolute.";
+                try {
+                    const tempNormalizedPath = path.resolve(value);
+                    if (tempNormalizedPath === homeDir ||
+                        tempNormalizedPath === path.parse(homeDir).root) {
+                        return `❌ Cannot use home directory or root as model path.`;
+                    }
+                    const commonDirs = [
+                        os.homedir(),
+                        "/Users",
+                        "/home",
+                        "/mnt",
+                        "/Volumes",
+                        "/",
+                    ];
+                    if (commonDirs.includes(tempNormalizedPath)) {
+                        return `❌ Please select a specific model directory, not a top-level system folder.`;
+                    }
+                    if (!fs.existsSync(tempNormalizedPath))
+                        return new Error("Directory does not exist.");
+                    if (!fs.statSync(tempNormalizedPath).isDirectory())
+                        return new Error("Path is not a directory.");
+                }
+                catch (err) {
+                    return new Error(`❌ Error accessing path: ${err.message}`);
+                }
+                return undefined;
+            },
+        });
+        optionToExitApp(modelPathInput);
+        normalizedPath = path.resolve(modelPathInput);
+        console.log(chalk.blue(`\nValidating directory depth and size (max ${VALIDATION_TIMEOUT_MS / 1000}s)...`));
+        const validationPromise = new Promise(async (resolve, reject) => {
+            try {
+                const depth = getDirectoryDepth(normalizedPath);
+                if (depth > MAX_DEPTH) {
+                    return reject(new Error(`❌ Directory depth (${depth}) exceeds the maximum of ${MAX_DEPTH} levels.`));
+                }
+                const size = getDirectorySize(normalizedPath, MAX_SIZE_BYTES);
+                if (size > MAX_SIZE_BYTES) {
+                    return reject(new Error(`❌ Directory size exceeds the maximum of ${MAX_SIZE_MB} MB.`));
+                }
+                resolve();
+            }
+            catch (err) {
+                reject(new Error(`❌ Validation failed: ${err.message}`));
+            }
+        });
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("❌ Validation timed out.")), VALIDATION_TIMEOUT_MS));
+        try {
+            await Promise.race([validationPromise, timeoutPromise]);
+            console.log(chalk.green(`✅ Directory validation passed.`));
+            isValid = true;
+        }
+        catch (err) {
+            if (err instanceof Error) {
+                console.error(chalk.red(err.message));
+            }
+            else {
+                console.error(chalk.red('❌ Validation failed with an unexpected error.'));
+            }
+            console.log(chalk.yellow("Please try again.\n"));
+        }
+    }
+    return normalizedPath;
 }
 export async function getModelDescription() {
     let description = await text({
         message: "Enter a description for your model:",
         placeholder: "This model is used for...",
     });
-    //VALIDATE DESCRIPTION
     while (!isSafeDescription(description)) {
         description = await text({
             message: "❌ Invalid description. Use plain text under 200 characters. No special symbols like < > $ ; or backticks.",
