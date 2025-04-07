@@ -1,9 +1,20 @@
+# Node modules
 node_modules/
-./nimbus-cdk/node_modules/
-./nimbus-cli/node_modules/
-./nimbus-cdk/output/
-./nimbus-cli/finished_dir/model-best
+**/node_modules/
+
+# Build outputs
+**/dist/
+
 # CDK output directory
-./nimbus-cdk/cdk.out/
-./nimbus-cdk/outputs.json
-./nimbus-cli/nimbus-config.json
+nimbus-cdk/cdk.out/
+nimbus-cdk/outputs.json
+
+# CLI specific files
+nimbus-cli/finished_dir/model-best
+nimbus-cli/nimbus-config.json
+
+# IDE and OS specific files
+.DS_Store
+**/.DS_Store
+.vscode/
+.idea/
