@@ -41,7 +41,7 @@ export async function destroyStack(currentDir, finishedDirPath) {
     try {
         const spin = spinner();
         spin.start("Destroying stack...");
-        const resp = await execPromise(`cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}"`, {
+        await execPromise(`cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}"`, {
             cwd: path.join(currentDir, "../nimbus-cdk"),
         });
         spin.stop("Stack destroyed! 💥");
