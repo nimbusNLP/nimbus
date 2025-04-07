@@ -1,6 +1,10 @@
-import { note } from "@clack/prompts";
+import { note, spinner } from "@clack/prompts";
 import chalk from "chalk";
+import path from "path";
+import { exec } from "child_process";
+import { promisify } from "util";
 import { deployStack, deployStackWithCleanup, getApiUrlFromLogs, deleteModelFromFinishedDir, parseModelURL, } from "./deploymentHelperFuncs.js";
+const execPromise = promisify(exec);
 export async function deployApiGateway(currentDir, finishedDirPath) {
     try {
         const res = await deployStack("Deploying API Gateway...", "API Gateway deployed!!!", finishedDirPath, currentDir);
@@ -35,7 +39,12 @@ export async function deleteModelFromStack(currentDir, finishedDirPath, modelNam
 }
 export async function destroyStack(currentDir, finishedDirPath) {
     try {
-        await deployStack("Destroying stack...", "Stack destroyed! 💥", finishedDirPath, currentDir);
+        const spin = spinner();
+        spin.start("Destroying stack...");
+        const resp = await execPromise(`cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}"`, {
+            cwd: path.join(currentDir, "../nimbus-cdk"),
+        });
+        spin.stop("Stack destroyed! 💥");
     }
     catch (error) {
         console.error(`Error destroying stack: ${error.message}`);
