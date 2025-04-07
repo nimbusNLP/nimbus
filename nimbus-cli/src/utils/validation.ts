@@ -8,7 +8,7 @@ export function validModelName(
   if (typeof modelName !== "string" || !modelName.trim()) {
     return false;
   }
-  const isValid = /^[a-z][a-z0-9-_]{0,29}$/.test(String(modelName));
+  const isValid = /^[a-z][a-z0-9]{0,29}$/.test(String(modelName));
   return isValid && !modelNameNotUnique(modelName, modelsConfigPath)
     ? true
     : false;
@@ -35,8 +35,8 @@ export function isSafeDescription(description: string | symbol): boolean {
   );
 }
 
-export function optionToExitApp(loc: string | symbol): void {
-  if (isCancel(loc)) {
+export function optionToExitApp(input: string | symbol): void {
+  if (isCancel(input)) {
     cancel("Operation cancelled.");
     process.exit(0);
   }

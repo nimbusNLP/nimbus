@@ -45,7 +45,7 @@ class ApiGatewayStack extends cdk.Stack {
           };
         };`),
         });
-        api.root.addMethod("GET", new apigateway.LambdaIntegration(defaultLambda));
+        api.root.addMethod("GETs", new apigateway.LambdaIntegration(defaultLambda));
         const modelsConfigPath = path.join(finishedDirPath, "models.json");
         let models = [];
         if (fs.existsSync(modelsConfigPath)) {

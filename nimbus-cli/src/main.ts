@@ -4,11 +4,11 @@ import { deleteModel } from './deleteModel.js';
 import { listModels } from './list.js';
 import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
-import { serveUi } from 'nimbus-ui-server';
+// import { serveUi } from 'nimbus-ui-server';
 
 async function main() {
-  const args = process.argv;
-  const [runtime, path, command] = args;
+  const args = process.argv.slice(2);
+  const [command] = args;
 
   let nimbusLocalStoragePath = await configureApp();
 
@@ -29,11 +29,11 @@ async function main() {
       await destroy(nimbusLocalStoragePath);
       break;
     }
-    case 'ui': {
-      console.log('Serving UI...');
-      await serveUi(nimbusLocalStoragePath);
-      break;
-    }
+    // case 'ui': {
+    //   console.log('Serving UI...');
+    //   await serveUi(nimbusLocalStoragePath);
+    //   break;
+    // }
     default: {
       console.log('Available commands:');
       console.log('  deploy - Deploy a new model');

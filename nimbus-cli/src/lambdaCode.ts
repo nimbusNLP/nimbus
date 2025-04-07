@@ -1,4 +1,3 @@
-import type { PlatformPath } from "path/posix";
 import path from "path/posix";
 
 const generateLambdaFile = (

@@ -57,7 +57,6 @@ export function removeModelDirectory(baseDir: string, modelName: string): void {
 export function copyModelDirectory(source: string, destination: string): void {
   try {
     fs.cpSync(source, destination, { recursive: true });
-    console.log("Model directory copied successfully.");
   } catch (err) {
     console.error("Error copying model directory:", err);
     throw err;
