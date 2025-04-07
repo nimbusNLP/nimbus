@@ -11,5 +11,9 @@
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
     "start": "cd nimbus-cli && npm run start"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "^5.8.2"
   }
 }

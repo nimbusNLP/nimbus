@@ -18,8 +18,6 @@
     "open": "^10.1.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.14.0",
-    "typescript": "^5.8.2"
+    "@types/express": "^5.0.1"
   }
 }
