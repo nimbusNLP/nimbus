@@ -1,22 +1,6 @@
-import { select, isCancel, cancel, note } from "@clack/prompts";
+import { select, note } from "@clack/prompts";
 import { readModelsConfig } from "./fileSystem.js";
-
-export async function shouldDeployApiGateway(): Promise<boolean> {
-  const deployChoice = await select({
-    message: "Do you want to deploy the API Gateway?",
-    options: [
-      { value: "yes", label: "Yes" },
-      { value: "no", label: "No" },
-    ],
-  });
-
-  if (isCancel(deployChoice) || deployChoice === "no") {
-    cancel("Operation cancelled.");
-    process.exit(0);
-  }
-
-  return deployChoice === "yes";
-}
+import { optionToExitApp } from './validation.js'
 
 export async function shouldDeployModel(): Promise<boolean> {
   const deployModelChoice = await select({
@@ -26,8 +10,10 @@ export async function shouldDeployModel(): Promise<boolean> {
       { value: "no", label: "No" },
     ],
   });
+  
+  optionToExitApp(deployModelChoice)
 
-  if (isCancel(deployModelChoice) || deployModelChoice === "no") {
+  if (deployModelChoice === "no") {
     console.log("No model deployed.");
     process.exit(0);
   }
@@ -42,9 +28,11 @@ export async function shouldRemoveModel(modelName: string): Promise<void> {
       { value: "no", label: "No" },
     ],
   });
+  
+  optionToExitApp(removeModelChoice)
 
-  if (isCancel(removeModelChoice) || removeModelChoice === "no") {
-    cancel("Operation cancelled.");
+  if (removeModelChoice === "no") {
+    console.log("No model removed.");
     process.exit(0);
   }
 }
@@ -74,9 +62,7 @@ export async function selectModelToRemove(
     options: options,
   });
 
-  if (isCancel(selectedModel)) {
-    process.exit(0);
-  }
+  optionToExitApp(selectedModel)
 
   return selectedModel as string;
 }
@@ -90,8 +76,10 @@ export async function shouldDestroyStack(): Promise<void> {
     ],
   });
 
-  if (isCancel(destroyChoice) || destroyChoice === 'no') {
-    cancel('Operation cancelled.');
+  optionToExitApp(destroyChoice)
+
+  if (destroyChoice === "no") {
+    console.log("Stack not destroyed.");
     process.exit(0);
   }
 }

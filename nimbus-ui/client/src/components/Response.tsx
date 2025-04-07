@@ -1,3 +1,4 @@
+import React from "react";
 interface ResponseProps {
   response: string;
   processingTime: number | null;

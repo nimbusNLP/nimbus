@@ -50,16 +50,15 @@ export function removeModelDirectory(baseDir: string, modelName: string): void {
   if (fs.existsSync(modelDir)) {
     fs.rmSync(modelDir, { recursive: true, force: true });
   } else {
-    console.log(`Model directory "${modelName}" does not exist.`);
+    console.log(`❌  Model directory "${modelName}" does not exist.`);
   }
 }
 
 export function copyModelDirectory(source: string, destination: string): void {
   try {
     fs.cpSync(source, destination, { recursive: true });
-    console.log("Model directory copied successfully.");
   } catch (err) {
-    console.error("Error copying model directory:", err);
+    console.error("❌  Error copying model directory:", err);
     throw err;
   }
 }

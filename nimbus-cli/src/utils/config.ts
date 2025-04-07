@@ -23,7 +23,7 @@ export async function configureApp(): Promise<string> {
       }
     } catch (error) {
       console.error(
-        chalk.red("Error reading nimbusconfig.json. Will create a new one."),
+        chalk.red("❌  Error reading nimbusconfig.json. Will create a new one."),
       );
     }
   }
@@ -60,7 +60,7 @@ export async function configureApp(): Promise<string> {
       const stats = fs.statSync(storagePath);
       if (!stats.isDirectory()) {
         console.log(
-          chalk.red("The specified path is not a directory. Please try again."),
+          chalk.red("❌  The specified path is not a directory. Please try again."),
         );
         continue;
       }
@@ -68,7 +68,7 @@ export async function configureApp(): Promise<string> {
     } catch (error) {
       console.log(
         chalk.red(
-          "Invalid path or directory does not exist. Please try again.",
+          "❌  Invalid path or directory does not exist. Please try again.",
         ),
       );
     }
@@ -84,7 +84,7 @@ export async function configureApp(): Promise<string> {
   } catch (error) {
     console.error(
       chalk.red(
-        "Error saving configuration. Using path for this session only.",
+        "❌  Error saving configuration. Using path for this session only.",
       ),
     );
   }
