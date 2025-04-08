@@ -49,7 +49,7 @@ describe('Validation Functions', () => {
     });
     
     it('should handle undefined', () => {
-      expect(isSafeDescription(undefined)).toBe(true);
+      return expect(isSafeDescription(undefined)).toBe(true);
     });
   });
   
