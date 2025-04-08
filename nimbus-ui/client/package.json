@@ -38,5 +38,15 @@
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",
     "vitest": "^3.1.1"
+  },
+  "optionalDependencies": {
+    "@esbuild/linux-x64": "^0.20.2",
+    "@esbuild/darwin-arm64": "^0.20.2",
+    "@esbuild/darwin-x64": "^0.20.2",
+    "@esbuild/win32-x64": "^0.20.2",
+    "@rollup/rollup-linux-x64-gnu": "^4.39.0",
+    "@rollup/rollup-darwin-arm64": "^4.39.0",
+    "@rollup/rollup-darwin-x64": "^4.39.0",
+    "@rollup/rollup-win32-x64-msvc": "^4.39.0"
   }
 }
