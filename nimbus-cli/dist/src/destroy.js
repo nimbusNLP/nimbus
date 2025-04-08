@@ -8,7 +8,7 @@ export async function destroy(nimbusLocalStoragePath) {
     const currentDir = process.cwd();
     const finishedDirPath = path.join(nimbusLocalStoragePath, "finished_dir");
     if (!fs.existsSync(finishedDirPath)) {
-        console.log("❌  There is nothing to delete.");
+        console.log("❌ There is nothing to delete.");
         return;
     }
     await destroyStack(currentDir, finishedDirPath);
