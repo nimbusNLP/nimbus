@@ -32,7 +32,10 @@ jobs:
       run: npm ci
       
     - name: Run tests
-      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js tests/validation-utils.test.js
+      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js tests/validation-utils.test.js tests/fileSystem-utils.test.js
+      
+    - name: Generate coverage report
+      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js tests/validation-utils.test.js tests/fileSystem-utils.test.js --coverage
       
     - name: Build
       run: npm run build
