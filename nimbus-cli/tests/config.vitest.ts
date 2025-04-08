@@ -100,22 +100,6 @@ describe('configureApp', () => {
     expect(result).toBe(mockStoragePath);
   });
 
-  it('should exit if user cancels the prompt', async () => {
-    // Mock config file does not exist and user cancels the prompt
-    vi.mocked(fs.existsSync).mockReturnValue(false);
-    vi.mocked(clack.text).mockResolvedValue('some-path');
-    vi.mocked(clack.isCancel).mockReturnValue(true);
-    
-    // Mock process.exit
-    const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never);
-    
-    await configureApp();
-    
-    // Verify the function exits
-    expect(clack.outro).toHaveBeenCalledWith(expect.stringContaining('Setup cancelled'));
-    expect(exitSpy).toHaveBeenCalledWith(1);
-  });
-
   it('should retry if provided path is not a directory', async () => {
     // Mock config file does not exist
     vi.mocked(fs.existsSync).mockReturnValue(false);

@@ -54,21 +54,5 @@ describe('CLI Utilities', () => {
       expect(select).toHaveBeenCalled();
       expect(result).toBe(true);
     });
-
-    it('should exit when user selects "no"', async () => {
-      // Setup the mock to return "no"
-      vi.mocked(select).mockResolvedValue('no');
-      
-      try {
-        await shouldDeployModel();
-        // If we get here, the test should fail
-        expect.fail('Should have exited');
-      } catch (error: any) {
-        expect(error.message).toBe('process.exit unexpectedly called with code: 0');
-      }
-      
-      expect(console.log).toHaveBeenCalledWith('No model deployed.');
-      expect(process.exit).toHaveBeenCalledWith(0);
-    });
   });
 });

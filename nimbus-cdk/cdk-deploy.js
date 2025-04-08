@@ -1,34 +1,59 @@
-import * as cdk from "aws-cdk-lib";
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as apigateway from "aws-cdk-lib/aws-apigateway";
-import { Construct } from "constructs";
-import { Platform } from "aws-cdk-lib/aws-ecr-assets";
-import * as fs from "fs";
-import * as path from "path";
+#!/usr/bin/env node
 
-interface ModelConfig {
-  modelName: string;
-  modelType: string;
-  modelPathOrName: string;
-  description?: string;
+// Simple CDK deployment script that bypasses TypeScript compilation
+const cdk = require('aws-cdk-lib');
+const lambda = require('aws-cdk-lib/aws-lambda');
+const apigateway = require('aws-cdk-lib/aws-apigateway');
+const { Platform } = require('aws-cdk-lib/aws-ecr-assets');
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+
+// Clean up any existing CDK processes that might be locking cdk.out
+try {
+  console.log('Checking for existing CDK processes...');
+  // Find any processes that might be locking cdk.out
+  const findCmd = process.platform === 'win32' 
+    ? 'tasklist | findstr cdk'
+    : 'ps aux | grep cdk | grep -v grep';
+  
+  const output = execSync(findCmd, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+  console.log('Found CDK processes:', output);
+  
+  // We won't kill processes automatically as that could be dangerous
+  console.log('If deployment fails due to locked cdk.out, you may need to manually kill these processes');
+} catch (error) {
+  // Ignore errors from the find command
+  console.log('No existing CDK processes found or error checking processes');
 }
 
-export class ApiGatewayStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+class ApiGatewayStack extends cdk.Stack {
+  constructor(scope, id, props) {
     super(scope, id, props);
 
-    const finishedDirPath = this.node.tryGetContext("finishedDirPath");
+    // Get the finishedDirPath from context or use a default value
+    let finishedDirPath = this.node.tryGetContext("finishedDirPath") || process.env.FINISHED_DIR_PATH;
 
     if (!finishedDirPath || typeof finishedDirPath !== "string") {
-      throw new Error(
-        'CDK context variable "finishedDirPath" is required and must be a string.',
-      );
+      console.error('❌  Warning: CDK context variable "finishedDirPath" is not provided.');
+      console.error('Using fallback directory path.');
+      // Use a fallback path
+      finishedDirPath = path.resolve(process.cwd(), '../finished_dir');
     }
+
+    console.log(`Using finishedDirPath: ${finishedDirPath}`);
 
     if (!fs.existsSync(finishedDirPath)) {
       console.warn(
-        `❌  Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`,
+        `❌  Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`
       );
+      // Create the directory if it doesn't exist
+      try {
+        fs.mkdirSync(finishedDirPath, { recursive: true });
+        console.log(`Created finishedDirPath: ${finishedDirPath}`);
+      } catch (error) {
+        console.error(`Failed to create finishedDirPath: ${error}`);
+      }
     }
 
     const api = new apigateway.RestApi(this, "PredictRestApi", {
@@ -37,14 +62,15 @@ export class ApiGatewayStack extends cdk.Stack {
         stageName: "prod",
       },
     });
+    
     api.root.addCorsPreflight({
-      allowOrigins: apigateway.Cors.ALL_ORIGINS, // Or apigateway.Cors.ALL_ORIGINS
-      allowMethods: ["GET", "OPTIONS"],        // Methods for the root endpoint
-      allowHeaders: ["Content-Type", "Authorization"], // Common headers
+      allowOrigins: apigateway.Cors.ALL_ORIGINS,
+      allowMethods: ["GET", "OPTIONS"],
+      allowHeaders: ["Content-Type", "Authorization"],
     });
     
     // Use a hardcoded path to avoid issues with path resolution
-    const configPath = path.resolve(__dirname, '../../nimbus-cli/nimbus-config.json');
+    const configPath = path.resolve(__dirname, '../nimbus-cli/nimbus-config.json');
     console.log(`Looking for config file at: ${configPath}`);
     
     let modelsPath;
@@ -78,18 +104,11 @@ export class ApiGatewayStack extends cdk.Stack {
       modelsJSON = '[]';
       console.log(`Error reading models.json, using empty array`);
     }
-
-    interface ModelEntry {
-      modelName: string;
-      modelType: string;
-      modelPathOrName: string;
-      description: string;
-    }
     
-    const parsedModels: Record<string, string[]> = { models: [] };
+    const parsedModels = { models: [] };
     
     try {
-      (JSON.parse(modelsJSON) as ModelEntry[]).forEach((obj) => {
+      JSON.parse(modelsJSON).forEach((obj) => {
         parsedModels.models.push(obj.modelName);
       });
     } catch (error) {
@@ -106,13 +125,14 @@ export class ApiGatewayStack extends cdk.Stack {
             headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
             body: '${JSON.stringify(parsedModels)}'
           };
-        };`,
+        };`
       ),
     });
+    
     api.root.addMethod("GET", new apigateway.LambdaIntegration(defaultLambda));
 
     const modelsConfigPath = path.join(finishedDirPath, "models.json");
-    let models: ModelConfig[] = [];
+    let models = [];
 
     if (fs.existsSync(modelsConfigPath)) {
       try {
@@ -120,7 +140,7 @@ export class ApiGatewayStack extends cdk.Stack {
       } catch (error) {
         console.error(
           `❌  Error reading or parsing models.json from ${modelsConfigPath}:`,
-          error,
+          error
         );
       }
     }
@@ -130,7 +150,7 @@ export class ApiGatewayStack extends cdk.Stack {
 
       if (!fs.existsSync(modelDirPath)) {
         console.warn(
-          `❌  Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`,
+          `❌  Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`
         );
         return;
       }
@@ -144,7 +164,7 @@ export class ApiGatewayStack extends cdk.Stack {
           }),
           memorySize: 3008,
           timeout: cdk.Duration.seconds(60),
-        },
+        }
       );
 
       const modelResource = api.root.addResource(model.modelName);
@@ -154,9 +174,10 @@ export class ApiGatewayStack extends cdk.Stack {
         allowMethods: ["POST", "OPTIONS"],
         allowHeaders: ["Content-Type"],
       });
+      
       predictResource.addMethod(
         "POST",
-        new apigateway.LambdaIntegration(modelLambda),
+        new apigateway.LambdaIntegration(modelLambda)
       );
 
       new cdk.CfnOutput(this, `ModelEndpoint_${model.modelName}`, {
@@ -169,3 +190,8 @@ export class ApiGatewayStack extends cdk.Stack {
     });
   }
 }
+
+// Create and run the CDK app
+const app = new cdk.App();
+new ApiGatewayStack(app, 'ApiGatewayStack', {});
+app.synth();

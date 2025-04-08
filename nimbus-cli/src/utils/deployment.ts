@@ -146,8 +146,13 @@ export async function destroyStack(
     const spin = spinner();
     spin.start("Destroying stack...");
     
+    // Create a unique output directory for this operation
+    const timestamp = Date.now();
+    const outputDir = `cdk.out.${timestamp}`;
+    
+    // Use our JavaScript CDK app to avoid TypeScript compilation issues
     await execPromise(
-      `cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}"`,
+      `cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}" --app "node cdk-deploy.js" --output ${outputDir}`,
       {
         cwd: path.join(currentDir, "../nimbus-cdk"),
       }
@@ -158,9 +163,3 @@ export async function destroyStack(
     throw error;
   }
 }
-
-
-
-
-
-

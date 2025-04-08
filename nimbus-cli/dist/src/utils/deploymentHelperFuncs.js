@@ -13,25 +13,42 @@ export async function deployStackWithCleanup(startSpinnerMessage, stopSpinnerMes
     catch (error) {
         console.log("❌  Deployment failed. Cleaning up...");
         deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
+        throw error;
     }
-    throw Error;
 }
 export async function deployStack(startSpinnerMessage, stopSpinnerMessage, finishedDirPath, currentDir) {
     const spin = spinner();
     spin.start(startSpinnerMessage);
-    process.once("SIGINT", () => console.log("HIIIIII"));
-    const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
-    const res = await execPromise(command, {
-        cwd: path.join(currentDir, "../nimbus-cdk"),
-    });
-    spin.stop(stopSpinnerMessage);
-    return res;
+    // Create a unique output directory for this deployment
+    const timestamp = Date.now();
+    const outputDir = `cdk.out.${timestamp}`;
+    // Use our pure JavaScript CDK app to avoid TypeScript compilation issues
+    // Add --output flag to use a unique output directory
+    const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}" --app "node cdk-deploy.js" --output ${outputDir}`;
+    try {
+        const res = await execPromise(command, {
+            cwd: path.join(currentDir, "../nimbus-cdk"),
+        });
+        spin.stop(stopSpinnerMessage);
+        return res;
+    }
+    catch (error) {
+        spin.stop("Deployment failed");
+        console.error("CDK deployment error:", error);
+        throw error;
+    }
 }
 export function getApiUrlFromLogs(res) {
-    const apiUrl = res.stderr.split("ApiGatewayStack.RestApiUrl")[1];
-    const regex = /(https?:\/\/[^\s]+)/;
-    const fin = apiUrl.match(regex) || [];
-    return fin[0];
+    try {
+        const apiUrl = res.stderr.split("ApiGatewayStack.RestApiUrl")[1];
+        const regex = /(https?:\/\/[^\s]+)/;
+        const fin = apiUrl.match(regex) || [];
+        return fin[0];
+    }
+    catch (error) {
+        console.error("Error parsing API URL from logs:", error);
+        throw new Error("Failed to parse API URL from CDK output");
+    }
 }
 export function deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName) {
     if (fs.existsSync(modelDir)) {
