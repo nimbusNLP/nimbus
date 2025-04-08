@@ -1,13 +1,13 @@
-import { jest } from '@jest/globals';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Mock the dependencies
-jest.mock('@clack/prompts', () => ({
-  select: jest.fn(),
-  note: jest.fn()
+vi.mock('@clack/prompts', () => ({
+  select: vi.fn(),
+  note: vi.fn()
 }));
 
-jest.mock('../../src/utils/fileSystem.js', () => ({
-  readModelsConfig: jest.fn()
+vi.mock('../../src/utils/fileSystem.js', () => ({
+  readModelsConfig: vi.fn()
 }));
 
 // Import the mocked modules
@@ -15,12 +15,12 @@ import { select, note } from '@clack/prompts';
 import { readModelsConfig } from '../../src/utils/fileSystem.js';
 
 // Mock process.exit to prevent tests from actually exiting
-const mockExit = jest.spyOn(process, 'exit').mockImplementation((code) => {
+const mockExit = vi.spyOn(process, 'exit').mockImplementation((code) => {
   throw new Error(`Process.exit called with code: ${code}`);
 });
 
 // Mock console.log to prevent output during tests
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation(() => {});
+const mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
 
 // Import the functions to test after mocking
 import { shouldDeployModel, shouldRemoveModel, selectModelToRemove, shouldDestroyStack } from '../../src/utils/cli.js';
@@ -28,13 +28,13 @@ import { shouldDeployModel, shouldRemoveModel, selectModelToRemove, shouldDestro
 describe('CLI Utilities', () => {
   beforeEach(() => {
     // Clear all mocks before each test
-    jest.clearAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('shouldDeployModel', () => {
     it('should return true when user selects "yes"', async () => {
       // Setup the mock to return "yes"
-      (select as unknown as jest.Mock).mockResolvedValue('yes');
+      (select as any).mockResolvedValue('yes');
       
       const result = await shouldDeployModel();
       
@@ -51,7 +51,7 @@ describe('CLI Utilities', () => {
 
     it('should exit when user selects "no"', async () => {
       // Setup the mock to return "no"
-      (select as unknown as jest.Mock).mockResolvedValue('no');
+      (select as any).mockResolvedValue('no');
       
       try {
         await shouldDeployModel();
@@ -69,7 +69,7 @@ describe('CLI Utilities', () => {
   describe('shouldRemoveModel', () => {
     it('should exit when user selects "no"', async () => {
       // Setup the mock to return "no"
-      (select as unknown as jest.Mock).mockResolvedValue('no');
+      (select as any).mockResolvedValue('no');
       
       try {
         await shouldRemoveModel('test-model');
@@ -92,7 +92,7 @@ describe('CLI Utilities', () => {
 
     it('should continue when user selects "yes"', async () => {
       // Setup the mock to return "yes"
-      (select as unknown as jest.Mock).mockResolvedValue('yes');
+      (select as any).mockResolvedValue('yes');
       
       await shouldRemoveModel('test-model');
       
@@ -103,7 +103,7 @@ describe('CLI Utilities', () => {
   describe('selectModelToRemove', () => {
     it('should exit when no models are found', async () => {
       // Setup the mock to return an empty array
-      (readModelsConfig as jest.Mock).mockReturnValue([]);
+      (readModelsConfig as any).mockReturnValue([]);
       
       try {
         await selectModelToRemove('config-path');
@@ -124,8 +124,8 @@ describe('CLI Utilities', () => {
         { modelName: 'model2', modelType: 'fine-tuned', description: 'A fine-tuned model' }
       ];
       
-      (readModelsConfig as jest.Mock).mockReturnValue(mockModels);
-      (select as unknown as jest.Mock).mockResolvedValue('model2');
+      (readModelsConfig as any).mockReturnValue(mockModels);
+      (select as any).mockResolvedValue('model2');
       
       const result = await selectModelToRemove('config-path');
       
@@ -144,7 +144,7 @@ describe('CLI Utilities', () => {
   describe('shouldDestroyStack', () => {
     it('should exit when user selects "no"', async () => {
       // Setup the mock to return "no"
-      (select as unknown as jest.Mock).mockResolvedValue('no');
+      (select as any).mockResolvedValue('no');
       
       try {
         await shouldDestroyStack();
@@ -167,7 +167,7 @@ describe('CLI Utilities', () => {
 
     it('should continue when user selects "yes"', async () => {
       // Setup the mock to return "yes"
-      (select as unknown as jest.Mock).mockResolvedValue('yes');
+      (select as any).mockResolvedValue('yes');
       
       await shouldDestroyStack();
       

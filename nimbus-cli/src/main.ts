@@ -6,7 +6,7 @@ import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
 import { serveUi } from 'nimbus-ui-server';
 
-async function main() {
+export async function main() {
   const args = process.argv.slice(2);
   const [command] = args;
 
@@ -45,4 +45,8 @@ async function main() {
   }
 }
 
-main();
+// Only call main directly if this file is being run directly
+// In Node.js, we can check if this is the main module
+if (typeof require !== 'undefined' && require.main === module) {
+  main();
+}

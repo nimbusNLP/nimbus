@@ -1,20 +1,20 @@
-import { jest } from '@jest/globals';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
 // Mock the fs module
-jest.mock('fs', () => ({
-  existsSync: jest.fn(),
-  mkdirSync: jest.fn(),
-  writeFileSync: jest.fn(),
-  readFileSync: jest.fn(),
-  rmSync: jest.fn(),
-  cpSync: jest.fn()
+vi.mock('fs', () => ({
+  existsSync: vi.fn(),
+  mkdirSync: vi.fn(),
+  writeFileSync: vi.fn(),
+  readFileSync: vi.fn(),
+  rmSync: vi.fn(),
+  cpSync: vi.fn()
 }));
 
 // Mock console.log and console.error
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation(() => {});
-const mockConsoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+const mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+const mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
 // Import the functions to test
 import {
@@ -33,13 +33,13 @@ import {
 describe('FileSystem Utilities', () => {
   beforeEach(() => {
     // Clear all mocks before each test
-    jest.clearAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('ensureDirectoryExists', () => {
     it('should create directory if it does not exist', () => {
       // Setup mock to indicate directory does not exist
-      (fs.existsSync as jest.Mock).mockReturnValue(false);
+      (fs.existsSync as any).mockReturnValue(false);
       
       ensureDirectoryExists('/path/to/dir');
       
@@ -49,7 +49,7 @@ describe('FileSystem Utilities', () => {
 
     it('should not create directory if it already exists', () => {
       // Setup mock to indicate directory exists
-      (fs.existsSync as jest.Mock).mockReturnValue(true);
+      (fs.existsSync as any).mockReturnValue(true);
       
       ensureDirectoryExists('/path/to/dir');
       
@@ -61,7 +61,7 @@ describe('FileSystem Utilities', () => {
   describe('initializeModelsConfig', () => {
     it('should create config file if it does not exist', () => {
       // Setup mock to indicate file does not exist
-      (fs.existsSync as jest.Mock).mockReturnValue(false);
+      (fs.existsSync as any).mockReturnValue(false);
       
       initializeModelsConfig('/path/to/config.json');
       
@@ -71,7 +71,7 @@ describe('FileSystem Utilities', () => {
 
     it('should not create config file if it already exists', () => {
       // Setup mock to indicate file exists
-      (fs.existsSync as jest.Mock).mockReturnValue(true);
+      (fs.existsSync as any).mockReturnValue(true);
       
       initializeModelsConfig('/path/to/config.json');
       
@@ -88,7 +88,7 @@ describe('FileSystem Utilities', () => {
       ];
       
       // Setup mock to return JSON string
-      (fs.readFileSync as jest.Mock).mockReturnValue(JSON.stringify(mockConfig));
+      (fs.readFileSync as any).mockReturnValue(JSON.stringify(mockConfig));
       
       const result = readModelsConfig('/path/to/config.json');
       
@@ -111,7 +111,7 @@ describe('FileSystem Utilities', () => {
       } as ModelConfig;
       
       // Setup mock to return existing models
-      (fs.readFileSync as jest.Mock).mockReturnValue(JSON.stringify(existingModels));
+      (fs.readFileSync as any).mockReturnValue(JSON.stringify(existingModels));
       
       updateModelsConfig('/path/to/config.json', newModel);
       
@@ -131,7 +131,7 @@ describe('FileSystem Utilities', () => {
       ];
       
       // Setup mock to return existing models
-      (fs.readFileSync as jest.Mock).mockReturnValue(JSON.stringify(existingModels));
+      (fs.readFileSync as any).mockReturnValue(JSON.stringify(existingModels));
       
       removeModelFromConfig('/path/to/config.json', 'model1');
       
@@ -148,7 +148,7 @@ describe('FileSystem Utilities', () => {
       ];
       
       // Setup mock to return existing models
-      (fs.readFileSync as jest.Mock).mockReturnValue(JSON.stringify(existingModels));
+      (fs.readFileSync as any).mockReturnValue(JSON.stringify(existingModels));
       
       removeModelFromConfig('/path/to/config.json', 'non-existent-model');
       
@@ -160,7 +160,7 @@ describe('FileSystem Utilities', () => {
   describe('removeModelDirectory', () => {
     it('should remove directory if it exists', () => {
       // Setup mock to indicate directory exists
-      (fs.existsSync as jest.Mock).mockReturnValue(true);
+      (fs.existsSync as any).mockReturnValue(true);
       
       removeModelDirectory('/base/dir', 'model1');
       
@@ -174,7 +174,7 @@ describe('FileSystem Utilities', () => {
 
     it('should log error if directory does not exist', () => {
       // Setup mock to indicate directory does not exist
-      (fs.existsSync as jest.Mock).mockReturnValue(false);
+      (fs.existsSync as any).mockReturnValue(false);
       
       removeModelDirectory('/base/dir', 'model1');
       
@@ -196,7 +196,7 @@ describe('FileSystem Utilities', () => {
       const mockError = new Error('Copy failed');
       
       // Setup mock to throw error
-      (fs.cpSync as jest.Mock).mockImplementation(() => {
+      (fs.cpSync as any).mockImplementation(() => {
         throw mockError;
       });
       
@@ -210,7 +210,7 @@ describe('FileSystem Utilities', () => {
   describe('deleteFinishedDir', () => {
     it('should remove finished_dir if it exists', () => {
       // Setup mock to indicate directory exists
-      (fs.existsSync as jest.Mock).mockReturnValue(true);
+      (fs.existsSync as any).mockReturnValue(true);
       
       deleteFinishedDir('/base/dir');
       
@@ -223,7 +223,7 @@ describe('FileSystem Utilities', () => {
 
     it('should not attempt to remove if directory does not exist', () => {
       // Setup mock to indicate directory does not exist
-      (fs.existsSync as jest.Mock).mockReturnValue(false);
+      (fs.existsSync as any).mockReturnValue(false);
       
       deleteFinishedDir('/base/dir');
       

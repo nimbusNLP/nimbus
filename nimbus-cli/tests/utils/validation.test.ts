@@ -1,13 +1,13 @@
-import { jest } from '@jest/globals';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Mock the dependencies
-jest.mock('@clack/prompts', () => ({
-  isCancel: jest.fn(),
-  cancel: jest.fn()
+vi.mock('@clack/prompts', () => ({
+  isCancel: vi.fn(),
+  cancel: vi.fn()
 }));
 
-jest.mock('../../src/utils/fileSystem.js', () => ({
-  readModelsConfig: jest.fn()
+vi.mock('../../src/utils/fileSystem.js', () => ({
+  readModelsConfig: vi.fn()
 }));
 
 // Import mocked modules
@@ -15,7 +15,7 @@ import { isCancel, cancel } from '@clack/prompts';
 import { readModelsConfig } from '../../src/utils/fileSystem.js';
 
 // Mock process.exit to prevent tests from actually exiting
-const mockExit = jest.spyOn(process, 'exit').mockImplementation((code) => {
+const mockExit = vi.spyOn(process, 'exit').mockImplementation((code) => {
   throw new Error(`Process.exit called with code: ${code}`);
 });
 
@@ -25,7 +25,7 @@ import { validModelName, modelNameNotUnique, isSafeDescription, optionToExitApp 
 describe('Validation Utilities', () => {
   beforeEach(() => {
     // Clear all mocks before each test
-    jest.clearAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('validModelName', () => {
@@ -44,7 +44,7 @@ describe('Validation Utilities', () => {
 
     it('should return false if model name already exists', () => {
       // Setup mock to return a model with the same name
-      (readModelsConfig as jest.Mock).mockReturnValue([
+      (readModelsConfig as any).mockReturnValue([
         { modelName: 'existingmodel' }
       ]);
       
@@ -54,7 +54,7 @@ describe('Validation Utilities', () => {
 
     it('should return true for valid and unique model names', () => {
       // Setup mock to return models with different names
-      (readModelsConfig as jest.Mock).mockReturnValue([
+      (readModelsConfig as any).mockReturnValue([
         { modelName: 'othermodel1' },
         { modelName: 'othermodel2' }
       ]);
@@ -67,7 +67,7 @@ describe('Validation Utilities', () => {
   describe('modelNameNotUnique', () => {
     it('should return true if model name exists', () => {
       // Setup mock to return a model with the same name
-      (readModelsConfig as jest.Mock).mockReturnValue([
+      (readModelsConfig as any).mockReturnValue([
         { modelName: 'existingmodel' },
         { modelName: 'othermodel' }
       ]);
@@ -78,7 +78,7 @@ describe('Validation Utilities', () => {
 
     it('should return false if model name does not exist', () => {
       // Setup mock to return models with different names
-      (readModelsConfig as jest.Mock).mockReturnValue([
+      (readModelsConfig as any).mockReturnValue([
         { modelName: 'othermodel1' },
         { modelName: 'othermodel2' }
       ]);
@@ -128,7 +128,7 @@ describe('Validation Utilities', () => {
   describe('optionToExitApp', () => {
     it('should exit if input is cancelled', () => {
       // Setup mock to indicate cancellation
-      (isCancel as unknown as jest.Mock).mockReturnValue(true);
+      (isCancel as any).mockReturnValue(true);
       
       try {
         optionToExitApp('some-input');
@@ -145,7 +145,7 @@ describe('Validation Utilities', () => {
 
     it('should not exit if input is not cancelled', () => {
       // Setup mock to indicate no cancellation
-      (isCancel as unknown as jest.Mock).mockReturnValue(false);
+      (isCancel as any).mockReturnValue(false);
       
       optionToExitApp('some-input');
       

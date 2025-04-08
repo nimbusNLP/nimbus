@@ -29,16 +29,16 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: cd nimbus-cli && npm ci
       
-    - name: Run tests
-      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js tests/validation-utils.test.js tests/fileSystem-utils.test.js
+    - name: Run Vitest tests
+      run: cd nimbus-cli && npx vitest run
       
     - name: Generate coverage report
-      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js tests/validation-utils.test.js tests/fileSystem-utils.test.js --coverage
+      run: cd nimbus-cli && npx vitest run --coverage
       
     - name: Build
-      run: npm run build
+      run: cd nimbus-cli && npm run build
       
     - name: Archive test results
       uses: actions/upload-artifact@v3

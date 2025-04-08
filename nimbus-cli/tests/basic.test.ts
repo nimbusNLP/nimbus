@@ -1,6 +1,9 @@
 /**
- * Basic test file to demonstrate testing in the Nimbus CLI
+ * Basic test file to demonstrate testing in the Nimbus CLI using Vitest
  */
+
+// Import Vitest testing functions
+import { describe, test, expect } from 'vitest';
 
 // Simple tests that don't require any imports or mocks
 describe('Basic Tests', () => {
