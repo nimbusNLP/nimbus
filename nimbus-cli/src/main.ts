@@ -45,8 +45,5 @@ export async function main() {
   }
 }
 
-// Only call main directly if this file is being run directly
-// In Node.js, we can check if this is the main module
-if (typeof require !== 'undefined' && require.main === module) {
-  main();
-}
+main();
+

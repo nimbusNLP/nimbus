@@ -5,7 +5,7 @@ import { listModels } from './list.js';
 import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
 import { serveUi } from 'nimbus-ui-server';
-async function main() {
+export async function main() {
     const args = process.argv.slice(2);
     const [command] = args;
     let nimbusLocalStoragePath = await configureApp();

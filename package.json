@@ -12,7 +12,7 @@
     "test": "npm run test --workspaces",
     "test:coverage": "npm run test:coverage --workspaces",
     "test:watch": "cd nimbus-cli && npm run test:watch",
-    "start": "cd nimbus-cli && npm run start",
+    "start": "cd nimbus-cli && npm run start --",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "ci": "npm run lint && npm run test:coverage && npm run build"
   },

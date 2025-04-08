@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import open from 'open';
 // Export the function so it can be imported and called by nimbus-cli
-export async function serveUi(nimbusLocalStoragePath) {
+export async function serveUi(nimbusLocalStoragePath, openBrowser = true) {
     const app = express();
     // Restore JSON Middleware
     app.use(express.json());
@@ -79,6 +79,9 @@ export async function serveUi(nimbusLocalStoragePath) {
     // Start the server
     app.listen(port, () => {
         console.log(`[server]: Nimbus UI server listening at http://localhost:${port}`);
-        open(`http://localhost:${port}`);
+        // Only open the browser if openBrowser is true
+        if (openBrowser) {
+            open(`http://localhost:${port}`);
+        }
     });
 }
