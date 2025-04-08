@@ -23,7 +23,7 @@ export function modelNameNotUnique(
   return !!present;
 }
 
-export function isSafeDescription(description: string | symbol): boolean {
+export function isSafeDescription(description: string | symbol | undefined): boolean {
   if (description === undefined) return true;
   return (
     typeof description === "string" &&
