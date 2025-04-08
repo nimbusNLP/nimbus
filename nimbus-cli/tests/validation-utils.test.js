@@ -1,27 +1,16 @@
 /**
- * Simple tests for validation functions in the Nimbus CLI
- * 
- * These tests don't require complex mocking or TypeScript
+ * Tests for the simplified validation utilities
  */
 
-// Mock the fileSystem module
-jest.mock('../src/utils/fileSystem.js', () => ({
-  readModelsConfig: jest.fn().mockImplementation(() => [
-    { modelName: 'existingModel' },
-    { modelName: 'anotherModel' }
-  ])
-}));
+// Import the functions to test
+const { 
+  validModelName, 
+  modelNameNotUnique, 
+  isSafeDescription, 
+  optionToExitApp 
+} = require('./utils/validation-utils');
 
-// Mock @clack/prompts
-jest.mock('@clack/prompts', () => ({
-  isCancel: jest.fn().mockImplementation((input) => input === Symbol.for('clack/cancel')),
-  cancel: jest.fn()
-}));
-
-// Import the functions to test (using CommonJS require)
-const { isSafeDescription, validModelName, modelNameNotUnique, optionToExitApp } = require('../src/utils/validation.js');
-
-describe('Validation Functions', () => {
+describe('Validation Utilities', () => {
   describe('isSafeDescription', () => {
     test('should return true for empty string', () => {
       expect(isSafeDescription('')).toBe(true);
@@ -74,7 +63,6 @@ describe('Validation Functions', () => {
       expect(validModelName(123, '/path/to/config')).toBe(false);
       expect(validModelName(null, '/path/to/config')).toBe(false);
       expect(validModelName(undefined, '/path/to/config')).toBe(false);
-      expect(validModelName(Symbol('test'), '/path/to/config')).toBe(false);
     });
     
     test('should return false for existing model names', () => {

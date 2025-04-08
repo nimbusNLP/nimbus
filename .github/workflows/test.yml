@@ -32,7 +32,7 @@ jobs:
       run: npm ci
       
     - name: Run tests
-      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js
+      run: cd nimbus-cli && npx jest tests/basic.test.ts tests/string-utils.test.js tests/validation-utils.test.js
       
     - name: Build
       run: npm run build
