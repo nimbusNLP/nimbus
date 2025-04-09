@@ -36,11 +36,14 @@ export class ApiGatewayStack extends cdk.Stack {
       deployOptions: {
         stageName: "prod",
       },
+      defaultMethodOptions: {
+        apiKeyRequired: true,
+      },
     });
     api.root.addCorsPreflight({
       allowOrigins: apigateway.Cors.ALL_ORIGINS, // Or apigateway.Cors.ALL_ORIGINS
       allowMethods: ["GET", "OPTIONS"],        // Methods for the root endpoint
-      allowHeaders: ["Content-Type", "Authorization"], // Common headers
+      allowHeaders: ["Content-Type", "Authorization", "x-api-key"], // Common headers
     });
     
     const modelsPath = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../nimbus-cli/nimbus-config.json'), 'utf8'));
@@ -72,7 +75,9 @@ export class ApiGatewayStack extends cdk.Stack {
         };`,
       ),
     });
-    api.root.addMethod("GET", new apigateway.LambdaIntegration(defaultLambda));
+    api.root.addMethod("GET", new apigateway.LambdaIntegration(defaultLambda), {
+      apiKeyRequired: true,
+    });
 
     const modelsConfigPath = path.join(finishedDirPath, "models.json");
     let models: ModelConfig[] = [];
@@ -115,16 +120,44 @@ export class ApiGatewayStack extends cdk.Stack {
       predictResource.addCorsPreflight({
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
         allowMethods: ["POST", "OPTIONS"],
-        allowHeaders: ["Content-Type"],
+        allowHeaders: ["Content-Type", "Authorization", "x-api-key"],
       });
       predictResource.addMethod(
         "POST",
         new apigateway.LambdaIntegration(modelLambda),
+        { apiKeyRequired: true }
       );
 
       new cdk.CfnOutput(this, `ModelEndpoint_${model.modelName}`, {
         value: `${api.url}${model.modelName}/predict`,
       });
+    });
+
+    // Create an API Key
+    const apiKey = new apigateway.ApiKey(this, "NimbusApiKey", {
+      apiKeyName: "nimbus-api-key",
+      description: "API Key for Nimbus services and UI",
+    });
+
+    // Create a Usage Plan
+    const usagePlan = new apigateway.UsagePlan(this, "NimbusUsagePlan", {
+      name: "NimbusUsagePlan",
+      description: "Usage plan for Nimbus API",
+      apiStages: [
+        {
+          api: api,
+          stage: api.deploymentStage,
+        },
+      ],
+    });
+
+    // Associate the API Key with the Usage Plan
+    usagePlan.addApiKey(apiKey);
+
+    // Output the API Key ID (the actual key value must be retrieved from the console or CLI)
+    new cdk.CfnOutput(this, "ApiKeyId", {
+      value: apiKey.keyId,
+      description: "The ID of the created API Key. Retrieve the value from the AWS Console.",
     });
 
     new cdk.CfnOutput(this, "RestApiUrl", {

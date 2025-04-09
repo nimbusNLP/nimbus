@@ -1,0 +1,12 @@
+POST https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/first/predict
+Content-Type: application/json
+x-api-key: zpvDeT9pvz6XHhiAQUu3A79sakZ6txwf8vMIWS0x
+
+{
+  "text": "Your input data for the model goes here"
+}
+
+###
+
+GET https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/
+x-api-key: yvwvvhv4s5

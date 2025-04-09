@@ -1,8 +1,9 @@
 {
   "ApiGatewayStack": {
-    "PredictRestApiEndpointCE56DB59": "https://w2k62tnlwf.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointsmalltest": "https://w2k62tnlwf.execute-api.us-east-2.amazonaws.com/prod/smalltest/predict",
-    "ModelEndpointmediumtest": "https://w2k62tnlwf.execute-api.us-east-2.amazonaws.com/prod/mediumtest/predict",
-    "RestApiUrl": "https://w2k62tnlwf.execute-api.us-east-2.amazonaws.com/prod/"
+    "ApiKeyId": "yvwvvhv4s5",
+    "PredictRestApiEndpointCE56DB59": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointfirst": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/first/predict",
+    "ModelEndpointsecond": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/second/predict",
+    "RestApiUrl": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }
