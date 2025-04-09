@@ -1,5 +1,5 @@
 {
-  "app": "node bin/nimbus-cdk.js",
+  "app": "node --experimental-specifier-resolution=node bin/nimbus-cdk.js",
   "outputsFile": "outputs.json",
   "watch": {
     "include": ["**"],

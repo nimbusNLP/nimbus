@@ -24,7 +24,7 @@
   "exclude": ["node_modules", "cdk.out"],
   "ts-node": {
     "compilerOptions": {
-      "module": "commonjs"
+      "module": "NodeNext"
     }
   }
 }
