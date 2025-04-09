@@ -39,13 +39,7 @@ export async function deployStack(
   const spin = spinner();
   spin.start(startSpinnerMessage);
 
-  // Create a unique output directory for this deployment
-  const timestamp = Date.now();
-  const outputDir = `cdk.out.${timestamp}`;
-  
-  // Use our pure JavaScript CDK app to avoid TypeScript compilation issues
-  // Add --output flag to use a unique output directory
-  const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}" --app "node cdk-deploy.js" --output ${outputDir}`;
+  const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
 
   try {
     const res = await execPromise(command, {

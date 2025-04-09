@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/nimbus-cdk.ts",
+  "app": "node bin/nimbus-cdk.js",
   "outputsFile": "outputs.json",
   "watch": {
     "include": ["**"],

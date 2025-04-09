@@ -37,13 +37,13 @@ export class ApiGatewayStack extends cdk.Stack {
         stageName: "prod",
       },
     });
+
     api.root.addCorsPreflight({
-      allowOrigins: apigateway.Cors.ALL_ORIGINS, // Or apigateway.Cors.ALL_ORIGINS
-      allowMethods: ["GET", "OPTIONS"],        // Methods for the root endpoint
-      allowHeaders: ["Content-Type", "Authorization"], // Common headers
+      allowOrigins: apigateway.Cors.ALL_ORIGINS,
+      allowMethods: ["GET", "OPTIONS"],
+      allowHeaders: ["Content-Type", "Authorization"], 
     });
-    
-    // Use a hardcoded path to avoid issues with path resolution
+
     const configPath = path.resolve(__dirname, '../../nimbus-cli/nimbus-config.json');
     console.log(`Looking for config file at: ${configPath}`);
     
@@ -53,12 +53,10 @@ export class ApiGatewayStack extends cdk.Stack {
       console.log(`Found config file with localStorage path: ${modelsPath.localStorage}`);
     } catch (error) {
       console.error(`Error reading config file: ${error}`);
-      // Fallback to using the finishedDirPath directly
       modelsPath = { localStorage: path.dirname(finishedDirPath) };
       console.log(`Using fallback localStorage path: ${modelsPath.localStorage}`);
     }
     
-    // Use the finishedDirPath directly for models.json
     const modelsJSONPath = path.join(finishedDirPath, 'models.json');
     console.log(`Looking for models.json at: ${modelsJSONPath}`);
     
@@ -68,13 +66,11 @@ export class ApiGatewayStack extends cdk.Stack {
         modelsJSON = fs.readFileSync(modelsJSONPath, 'utf8');
         console.log(`Found models.json file`);
       } else {
-        // If models.json doesn't exist, create an empty array
         modelsJSON = '[]';
         console.log(`models.json not found, using empty array`);
       }
     } catch (error) {
       console.error(`Error reading models.json: ${error}`);
-      // Fallback to empty array
       modelsJSON = '[]';
       console.log(`Error reading models.json, using empty array`);
     }
