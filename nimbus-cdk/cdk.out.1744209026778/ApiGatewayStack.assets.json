@@ -1,0 +1,33 @@
+{
+  "version": "39.0.0",
+  "files": {
+    "e480bf8403f26486ebf492c0f479bc0e925db1c11fbe100529bf28069d15c533": {
+      "source": {
+        "path": "ApiGatewayStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "e480bf8403f26486ebf492c0f479bc0e925db1c11fbe100529bf28069d15c533.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "9d457138a94dbb7830a93719207357eb6a11bcef26d0e23e831a6e186bd7173f": {
+      "source": {
+        "directory": "asset.9d457138a94dbb7830a93719207357eb6a11bcef26d0e23e831a6e186bd7173f",
+        "platform": "linux/amd64"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "repositoryName": "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}",
+          "imageTag": "9d457138a94dbb7830a93719207357eb6a11bcef26d0e23e831a6e186bd7173f",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  }
+}
