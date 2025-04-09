@@ -33,7 +33,7 @@ const ModelForm = ({
 
     try {
       const response = await axios.post(
-        selectedModel.endpoint,
+        `http://localhost:3001/api/predict/${selectedModel.modelName}`,
         {
           text: input,
         },

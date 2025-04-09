@@ -2,6 +2,9 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import open from 'open';
+import dotenv from 'dotenv';
+import axios from 'axios';
+dotenv.config();
 // Export the function so it can be imported and called by nimbus-cli
 export async function serveUi(nimbusLocalStoragePath) {
     const app = express();
@@ -9,6 +12,8 @@ export async function serveUi(nimbusLocalStoragePath) {
     app.use(express.json());
     // Use environment variable for port, defaulting to 3001
     const port = process.env.PORT || 3001;
+    const apiGatewayBaseUrl = process.env.API_GATEWAY_BASE_URL;
+    const nimbusApiKey = process.env.NIMBUS_API_KEY;
     // Paths required for the API route
     const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
     const modelsConfigPath = path.join(finishedDirPath, 'models.json');
@@ -53,6 +58,17 @@ export async function serveUi(nimbusLocalStoragePath) {
             console.error('Error fetching models:', error);
             res.status(500).json({ error: 'Failed to fetch models' }); // Handle errors during processing
         }
+    });
+    app.post('/api/predict/:modelName', async (req, res) => {
+        const { modelName } = req.params;
+        const { text } = req.body;
+        const endpoint = `${apiGatewayBaseUrl}/${modelName}/predict`;
+        const response = await axios.post(endpoint, { text }, {
+            headers: {
+                'x-api-key': nimbusApiKey,
+            },
+        });
+        res.json(response.data);
     });
     // Calculate path to the frontend build directory
     const clientBuildPath = path.join(process.cwd(), '..', 'nimbus-ui', 'client', 'dist');

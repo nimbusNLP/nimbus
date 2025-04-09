@@ -2,7 +2,10 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
 import open from 'open';
+import dotenv from 'dotenv';
 import axios from 'axios';
+
+dotenv.config();
 
 // Export the function so it can be imported and called by nimbus-cli
 export async function serveUi(nimbusLocalStoragePath: string) {
@@ -13,63 +16,73 @@ export async function serveUi(nimbusLocalStoragePath: string) {
 
   // Use environment variable for port, defaulting to 3001
   const port = process.env.PORT || 3001;
-
-  // Get API Gateway details from environment variables
-  const apiGatewayBaseUrl = process.env.NIMBUS_API_GATEWAY_URL;
-  const apiKey = process.env.NIMBUS_API_KEY;
-
-  if (!apiGatewayBaseUrl || !apiKey) {
-    console.error('Error: NIMBUS_API_GATEWAY_URL and NIMBUS_API_KEY environment variables must be set.');
-    process.exit(1); // Exit if essential config is missing
-  }
+  const apiGatewayBaseUrl = process.env.API_GATEWAY_BASE_URL;
+  const nimbusApiKey = process.env.NIMBUS_API_KEY;
 
   // Paths required for the API route
   const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDirPath, 'models.json');
   const cdkOutputsPath = path.join(process.cwd(), '..', 'nimbus-cdk', 'outputs.json');
 
-  // --- Rewritten API Route for Listing Models --- 
-  app.get('/api/models', async (req: Request, res: Response) => {
+  // Restore API Route
+  app.get('/api/models', (req: Request, res: Response) => {
     try {
-      console.log(`Proxying GET request to: ${apiGatewayBaseUrl}/`);
-      const response = await axios.get(`${apiGatewayBaseUrl}/`, {
-        headers: {
-          'x-api-key': apiKey,
-        },
-      });
-      console.log('API Gateway response status (models):', response.status);
-      res.json(response.data); // Forward the response from API Gateway
-    } catch (error: any) {
-      console.error('Error proxying /api/models:', error.response?.status, error.response?.data || error.message);
-      res.status(error.response?.status || 500).json({ 
-        error: 'Failed to fetch models from API Gateway',
-        details: error.response?.data || error.message 
-      });
+      // Check for models config file
+      if (!fs.existsSync(modelsConfigPath)) {
+        console.warn(`Models config not found at ${modelsConfigPath}`);
+        res.json([]); // Return empty if not found
+        return;
+      }
+
+      // Check for CDK outputs file
+      if (!fs.existsSync(cdkOutputsPath)) {
+        console.error(`CDK outputs not found at ${cdkOutputsPath}. Run 'nimbus deploy' first.`);
+        res.status(404).json({ error: 'Deployment outputs not found. Have you deployed?' });
+        return;
+      }
+
+      // Read and parse files
+      const models = JSON.parse(fs.readFileSync(modelsConfigPath, 'utf8'));
+      const cdkOutputs = JSON.parse(fs.readFileSync(cdkOutputsPath, 'utf8'));
+
+      // Find the API Gateway URL from outputs
+      const apiGatewayOutput = Object.values(cdkOutputs).find((stack: any) => stack.RestApiUrl) as any;
+      const baseUrl = apiGatewayOutput?.RestApiUrl;
+
+      if (!baseUrl) {
+        console.error('API Gateway URL not found in CDK outputs. Have you deployed successfully?');
+        res.status(404).json({ error: 'API Gateway URL not found. Have you deployed successfully?' });
+        return;
+      }
+
+      // Map models to include their full prediction endpoint
+      const modelsWithEndpoints = models.map((model: any) => {
+        const endpoint = `${baseUrl}${model.modelName}/predict`; // Assumes 'prod' stage
+        return {
+          ...model,
+          endpoint,
+        };
+      })
+
+      res.json(modelsWithEndpoints); // Send the combined data
+
+    } catch (error) {
+      console.error('Error fetching models:', error);
+      res.status(500).json({ error: 'Failed to fetch models' }); // Handle errors during processing
     }
   });
 
-  // --- New API Route for Proxying Predictions ---
   app.post('/api/predict/:modelName', async (req: Request, res: Response) => {
     const { modelName } = req.params;
-    const predictUrl = `${apiGatewayBaseUrl}/${modelName}/predict`;
-    
-    try {
-      console.log(`Proxying POST request to: ${predictUrl}`);
-      const response = await axios.post(predictUrl, req.body, { // Forward the request body
-        headers: {
-          'x-api-key': apiKey,
-          'Content-Type': 'application/json', // Ensure correct content type
-        },
-      });
-      console.log(`API Gateway response status (${modelName}/predict):`, response.status);
-      res.json(response.data); // Forward the response from API Gateway
-    } catch (error: any) {
-      console.error(`Error proxying /api/predict/${modelName}:`, error.response?.status, error.response?.data || error.message);
-      res.status(error.response?.status || 500).json({ 
-        error: `Failed to get prediction for model ${modelName}`,
-        details: error.response?.data || error.message
-      });
-    }
+    const { text } = req.body;
+    const endpoint = `${apiGatewayBaseUrl}/${modelName}/predict`;
+    const response = await axios.post(endpoint, { text }, {
+      headers: {
+        'x-api-key': nimbusApiKey,
+      },
+    });
+
+    res.json(response.data);
   });
 
   // Calculate path to the frontend build directory

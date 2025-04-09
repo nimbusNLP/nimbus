@@ -19,7 +19,7 @@ const SandBox = () => {
   useEffect(() => {
     const fetchModels = async () => {
       const response = await axios.get("http://localhost:3001/api/models");
-      setModels(response.data);
+      setModels(response.data as Model[]);
     };
     fetchModels();
   }, []);
