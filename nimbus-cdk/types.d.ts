@@ -1,4 +1,3 @@
-// Type declarations for Node.js built-in modules
 declare module 'fs' {
   export function existsSync(path: string): boolean;
   export function readFileSync(path: string, options: { encoding: string; flag?: string; } | string): string;
@@ -16,11 +15,9 @@ declare module 'path' {
   export function isAbsolute(path: string): boolean;
 }
 
-// Global variables
 declare const __dirname: string;
 declare const __filename: string;
 
-// Process global
 declare namespace NodeJS {
   interface Process {
     cwd(): string;

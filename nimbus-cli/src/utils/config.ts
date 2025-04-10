@@ -44,8 +44,8 @@ export async function configureApp(): Promise<string> {
 
 
     if (isCancel(pathInput)) {
-      outro(chalk.yellow("Setup cancelled. Exiting..."));
-      process.exit(1);
+      outro(chalk.yellow("Setup cancelled."));
+      throw new Error("CANCELLED");
     }
 
     storagePath = String(pathInput);

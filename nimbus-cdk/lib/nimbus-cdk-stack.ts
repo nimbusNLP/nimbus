@@ -7,7 +7,6 @@ import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -26,13 +25,13 @@ export class ApiGatewayStack extends cdk.Stack {
 
     if (!finishedDirPath || typeof finishedDirPath !== "string") {
       throw new Error(
-        'CDK context variable "finishedDirPath" is required and must be a string.',
+        'CDK context variable "finishedDirPath" is required and must be a string.'
       );
     }
 
     if (!fs.existsSync(finishedDirPath)) {
       console.warn(
-        `❌  Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`,
+        `❌  Warning: Provided finishedDirPath does not exist: ${finishedDirPath}`
       );
     }
 
@@ -46,55 +45,42 @@ export class ApiGatewayStack extends cdk.Stack {
     api.root.addCorsPreflight({
       allowOrigins: apigateway.Cors.ALL_ORIGINS,
       allowMethods: ["GET", "OPTIONS"],
-      allowHeaders: ["Content-Type", "Authorization"], 
+      allowHeaders: ["Content-Type", "Authorization"],
     });
 
-    const configPath = path.resolve(__dirname, '../../nimbus-cli/nimbus-config.json');
+    const configPath = path.resolve(
+      __dirname,
+      "../../nimbus-cli/nimbus-config.json"
+    );
     console.log(`Looking for config file at: ${configPath}`);
-    
-    let modelsPath;
-    try {
-      modelsPath = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-      console.log(`Found config file with localStorage path: ${modelsPath.localStorage}`);
-    } catch (error) {
-      console.error(`Error reading config file: ${error}`);
-      modelsPath = { localStorage: path.dirname(finishedDirPath) };
-      console.log(`Using fallback localStorage path: ${modelsPath.localStorage}`);
-    }
-    
-    const modelsJSONPath = path.join(finishedDirPath, 'models.json');
-    console.log(`Looking for models.json at: ${modelsJSONPath}`);
-    
-    let modelsJSON;
-    try {
-      if (fs.existsSync(modelsJSONPath)) {
-        modelsJSON = fs.readFileSync(modelsJSONPath, 'utf8');
-        console.log(`Found models.json file`);
-      } else {
-        modelsJSON = '[]';
-        console.log(`models.json not found, using empty array`);
-      }
-    } catch (error) {
-      console.error(`Error reading models.json: ${error}`);
-      modelsJSON = '[]';
-      console.log(`Error reading models.json, using empty array`);
-    }
 
+    let modelsPath;
+    modelsPath = JSON.parse(fs.readFileSync(configPath, "utf8"));
+    console.log(
+      `Found config file with localStorage path: ${modelsPath.localStorage}`
+    );
+
+    const modelsJSONPath = path.join(finishedDirPath, "models.json");
     interface ModelEntry {
       modelName: string;
       modelType: string;
       modelPathOrName: string;
       description: string;
     }
-    
+
     const parsedModels: Record<string, string[]> = { models: [] };
-    
+
+    let modelsJSON;
     try {
+      modelsJSON = fs.existsSync(modelsJSONPath)
+        ? fs.readFileSync(modelsJSONPath, "utf8")
+        : "[]";
       (JSON.parse(modelsJSON) as ModelEntry[]).forEach((obj) => {
         parsedModels.models.push(obj.modelName);
       });
     } catch (error) {
-      console.error(`Error parsing models.json: ${error}`);
+      console.error(`Error reading models.json: ${error}`);
+      modelsJSON = "[]";
     }
 
     const defaultLambda = new lambda.Function(this, "DefaultLambda", {
@@ -107,37 +93,36 @@ export class ApiGatewayStack extends cdk.Stack {
             headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
             body: '${JSON.stringify(parsedModels)}'
           };
-        };`,
+        };`
       ),
     });
     api.root.addMethod("GET", new apigateway.LambdaIntegration(defaultLambda));
 
-    const modelsConfigPath = path.join(finishedDirPath, "models.json");
     let models: ModelConfig[] = [];
 
-    if (fs.existsSync(modelsConfigPath)) {
+    if (fs.existsSync(modelsJSONPath)) {
       try {
-        models = JSON.parse(fs.readFileSync(modelsConfigPath, "utf8"));
+        models = JSON.parse(fs.readFileSync(modelsJSONPath, "utf8"));
       } catch (error) {
         console.error(
-          `❌  Error reading or parsing models.json from ${modelsConfigPath}:`,
-          error,
+          `❌  Error reading or parsing models.json from ${modelsJSONPath}:`,
+          error
         );
       }
     }
 
-    models.forEach((model) => {
+    const modelLambdaCreation = (model: ModelConfig, cont: Construct) => {
       const modelDirPath = path.join(finishedDirPath, model.modelName);
 
       if (!fs.existsSync(modelDirPath)) {
         console.warn(
-          `❌  Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`,
+          `❌  Warning: Model directory does not exist, skipping deployment for ${model.modelName}: ${modelDirPath}`
         );
         return;
       }
 
       const modelLambda = new lambda.DockerImageFunction(
-        this,
+        cont,
         `Lambda_${model.modelName}`,
         {
           code: lambda.DockerImageCode.fromImageAsset(modelDirPath, {
@@ -145,7 +130,7 @@ export class ApiGatewayStack extends cdk.Stack {
           }),
           memorySize: 3008,
           timeout: cdk.Duration.seconds(60),
-        },
+        }
       );
 
       const modelResource = api.root.addResource(model.modelName);
@@ -157,14 +142,15 @@ export class ApiGatewayStack extends cdk.Stack {
       });
       predictResource.addMethod(
         "POST",
-        new apigateway.LambdaIntegration(modelLambda),
+        new apigateway.LambdaIntegration(modelLambda)
       );
 
-      new cdk.CfnOutput(this, `ModelEndpoint_${model.modelName}`, {
+      new cdk.CfnOutput(cont, `ModelEndpoint_${model.modelName}`, {
         value: `${api.url}${model.modelName}/predict`,
       });
-    });
+    };
 
+    models.forEach((model) => modelLambdaCreation(model, this));
     new cdk.CfnOutput(this, "RestApiUrl", {
       value: api.url,
     });

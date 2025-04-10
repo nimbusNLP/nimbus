@@ -7,3 +7,5 @@ const app = new cdk.App();
 new ApiGatewayStack(app, "ApiGatewayStack", {});
 
 app.synth();
+
+

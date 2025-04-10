@@ -1,9 +1,7 @@
-// Type declarations for external modules
 declare module 'nimbus-ui-server' {
   export function serveUi(nimbusLocalStoragePath: string): Promise<void>;
 }
 
-// Node.js module declarations
 declare module 'path' {
   export function join(...paths: string[]): string;
   export function resolve(...paths: string[]): string;
@@ -138,7 +136,6 @@ declare module 'util' {
     : (...args: Parameters<T>) => Promise<any>;
 }
 
-// Ensure Node.js types are available
 declare namespace NodeJS {
   interface Process {
     cwd(): string;
