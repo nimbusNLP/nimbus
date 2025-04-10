@@ -9,7 +9,7 @@
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Resource"
    }
   },
-  "PredictRestApiDeployment49622637bff0c38264bf6b0fac7fdfbae6299c7e": {
+  "PredictRestApiDeployment49622637bfffb950872981dfa548ac7418142ded": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Automatically created by the RestApi construct",
@@ -19,7 +19,15 @@
    },
    "DependsOn": [
     "PredictRestApiGETBBFCD66A",
+    "PredictRestApinicepredictOPTIONS6C29DD9E",
+    "PredictRestApinicepredictPOSTDEF284BE",
+    "PredictRestApinicepredict93E1D350",
+    "PredictRestApinice83CE0B79",
     "PredictRestApiOPTIONSE3D1F0DC",
+    "PredictRestApipleasepredictOPTIONS372A1EE1",
+    "PredictRestApipleasepredictPOST8A14E2DA",
+    "PredictRestApipleasepredict29385673",
+    "PredictRestApiplease5FD80144",
     "PredictRestApisleeppredictOPTIONSF2BE8989",
     "PredictRestApisleeppredictPOST4BF44081",
     "PredictRestApisleeppredict04E739BE",
@@ -33,7 +41,7 @@
    "Type": "AWS::ApiGateway::Stage",
    "Properties": {
     "DeploymentId": {
-     "Ref": "PredictRestApiDeployment49622637bff0c38264bf6b0fac7fdfbae6299c7e"
+     "Ref": "PredictRestApiDeployment49622637bfffb950872981dfa548ac7418142ded"
     },
     "RestApiId": {
      "Ref": "PredictRestApiB33CDE4F"
@@ -425,6 +433,414 @@
     "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/sleep/predict/POST/Resource"
    }
   },
+  "PredictRestApiplease5FD80144": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "PredictRestApiB33CDE4F",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "please",
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/please/Resource"
+   }
+  },
+  "PredictRestApipleasepredict29385673": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "PredictRestApiplease5FD80144"
+    },
+    "PathPart": "predict",
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/please/predict/Resource"
+   }
+  },
+  "PredictRestApipleasepredictOPTIONS372A1EE1": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,x-api-key'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "PredictRestApipleasepredict29385673"
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/please/predict/OPTIONS/Resource"
+   }
+  },
+  "PredictRestApipleasepredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTpleasepredictB1A9759C": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Lambdaplease7E4B3541",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "PredictRestApiB33CDE4F"
+       },
+       "/",
+       {
+        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
+       },
+       "/POST/please/predict"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/please/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..please.predict"
+   }
+  },
+  "PredictRestApipleasepredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTpleasepredict1E43C361": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Lambdaplease7E4B3541",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "PredictRestApiB33CDE4F"
+       },
+       "/test-invoke-stage/POST/please/predict"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/please/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..please.predict"
+   }
+  },
+  "PredictRestApipleasepredictPOST8A14E2DA": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": true,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "Lambdaplease7E4B3541",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "PredictRestApipleasepredict29385673"
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/please/predict/POST/Resource"
+   }
+  },
+  "PredictRestApinice83CE0B79": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "PredictRestApiB33CDE4F",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "nice",
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/nice/Resource"
+   }
+  },
+  "PredictRestApinicepredict93E1D350": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "PredictRestApinice83CE0B79"
+    },
+    "PathPart": "predict",
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/nice/predict/Resource"
+   }
+  },
+  "PredictRestApinicepredictOPTIONS6C29DD9E": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,x-api-key'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "PredictRestApinicepredict93E1D350"
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/nice/predict/OPTIONS/Resource"
+   }
+  },
+  "PredictRestApinicepredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTnicepredictA5440C75": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Lambdanice14AD0C9C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "PredictRestApiB33CDE4F"
+       },
+       "/",
+       {
+        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
+       },
+       "/POST/nice/predict"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/nice/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..nice.predict"
+   }
+  },
+  "PredictRestApinicepredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTnicepredictA997AB34": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Lambdanice14AD0C9C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "PredictRestApiB33CDE4F"
+       },
+       "/test-invoke-stage/POST/nice/predict"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/nice/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..nice.predict"
+   }
+  },
+  "PredictRestApinicepredictPOSTDEF284BE": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": true,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "Lambdanice14AD0C9C",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "PredictRestApinicepredict93E1D350"
+    },
+    "RestApiId": {
+     "Ref": "PredictRestApiB33CDE4F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/PredictRestApi/Default/nice/predict/POST/Resource"
+   }
+  },
   "DefaultLambdaServiceRole602B1F82": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -463,7 +879,7 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "ZipFile": "exports.handler = async () => {\n          return {\n            statusCode: 200,\n            headers: { 'Content-Type': 'application/json', \"Access-Control-Allow-Origin\": \"*\" },\n            body: '{\"models\":[\"sleep\"]}'\n          };\n        };"
+     "ZipFile": "exports.handler = async () => {\n          return {\n            statusCode: 200,\n            headers: { 'Content-Type': 'application/json', \"Access-Control-Allow-Origin\": \"*\" },\n            body: '{\"models\":[\"sleep\",\"please\",\"nice\"]}'\n          };\n        };"
     },
     "Handler": "index.handler",
     "Role": {
@@ -543,6 +959,130 @@
     "aws:asset:property": "Code.ImageUri"
    }
   },
+  "LambdapleaseServiceRole11273AB5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/Lambda_please/ServiceRole/Resource"
+   }
+  },
+  "Lambdaplease7E4B3541": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "ImageUri": {
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:4684c5e64c4e73dd15f54580a36b97e23ca58c72682c1fb5f13d449b57236517"
+     }
+    },
+    "MemorySize": 3008,
+    "PackageType": "Image",
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdapleaseServiceRole11273AB5",
+      "Arn"
+     ]
+    },
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "LambdapleaseServiceRole11273AB5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/Lambda_please/Resource",
+    "aws:asset:path": "asset.4684c5e64c4e73dd15f54580a36b97e23ca58c72682c1fb5f13d449b57236517",
+    "aws:asset:dockerfile-path": "Dockerfile",
+    "aws:asset:property": "Code.ImageUri"
+   }
+  },
+  "LambdaniceServiceRoleDC397DBC": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/Lambda_nice/ServiceRole/Resource"
+   }
+  },
+  "Lambdanice14AD0C9C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "ImageUri": {
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:8b98246511ea41ae7efe21a794b6e602fd7af170123fe39d484dd399a311eb3e"
+     }
+    },
+    "MemorySize": 3008,
+    "PackageType": "Image",
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdaniceServiceRoleDC397DBC",
+      "Arn"
+     ]
+    },
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "LambdaniceServiceRoleDC397DBC"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiGatewayStack/Lambda_nice/Resource",
+    "aws:asset:path": "asset.8b98246511ea41ae7efe21a794b6e602fd7af170123fe39d484dd399a311eb3e",
+    "aws:asset:dockerfile-path": "Dockerfile",
+    "aws:asset:property": "Code.ImageUri"
+   }
+  },
   "NimbusApiKey710B4DD1": {
    "Type": "AWS::ApiGateway::ApiKey",
    "Properties": {
@@ -593,7 +1133,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1UTU/cMBD9LfiITNrlhPa2gCohSlkFeopWaLBns4bEdv1RFKL898p2vhaVqtVK7aWnxON5b+z3xnOaLc4W2eIIXuwJ488nlXjM2jsH7JnCi31oQYsSHL5Ak7U5WrfSomiJSX9foEayJMeEEo66Us2tdkJJS5YtsQ5KHBO6kLEFX7kbdDvFZ4mgxTU2OX7zwiAnS2c8dt2GXmxlX5BeRvIapStawtEyIyK+rw1a9H8GHQg5pdu+eEuA83v1WZWCQXXFybJou80/i8fLTaekd0GreLUh1N/njYgRF5NpjlZ5w/AcLBbkmGxoEjaZE7d6jp1zOu31ASEdlgZmAqqZG97tlBGvaPZXVwN6CEX8faNHf9/6uIXK4nv5lNTxSDlaraRFG5QJ13XeXiiOo59pew0GanRoekM3Xa/tzR7Ln5LQQ8X6aesezPrfgkMtiA8lkYwvpWiJBjO9LQ1utwbjxhHxi91hGkUiuoo1i6H43hTcn00JmPLpVwslriuQRUvk+5hoY3zkyZFhug1zY6TZW1xj09EK6kcOWXuxlWs0tbBWKEk/eckCexgNXjoxVt6B5FXosrhig12pzICil4o9o7mqocQZE5vMrbFWprkTr0MglFB+Eva3czcdFVBnba6qYBdY62vk500wWhshmdBQrRhTfvQp5QTAik2yU1KDhBL5WlWCiV7JeaxZGTnrwb9VKjWSqrCjyMwDWIvOZjOJVyES9rIctbLCKdPEGb/pAvTWO+3d1NPxYGH6R1zoGiHLjkrFMXuyH76ffswWZ9np0ZMV4qR3P8vT9wcQMcyy+wcAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1WS2/bMAz+LdWxULylpyK3tMWAoOsaON3JMApWYhy1tqTpscI1/N8Hya+kWA9bLsOQQxCL5Eda5EeTF8n8cp7Mz+DVzhh/mZXiKWk2DtgLhVf72IAWBTh8hTppUrRuqUXWENM9fYMKyYKcE0o46lLV99oJJS1ZNMQ6KHA0aIPFFnzp7tDtFN8zBC1usU7xhxcGOVk447Ftc3q9lX1AehOdVyhd1hCOlhkR8X1s0KJ/MuhAyMnc9sEbApw/qK+qEAzKFSeLrGnzk/wv5bE4U5bpJtQ6lmYQ9fV4R4KIi8Y0Rau8YXgFFjNyTnLaEaMjV1T1PnbO6U7XC4R0WBjYI4DaY5N3O2XEG5rD02pAD6KIf6j1yM/3PNxCafEje0qq+EopWq2kRRsyE67rvL1WHEc+duo1GKjQoekJmbd9bu8OvPypE3pssn7bekd7PZXgVIJTCU4lOLYEcVx0TsZ5kTVEg5kmjAa3W4Nx46D/B7XDLhMvQJfxrtlw6YMd6nCz6YCdPf1uocB1CTJriPwYE+kTR2zHhGE3Gqb26ObgcIt1S0uonjgkzfVWrtFUwlqhJP3iJQvew2D20okx8g4kLwO744kNNOnCDCh6o9gLmlUFBe55YhOpKqyUqTfibRCEEMpPif1vbfOWCqiSJlVloDVY6yvkV3VoCG2EZEJDuWRM+ZFXnU0ALNlEE0oqkFAgX6tSMNFXfl9WL40cg55CHReqa2dVYkuRmUewFp1N9oi+DJKgS1LUygqnTB333LwN0HvvtHfTFy2+2PTLacSHHhayaKlUHJNn++nnxedkfplcnD1bIWZ9LyZp9/8LLUpNWMcNAAA="
    },
    "Metadata": {
     "aws:cdk:path": "ApiGatewayStack/CDKMetadata/Default"
@@ -650,6 +1190,58 @@
        "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
       },
       "/sleep/predict"
+     ]
+    ]
+   }
+  },
+  "ModelEndpointplease": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "PredictRestApiB33CDE4F"
+      },
+      ".execute-api.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
+      },
+      "/please/predict"
+     ]
+    ]
+   }
+  },
+  "ModelEndpointnice": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "PredictRestApiB33CDE4F"
+      },
+      ".execute-api.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "PredictRestApiDeploymentStageprod3D359CF9"
+      },
+      "/nice/predict"
      ]
     ]
    }

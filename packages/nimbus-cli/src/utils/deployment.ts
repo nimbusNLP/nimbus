@@ -71,6 +71,7 @@ export async function deployUpdatedStack(
     );
 
     const apiKey = await fetchApiKey();
+    addToDotEnv(apiKey, apiGatewayURL);
     note(
       `${chalk.green.underline(apiKey)}`,
       `${chalk.bold("⭐️ Your API key ⭐️")}`
@@ -85,6 +86,12 @@ export async function deployUpdatedStack(
     //if an error occurs delete model from finished directory
     deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
     throw error;
+  }
+}
+
+function addToDotEnv(apiKey: string, apiGatewayURL: string) {
+  if (!fs.existsSync("./.env")) {
+    fs.writeFileSync("./.env", `API_KEY=${apiKey}\nAPI_GATEWAY_URL=${apiGatewayURL}\n`);
   }
 }
 
