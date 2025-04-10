@@ -5,7 +5,8 @@ import { promisify } from "util";
 import {
   deployStack,
   deployStackWithCleanup,
-  // getApiUrlFromLogs,
+  getApiUrlFromLogs,
+  getApiKeyIdFromLogs,
   deleteModelFromFinishedDir,
   parseModelURL,
   copyDirectory,
@@ -15,12 +16,9 @@ import { removeModelFromConfig, removeModelDirectory } from "./fileSystem.js";
 import * as fs from "fs";
 import * as path from "path";
 import { readModelsConfig } from "./fileSystem.js";
-import { outputs } from "nimbus-cdk";
-import * as AWS from "aws-sdk";
 import { APIGatewayClient, GetApiKeyCommand } from "@aws-sdk/client-api-gateway";
 
 const execPromise = promisify(exec);
-
 
 export async function deployApiGateway(
   currentDir: string,
@@ -32,13 +30,6 @@ export async function deployApiGateway(
       "API Gateway deployed!!!",
       finishedDirPath,
       currentDir
-    );
-
-
-    const apiGatewayURL = outputs.ApiGatewayStack.RestApiUrl;
-    note(
-      `${chalk.green.underline(apiGatewayURL)}`,
-      `${chalk.bold("⭐️ Your API endpoint ⭐️")}`
     );
   } catch (error: any) {
     console.error(`❌  Error deploying API Gateway: ${error.message}`);
@@ -62,15 +53,9 @@ export async function deployUpdatedStack(
       modelDir
     );
 
-    console.log('This is the API Key ID: ', outputs.ApiGatewayStack.ApiKeyId);
-    
-    const apiGatewayURL = outputs.ApiGatewayStack.RestApiUrl;
-    note(
-      `${chalk.green.underline(apiGatewayURL)}`,
-      `${chalk.bold("⭐️ Your API endpoint ⭐️")}`
-    );
-
-    const apiKey = await fetchApiKey();
+    const apiGatewayURL = getApiUrlFromLogs(res);
+    const apiKeyId = getApiKeyIdFromLogs(res);
+    const apiKey = await fetchApiKey(apiKeyId);
     addToDotEnv(apiKey, apiGatewayURL);
     note(
       `${chalk.green.underline(apiKey)}`,
@@ -90,16 +75,13 @@ export async function deployUpdatedStack(
 }
 
 function addToDotEnv(apiKey: string, apiGatewayURL: string) {
-  if (!fs.existsSync("./.env")) {
-    fs.writeFileSync("./.env", `API_KEY=${apiKey}\nAPI_GATEWAY_URL=${apiGatewayURL}\n`);
-  }
+  fs.writeFileSync("./.env", `API_KEY=${apiKey}\nAPI_GATEWAY_URL=${apiGatewayURL}\n`);
 }
 
 // set up as a latter configuration file
 const client = new APIGatewayClient({ region: "us-east-2" });
 
-async function fetchApiKey() {
-  const apiKeyId = outputs.ApiGatewayStack.ApiKeyId;
+async function fetchApiKey(apiKeyId: string) {
   try {
     const command = new GetApiKeyCommand({
       apiKey: apiKeyId,

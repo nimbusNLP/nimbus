@@ -51,12 +51,21 @@ export async function deployStack(
   return res;
 }
 
-// export function getApiUrlFromLogs(res: { stdout: string; stderr: string }) {
-//   const apiUrl = res.stderr.split("ApiGatewayStack.RestApiUrl")[1] as string;
-//   const regex = /(https?:\/\/[^\s]+)/;
-//   const fin = apiUrl.match(regex) || [];
-//   return fin[0];
-// }
+export function getApiUrlFromLogs(res: { stdout: string; stderr: string }) {
+  const apiUrl = res.stderr.split("ApiGatewayStack.RestApiUrl")[1] as string;
+  const regex = /(https?:\/\/[^\s]+)/;
+  const fin = apiUrl.match(regex) || [];
+  return fin[0];
+}
+
+export function getApiKeyIdFromLogs(res: { stdout: string; stderr: string }) {
+  const apiKeyId = res.stderr.split("ApiGatewayStack.ApiKeyId")[1] as string;
+  const regex = /([a-zA-Z0-9]+)/;
+  const fin = apiKeyId.match(regex) || [];
+  return fin[0];
+}
+
+
 
 export function deleteModelFromFinishedDir(
   modelDir: string,
