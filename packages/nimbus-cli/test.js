@@ -1,3 +1,3 @@
-import { outputs} from "nimbus-cdk";
+import { outputs } from "nimbus-cdk";
 
 console.log(outputs);

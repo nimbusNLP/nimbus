@@ -16,8 +16,8 @@ export async function serveUi(nimbusLocalStoragePath: string) {
 
   // Use environment variable for port, defaulting to 3001
   const port = process.env.PORT || 3001;
-  const apiGatewayBaseUrl = process.env.API_GATEWAY_BASE_URL;
-  const nimbusApiKey = process.env.NIMBUS_API_KEY;
+  const apiGatewayBaseUrl = process.env.API_GATEWAY_URL;
+  const nimbusApiKey = process.env.API_KEY;
 
   // Paths required for the API route
   const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
