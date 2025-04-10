@@ -1,9 +1,0 @@
-{
-  "ApiGatewayStack": {
-    "ApiKeyId": "yvwvvhv4s5",
-    "PredictRestApiEndpointCE56DB59": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointfirst": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/first/predict",
-    "ModelEndpointsecond": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/second/predict",
-    "RestApiUrl": "https://gxmcil5kx4.execute-api.us-east-2.amazonaws.com/prod/"
-  }
-}

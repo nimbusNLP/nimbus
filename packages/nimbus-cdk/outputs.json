@@ -1,0 +1,9 @@
+{
+  "ApiGatewayStack": {
+    "ApiKeyId": "77jxh7ef7g",
+    "PredictRestApiEndpointCE56DB59": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointsmallestofmodels": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/smallestofmodels/predict",
+    "ModelEndpointasfd": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/asfd/predict",
+    "RestApiUrl": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/"
+  }
+}
