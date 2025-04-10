@@ -18,6 +18,7 @@
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "open": "^10.1.0",
+    "aws-sdk": "^2.1.0",
     "nimbus-cdk": "workspace:^"
   },
   "devDependencies": {

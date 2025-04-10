@@ -5,7 +5,7 @@ import { promisify } from "util";
 import {
   deployStack,
   deployStackWithCleanup,
-  getApiUrlFromLogs,
+  // getApiUrlFromLogs,
   deleteModelFromFinishedDir,
   parseModelURL,
   copyDirectory,
@@ -15,6 +15,9 @@ import { removeModelFromConfig, removeModelDirectory } from "./fileSystem.js";
 import * as fs from "fs";
 import * as path from "path";
 import { readModelsConfig } from "./fileSystem.js";
+import { outputs } from "nimbus-cdk";
+import * as AWS from "aws-sdk";
+import { APIGatewayClient, GetApiKeyCommand } from "@aws-sdk/client-api-gateway";
 
 const execPromise = promisify(exec);
 
@@ -30,7 +33,9 @@ export async function deployApiGateway(
       finishedDirPath,
       currentDir
     );
-    const apiGatewayURL = getApiUrlFromLogs(res);
+
+
+    const apiGatewayURL = outputs.ApiGatewayStack.RestApiUrl;
     note(
       `${chalk.green.underline(apiGatewayURL)}`,
       `${chalk.bold("⭐️ Your API endpoint ⭐️")}`
@@ -57,10 +62,18 @@ export async function deployUpdatedStack(
       modelDir
     );
 
-    const apiGatewayURL = getApiUrlFromLogs(res);
+    console.log('This is the API Key ID: ', outputs.ApiGatewayStack.ApiKeyId);
+    
+    const apiGatewayURL = outputs.ApiGatewayStack.RestApiUrl;
     note(
       `${chalk.green.underline(apiGatewayURL)}`,
       `${chalk.bold("⭐️ Your API endpoint ⭐️")}`
+    );
+
+    const apiKey = await fetchApiKey();
+    note(
+      `${chalk.green.underline(apiKey)}`,
+      `${chalk.bold("⭐️ Your API key ⭐️")}`
     );
 
     note(
@@ -72,6 +85,26 @@ export async function deployUpdatedStack(
     //if an error occurs delete model from finished directory
     deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
     throw error;
+  }
+}
+
+// set up as a latter configuration file
+const client = new APIGatewayClient({ region: "us-east-2" });
+
+async function fetchApiKey() {
+  const apiKeyId = outputs.ApiGatewayStack.ApiKeyId;
+  try {
+    const command = new GetApiKeyCommand({
+      apiKey: apiKeyId,
+      includeValue: true,
+    });
+
+    const response = await client.send(command);
+    console.log("API Key value:", response.value);
+    return response.value;
+  } catch (error: unknown) {
+    console.error("Failed to get API key:", error);
+    throw error; 
   }
 }
 

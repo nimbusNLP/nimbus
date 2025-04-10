@@ -4,6 +4,7 @@
   "bin": {
     "nimbus-cdk": "bin/nimbus-cdk.js"
   },
+  "main": "./index.js",
   "scripts": {
     "build": "npx tsc",
     "watch": "npx tsc -w",

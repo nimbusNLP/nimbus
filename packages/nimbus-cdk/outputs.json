@@ -1,9 +1,8 @@
 {
   "ApiGatewayStack": {
-    "ApiKeyId": "77jxh7ef7g",
-    "PredictRestApiEndpointCE56DB59": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointsmallestofmodels": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/smallestofmodels/predict",
-    "ModelEndpointasfd": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/asfd/predict",
-    "RestApiUrl": "https://tixi5tdnnc.execute-api.us-east-2.amazonaws.com/prod/"
+    "ApiKeyId": "2o8o2a02i9",
+    "ModelEndpointsleep": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/sleep/predict",
+    "PredictRestApiEndpointCE56DB59": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/",
+    "RestApiUrl": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }
