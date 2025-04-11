@@ -41,9 +41,13 @@ export async function deploy(nimbusLocalStoragePath: string) {
 
   ensureDirectoryExists(modelDir);
 
+
+
   if (modelType === "fine-tuned") {
-    copyModelDirectory(modelPathOrName, modelDir);
+    const destination = path.join(modelDir, "model-best");
+    copyModelDirectory(modelPathOrName, destination);
   }
+
 
   generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription);
 
