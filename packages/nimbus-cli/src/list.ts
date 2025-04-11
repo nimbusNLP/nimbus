@@ -37,14 +37,18 @@ export function listModels(nimbusLocalStoragePath: string) {
         
         if (outputs.ApiGatewayStack && outputs.ApiGatewayStack.ApiKeyId) {
           apiKeyId = outputs.ApiGatewayStack.ApiKeyId;
-          
 
           fetchApiKey(apiKeyId)
             .then(apiKey => {
               displayModelList(json, baseUrl, apiKey);
             })
             .catch(error => {
-              console.error(chalk.yellow(`Warning: Could not fetch API key: ${error.message}`));
+              if (error.message.includes("API Key not found")) {
+                console.error(chalk.yellow(`Warning: ${error.message}`));
+                console.error(chalk.yellow(`Try redeploying your stack with 'nimbus deploy' to generate a new API key.`));
+              } else {
+                console.error(chalk.yellow(`Warning: Could not fetch API key: ${error.message}`));
+              }
               displayModelList(json, baseUrl);
             });
           

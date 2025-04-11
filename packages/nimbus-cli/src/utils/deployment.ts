@@ -68,8 +68,14 @@ export async function fetchApiKey(apiKeyId: string) {
     const response = await client.send(command);
     return response.value;
   } catch (error: unknown) {
+    if (error && typeof error === 'object' && '$fault' in error && error.$fault === 'client' &&
+        'name' in error && error.name === 'NotFoundException') {
+      console.error("API Key not found in AWS. The key may have been deleted or the identifier is invalid.");
+      throw new Error("API Key not found in AWS. You may need to redeploy your stack.");
+    }
+    
     console.error("Failed to get API key:", error);
-    throw error; 
+    throw error;
   }
 }
 
