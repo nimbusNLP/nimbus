@@ -82,24 +82,12 @@ importers:
         specifier: ^6.3.1
         version: 6.3.1
     devDependencies:
-      '@jest/globals':
-        specifier: ^29.7.0
-        version: 29.7.0
       '@types/aws-sdk':
         specifier: ^2.7.0
         version: 2.7.4
       '@types/figlet':
         specifier: ^1.7.0
         version: 1.7.0
-      '@types/jest':
-        specifier: ^29.5.14
-        version: 29.5.14
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@22.14.0)(ts-node@10.9.2(@types/node@22.14.0)(typescript@5.8.3))
-      ts-jest:
-        specifier: ^29.2.5
-        version: 29.3.1(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(jest@29.7.0(@types/node@22.14.0)(ts-node@10.9.2(@types/node@22.14.0)(typescript@5.8.3)))(typescript@5.8.3)
       vitest:
         specifier: ^3.1.1
         version: 3.1.1(@types/node@22.14.0)(jiti@1.21.7)(jsdom@26.0.0)(yaml@2.7.1)
