@@ -1,9 +1,0 @@
-{
-  "ApiGatewayStack": {
-    "ModelEndpointko": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/ko/predict",
-    "ApiKeyId": "rzfgyv5pl8",
-    "PredictRestApiEndpointCE56DB59": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointhi": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/hi/predict",
-    "RestApiUrl": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/"
-  }
-}

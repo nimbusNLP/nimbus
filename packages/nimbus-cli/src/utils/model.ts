@@ -123,10 +123,42 @@ export async function getFineTunedModelPath(): Promise<string> {
   const modelPath = await text({
     message:
       "Enter the directory path to your fine-tuned model (absolute path):",
-    placeholder: "/path/to/your/model",
+    placeholder: "/path/to/your/model-best",
     validate(value): string | Error {
       if (value.length === 0) return "Directory path is required.";
       if (!fs.existsSync(value)) return "Directory does not exist.";
+
+      try {
+        if (!fs.statSync(value).isDirectory()) {
+          return "Path is not a directory.";
+        }
+
+        const dirName = path.basename(value);
+        if (dirName !== "model-best") {
+          return "Directory must be named 'model-best'. Please provide the path to your model-best directory.";
+        }
+
+        const files = fs.readdirSync(value);
+        if (files.length === 0) {
+          return "Directory is empty.";
+        }
+
+        const maxSizeBytes = 500 * 1024 * 1024;
+        const dirSize = getDirectorySize(value, maxSizeBytes);
+        if (dirSize >= maxSizeBytes) {
+          return `Directory is too large (${Math.round(
+            dirSize / (1024 * 1024)
+          )}MB). Maximum size is 500MB.`;
+        }
+
+        const dirDepth = getDirectoryDepth(value);
+        if (dirDepth > 15) {
+          return `Directory structure is too deep (${dirDepth} levels). Maximum depth is 15.`;
+        }
+      } catch (err) {
+        return `Error validating directory: ${err.message}`;
+      }
+
       return "";
     },
   });
@@ -152,21 +184,20 @@ export async function getModelDescription(): Promise<string> {
   }
 
   optionToExitApp(description);
-  return description as string
-
+  return description as string;
 }
 
 export function generateModelFiles(
   modelType: "pre-trained" | "fine-tuned",
   modelPathOrName: string,
   modelDir: string,
-  modelDescription: string,
+  modelDescription: string
 ): void {
   const requirementsContent = "spacy==3.8.2\n";
   const dockerFileContent = generateDockerfile(
     modelType,
     modelPathOrName,
-    path,
+    path
   );
   const lambdaFunctionContent = generateLambdaFile(modelType, modelPathOrName);
 
@@ -175,6 +206,6 @@ export function generateModelFiles(
     requirementsContent,
     dockerFileContent,
     lambdaFunctionContent,
-    modelDescription,
+    modelDescription
   );
 }
