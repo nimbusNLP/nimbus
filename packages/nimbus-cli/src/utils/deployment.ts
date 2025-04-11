@@ -362,7 +362,6 @@ export async function fetchApiKey(apiKeyId: string) {
       includeValue: true,
     });
     const response = await client.send(command);
-    console.log("API Key value:", response.value);
     return response.value;
   } catch (error: unknown) {
     console.error("Failed to get API key:", error);

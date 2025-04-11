@@ -56,9 +56,7 @@ export function removeModelDirectory(baseDir: string, modelName: string): void {
 
 export function copyModelDirectory(source: string, destination: string): void {
   try {
-    console.log(`📂 Starting to copy model from ${source} to ${destination}...`);
-    
-    // Check if source exists and is a directory
+
     if (!fs.existsSync(source)) {
       console.error(`❌ Source directory does not exist: ${source}`);
       throw new Error(`Source directory does not exist: ${source}`);
@@ -69,35 +67,24 @@ export function copyModelDirectory(source: string, destination: string): void {
       throw new Error(`Source is not a directory: ${source}`);
     }
     
-    // List files in source directory
     const files = fs.readdirSync(source);
-    console.log(`📋 Found ${files.length} files/directories in source: ${files.join(', ')}`);
+  
     
-    // Create destination if it doesn't exist
     if (!fs.existsSync(destination)) {
-      console.log(`📁 Creating destination directory: ${destination}`);
       fs.mkdirSync(destination, { recursive: true });
     }
     
-    // Copy each file/directory individually for better logging
     for (const file of files) {
       const srcPath = path.join(source, file);
       const destPath = path.join(destination, file);
-      
-      console.log(`🔄 Copying ${srcPath} to ${destPath}...`);
+    
       
       if (fs.statSync(srcPath).isDirectory()) {
-        console.log(`📁 ${file} is a directory, copying recursively...`);
         fs.cpSync(srcPath, destPath, { recursive: true });
-        console.log(`✅ Directory ${file} copied successfully`);
       } else {
-        console.log(`📄 ${file} is a file, copying...`);
         fs.copyFileSync(srcPath, destPath);
-        console.log(`✅ File ${file} copied successfully`);
       }
     }
-    
-    console.log(`✅ All files copied successfully from ${source} to ${destination}`);
   } catch (err) {
     console.error("❌ Error copying model directory:", err);
     throw err;
