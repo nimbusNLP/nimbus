@@ -1,9 +1,12 @@
 {
   "ApiGatewayStack": {
-    "ModelEndpointko": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/ko/predict",
-    "ApiKeyId": "rzfgyv5pl8",
-    "PredictRestApiEndpointCE56DB59": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointhi": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/hi/predict",
-    "RestApiUrl": "https://nuztycjozk.execute-api.us-east-2.amazonaws.com/prod/"
+    "ApiKeyId": "2o8o2a02i9",
+    "ModelEndpointplease": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/please/predict",
+    "ModelEndpointfinetuned": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/finetuned/predict",
+    "ModelEndpointsleep": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/sleep/predict",
+    "PredictRestApiEndpointCE56DB59": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointmylittlestmodel": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/mylittlestmodel/predict",
+    "ModelEndpointnice": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/nice/predict",
+    "RestApiUrl": "https://rn5k8oycx4.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }

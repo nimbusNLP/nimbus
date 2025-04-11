@@ -6,7 +6,7 @@
     "rootDir": "./",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "types": ["node", "jest"],
+    "types": ["node"],
     "lib": ["ES2020"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true

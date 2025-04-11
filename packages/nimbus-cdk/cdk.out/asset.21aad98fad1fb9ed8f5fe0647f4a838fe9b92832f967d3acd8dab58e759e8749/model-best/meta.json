@@ -1,0 +1,60 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.8.2,<3.9.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"63f1b53",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null,
+    "mode":"default"
+  },
+  "labels":{
+    "tok2vec":[
+
+    ],
+    "textcat":[
+      "POSITIVE",
+      "NEGATIVE",
+      "NEUTRAL"
+    ],
+    "ner":[
+      "DATE",
+      "GPE",
+      "MONEY",
+      "ORG",
+      "PERSON",
+      "PRODUCT"
+    ],
+    "sentencizer":[
+
+    ],
+    "attribute_ruler":[
+
+    ]
+  },
+  "pipeline":[
+    "tok2vec",
+    "textcat",
+    "ner",
+    "sentencizer",
+    "attribute_ruler"
+  ],
+  "components":[
+    "tok2vec",
+    "textcat",
+    "ner",
+    "sentencizer",
+    "attribute_ruler"
+  ],
+  "disabled":[
+
+  ]
+}
