@@ -5,6 +5,13 @@ import { listModels } from './list.js';
 import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
 import { serveUi } from 'nimbus-ui-server';
+import { displayCommandHelp } from './utils/coloredOutput.js';
+
+
+process.on('SIGINT', () => {
+  console.log('\nExiting Nimbus CLI...');
+  process.exit(0);
+});
 
 async function main() {
   const args = process.argv.slice(2);
@@ -35,12 +42,7 @@ async function main() {
       break;
     }
     default: {
-      console.log('Available commands:');
-      console.log('  deploy - Deploy a new model');
-      console.log('  list   - List all deployed models');
-      console.log('  delete - Delete a model');
-      console.log('  destroy - Destroy the stack');
-      console.log('  ui - Serve the UI');
+      displayCommandHelp();
     }
   }
 }

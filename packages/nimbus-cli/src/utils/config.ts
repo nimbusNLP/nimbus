@@ -3,15 +3,10 @@ import * as path from "path";
 import { intro, text, outro, isCancel } from "@clack/prompts";
 import chalk from "chalk";
 
-/**
- * Configures the application by checking for or creating nimbusconfig.json
- * Returns the storage path for Nimbus models
- */
 export async function configureApp(): Promise<string> {
   const currentDir = process.cwd();
   const configFilePath = path.join(currentDir, "nimbus-config.json");
 
-  // Check if config file exists
   if (fs.existsSync(configFilePath)) {
     try {
       const configData = JSON.parse(fs.readFileSync(configFilePath, "utf8"));
@@ -28,7 +23,6 @@ export async function configureApp(): Promise<string> {
     }
   }
 
-  // Config file doesn't exist or is invalid - ask user for path
   intro("Nimbus Configuration");
   console.log(
     chalk.blue("We need to set up a local storage path for your models."),
@@ -47,15 +41,13 @@ export async function configureApp(): Promise<string> {
       },
     });
 
-    // Handle cancellation
     if (isCancel(pathInput)) {
-      outro(chalk.yellow("Setup cancelled. Exiting..."));
-      process.exit(1);
+      console.log('\nConfiguration cancelled. Exiting Nimbus CLI...');
+      process.exit(0);
     }
 
     storagePath = String(pathInput);
 
-    // Validate directory
     try {
       const stats = fs.statSync(storagePath);
       if (!stats.isDirectory()) {
@@ -74,7 +66,6 @@ export async function configureApp(): Promise<string> {
     }
   }
 
-  // Create config file with validated path
   try {
     fs.writeFileSync(
       configFilePath,

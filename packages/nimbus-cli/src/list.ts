@@ -1,5 +1,8 @@
 import path from "path";
 import fs from "fs";
+import { displayModelList } from "./utils/coloredOutput.js";
+import chalk from "chalk";
+import { fetchApiKey } from "./utils/deployment.js";
 
 export interface ModelDataType {
   modelName: string;
@@ -16,30 +19,49 @@ export function listModels(nimbusLocalStoragePath: string) {
     const data = fs.readFileSync(modelsConfigPath, "utf8");
     const json: ModelDataType[] = JSON.parse(data);
 
-    if (json.length === 0) {
-      console.log("No models deployed yet.");
-      return;
+    let baseUrl: string | undefined;
+    let apiKeyId: string | undefined;
+    
+
+    try {
+      const cdkDir = path.join(process.cwd(), "../nimbus-cdk");
+      const outputsPath = path.join(cdkDir, "outputs.json");
+      
+      if (fs.existsSync(outputsPath)) {
+        const outputsData = fs.readFileSync(outputsPath, "utf8");
+        const outputs = JSON.parse(outputsData);
+        
+        if (outputs.ApiGatewayStack && outputs.ApiGatewayStack.RestApiUrl) {
+          baseUrl = outputs.ApiGatewayStack.RestApiUrl;
+        }
+        
+        if (outputs.ApiGatewayStack && outputs.ApiGatewayStack.ApiKeyId) {
+          apiKeyId = outputs.ApiGatewayStack.ApiKeyId;
+          
+
+          fetchApiKey(apiKeyId)
+            .then(apiKey => {
+              displayModelList(json, baseUrl, apiKey);
+            })
+            .catch(error => {
+              console.error(chalk.yellow(`Warning: Could not fetch API key: ${error.message}`));
+              displayModelList(json, baseUrl);
+            });
+          
+          return; 
+        }
+      }
+    } catch (error) {
+      console.error(chalk.yellow(`Warning: Could not read outputs.json: ${error.message}`));
     }
 
-    const urlDir = path.join(process.cwd(), "../nimbus-cdk/outputs.json");
-    const urlData = fs.readFileSync(urlDir, "utf8");
-    const urlJson: string = JSON.parse(urlData).ApiGatewayStack.RestApiUrl;
-
-    console.log("\nDeployed Models:");
-    console.log("---------------");
-    json.forEach((modelData) => {
-      console.log(
-        `- ${modelData.modelName} (${modelData.modelType}) - ${urlJson}${modelData.modelName}/predict`
-      );
-      console.log(`  Description: ${modelData.description}`);
-    });
+   
+    displayModelList(json, baseUrl);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      console.log(
-        'No models deployed yet. Use "nimbus deploy" to deploy your first model.'
-      );
+      displayModelList([]);
     } else {
-      console.error("❌  Error reading models configuration:", error);
+      console.error(chalk.red(`Error reading models configuration: ${error}`));
     }
   }
 }

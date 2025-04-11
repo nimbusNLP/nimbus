@@ -1,9 +1,10 @@
-import { spinner } from "@clack/prompts";
+import ora from 'ora';
 import path from "path";
 import fs from "fs";
 import { readModelsConfig } from "./fileSystem.js";
 import { exec } from "child_process";
 import { promisify } from "util";
+import chalk from "chalk";
 
 const execPromise = promisify(exec);
 
@@ -26,8 +27,8 @@ export async function deployStackWithCleanup(
   } catch (error) {
     console.log("❌  Deployment failed. Cleaning up...");
     deleteModelFromFinishedDir(modelDir, finishedDirPath, modelName);
+    throw new Error(`Deployment failed: ${error instanceof Error ? error.message : String(error)}`);
   }
-  throw Error;
 }
 
 export async function deployStack(
@@ -36,16 +37,26 @@ export async function deployStack(
   finishedDirPath: string,
   currentDir: string
 ) {
-  const spin = spinner();
-  spin.start(startSpinnerMessage);
+
+   let spinner = ora({
+      text: chalk.blue(startSpinnerMessage),
+      spinner: 'dots',
+      color: 'blue'
+    }).start();
+ 
   const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
 
-  const res = await execPromise(command, {
-    cwd: path.join(currentDir, "../nimbus-cdk"),
-  });
-  
-  spin.stop(stopSpinnerMessage);
-  return res;
+  try {
+    const res = await execPromise(command, {
+      cwd: path.join(currentDir, "../nimbus-cdk"),
+    });
+
+    spinner.succeed(chalk.green(stopSpinnerMessage));
+    return res;
+  } catch (error) {
+    spinner.fail(chalk.red('Deployment failed'));
+    throw error;
+  }
 }
 
 export function getApiUrlFromLogs(res: { stdout: string; stderr: string }) {
@@ -61,8 +72,6 @@ export function getApiKeyIdFromLogs(res: { stdout: string; stderr: string }) {
   const fin = apiKeyId.match(regex) || [];
   return fin[0];
 }
-
-
 
 export function deleteModelFromFinishedDir(
   modelDir: string,

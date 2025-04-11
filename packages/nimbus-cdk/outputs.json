@@ -1,0 +1,8 @@
+{
+  "ApiGatewayStack": {
+    "ApiKeyId": "y2rnhyr7ia",
+    "PredictRestApiEndpointCE56DB59": "https://vihzsiwg7i.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointkk": "https://vihzsiwg7i.execute-api.us-east-2.amazonaws.com/prod/kk/predict",
+    "RestApiUrl": "https://vihzsiwg7i.execute-api.us-east-2.amazonaws.com/prod/"
+  }
+}

@@ -9,36 +9,42 @@ import {
   readModelsConfig,
 } from "./utils/fileSystem.js";
 import * as fs from 'fs';
+import { 
+  displayNoModelsToDelete, 
+  displayNoModelSelected, 
+  displayRemovingModel 
+} from "./utils/coloredOutput.js";
 
 
 
 export async function deleteModel(nimbusLocalStoragePath: string) {
-  displayDeleteWelcomeMessage();
-
   const currentDir = process.cwd();
   const finishedDir = path.join(nimbusLocalStoragePath, "finished_dir");
   
   if (!fs.existsSync(finishedDir)) {
-    console.log("❌  No models found to delete.");
+    displayNoModelsToDelete();
     return;
   }
 
   const modelsConfigPath = path.join(finishedDir, "models.json");
   
   const models = readModelsConfig(modelsConfigPath);
+  
   if (models.length === 0) {
-    console.log("❌  No models found to delete.");
+    displayNoModelsToDelete();
     return;
   }
+
+  displayDeleteWelcomeMessage();
 
   const modelToRemove = await selectModelToRemove(modelsConfigPath);
 
   if (modelToRemove) {
     await shouldRemoveModel(modelToRemove);
-    console.log(`Proceeding to remove model: ${modelToRemove}`);
+    displayRemovingModel(modelToRemove);
     await deleteModelFromStack(currentDir, finishedDir, modelToRemove);
     displayDeleteCompletionMessage();
   } else {
-    console.log("❌  No model selected for deletion.");
+    displayNoModelSelected();
   }
 }

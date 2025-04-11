@@ -16,14 +16,11 @@ import {
   updateModelsConfig,
   copyModelDirectory,
 } from "./utils/fileSystem.js";
-
 export async function deploy(nimbusLocalStoragePath: string) {
   displayWelcomeMessage();
-
   const currentDir = process.cwd();
   const finishedDir = path.join(nimbusLocalStoragePath, "finished_dir");
   const modelsConfigPath = path.join(finishedDir, "models.json");
-
   ensureDirectoryExists(nimbusLocalStoragePath);
   ensureDirectoryExists(finishedDir);
   initializeModelsConfig(modelsConfigPath);
@@ -39,13 +36,13 @@ export async function deploy(nimbusLocalStoragePath: string) {
     modelType === "pre-trained"
       ? await getPreTrainedModel()
       : await getFineTunedModelPath();
-
+      
   const modelDir = path.join(finishedDir, modelName);
+
   ensureDirectoryExists(modelDir);
 
   if (modelType === "fine-tuned") {
-    const destination = path.join(modelDir, "model-best");
-    copyModelDirectory(modelPathOrName, destination);
+    copyModelDirectory(modelPathOrName, modelDir);
   }
 
   generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription);
@@ -58,6 +55,6 @@ export async function deploy(nimbusLocalStoragePath: string) {
   });
 
   await deployUpdatedStack(currentDir, finishedDir, modelName, modelDir);
-  
+
   displayCompletionMessage();
 }

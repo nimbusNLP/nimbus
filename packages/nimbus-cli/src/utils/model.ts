@@ -1,6 +1,7 @@
 import { select, text } from "@clack/prompts";
 import fs from "fs";
 import path from "path";
+import chalk from "chalk";
 import { writeModelFiles } from "./fileSystem.js";
 import generateDockerfile from "../dockerCode.js";
 import generateLambdaFile from "../lambdaCode.js";
@@ -11,12 +12,64 @@ import {
   optionToExitApp,
 } from "./validation.js";
 
+function getDirectorySize(dirPath: string, maxSize: number): number {
+  let totalSize = 0;
+  try {
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = path.join(dirPath, entry.name);
+      if (entry.isDirectory()) {
+        totalSize += getDirectorySize(fullPath, maxSize);
+      } else if (entry.isFile()) {
+        try {
+          totalSize += fs.statSync(fullPath).size;
+        } catch (err) {
+          console.warn(`Could not get size of ${fullPath}: ${err.message}`);
+        }
+      }
+      if (totalSize > maxSize) {
+        return totalSize;
+      }
+    }
+  } catch (err) {
+    console.warn(
+      `Could not read directory ${dirPath} during size check: ${err.message}`
+    );
+  }
+  return totalSize;
+}
+
+function getDirectoryDepth(dirPath: string, currentDepth = 0): number {
+  let maxDepth = currentDepth;
+  try {
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const depth = getDirectoryDepth(
+          path.join(dirPath, entry.name),
+          currentDepth + 1
+        );
+        if (depth > maxDepth) {
+          maxDepth = depth;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn(
+      `Could not read directory ${dirPath} during depth check: ${err.message}`
+    );
+    return currentDepth;
+  }
+  return maxDepth;
+}
+
 export async function getModelType(): Promise<"pre-trained" | "fine-tuned"> {
   const modelType = await select({
     message: "Please choose the type of model you want to deploy:",
     options: [
-      { value: "pre-trained", label: "Pre-trained Model" },
-      { value: "fine-tuned", label: "Fine-tuned Model" },
+      { value: "pre-trained", label: chalk.white("Pre-trained Model") },
+      { value: "fine-tuned", label: chalk.white("Fine-tuned Model") },
     ],
   });
 
@@ -31,7 +84,6 @@ export async function getModelName(modelsConfigPath: string): Promise<string> {
   });
 
   optionToExitApp(modelName);
-  //VALIDATE MODEL NAME is unique and appropriate for URL
   while (!validModelName(modelName, modelsConfigPath)) {
     if (modelNameNotUnique(modelName, modelsConfigPath)) {
       modelName = await text({
@@ -42,8 +94,7 @@ export async function getModelName(modelsConfigPath: string): Promise<string> {
       optionToExitApp(modelName);
     } else {
       modelName = await text({
-        message:
-          "❌ Only lowercase letters, numbers and start with a letter:",
+        message: "❌ Only lowercase letters, numbers and start with a letter:",
         placeholder: "modelA",
       });
 
@@ -58,9 +109,9 @@ export async function getPreTrainedModel(): Promise<string> {
   const selectedModel = await select({
     message: "Select a pre-trained model:",
     options: [
-      { value: "en_core_web_sm", label: "en_core_web_sm" },
-      { value: "en_core_web_md", label: "en_core_web_md" },
-      { value: "en_core_web_lg", label: "en_core_web_lg" },
+      { value: "en_core_web_sm", label: chalk.white("en_core_web_sm") },
+      { value: "en_core_web_md", label: chalk.white("en_core_web_md") },
+      { value: "en_core_web_lg", label: chalk.white("en_core_web_lg") },
     ],
   });
 
@@ -87,10 +138,9 @@ export async function getFineTunedModelPath(): Promise<string> {
 export async function getModelDescription(): Promise<string> {
   let description = await text({
     message: "Enter a description for your model:",
-    placeholder: "This model is used for...",
+    placeholder: "",
   });
 
-  //VALIDATE DESCRIPTION
   while (!isSafeDescription(description)) {
     description = await text({
       message:
@@ -102,7 +152,8 @@ export async function getModelDescription(): Promise<string> {
   }
 
   optionToExitApp(description);
-  return description as string;
+  return description as string
+
 }
 
 export function generateModelFiles(

@@ -1,65 +1,37 @@
-import figlet from "figlet";
-import chalk, { ChalkInstance } from "chalk";
+import chalk from "chalk";
 
 export function displayWelcomeMessage(): void {
-  displaySplitFiglet(
-    chalk.greenBright,
-    "NimbuS",
-    undefined
-  );
-  
-  displaySplitFiglet(
-    chalk.blue,
-    "Let's deploy",
-    "your models!"
-  );
+  console.log(chalk.blue('\nDEPLOY MODEL'));
+  console.log(chalk.blue('============'));
 }
 
 export function displayCompletionMessage(): void {
-  displaySplitFiglet(
-    chalk.greenBright,
-    "Deployment",
-    "Complete!"
-  );
+  console.log(chalk.green('\nDEPLOYMENT COMPLETE'));
+  console.log(chalk.green('=================='));
 }
 
 export function displayDeleteWelcomeMessage(): void {
-  displaySplitFiglet(
-    chalk.greenBright,
-    "Let's delete",
-    "your models!"
-  );
+  console.log(chalk.blue('\nDELETE MODEL'));
+  console.log(chalk.blue('============'));
 }
 
 export function displayDeleteCompletionMessage(): void {
-  displaySplitFiglet(
-    chalk.greenBright,
-    "Deletion",
-    "Complete!"
-  );
+  console.log(chalk.green('\nDELETION COMPLETE'));
+  console.log(chalk.green('================'));
 }
 
-function displaySplitFiglet(
-  colorMeth: ChalkInstance,
-  firstPart: string,
-  secondPart: string
-): void {
-  console.log(
-    colorMeth(
-      figlet.textSync(firstPart, {
-        font: "Standard",
-        horizontalLayout: "default",
-        verticalLayout: "default",
-      })
-    )
-  );
-  secondPart && console.log(
-    colorMeth(
-      figlet.textSync(secondPart, {
-        font: "Standard",
-        horizontalLayout: "default",
-        verticalLayout: "default",
-      })
-    )
-  );
+export function displayDestroyWelcomeMessage(): void {
+  console.log(chalk.red('\nDESTROY STACK'));
+  console.log(chalk.red('============='));
 }
+
+export function displayDestroyCompletionMessage(): void {
+  console.log(chalk.red('\nSTACK DESTROYED'));
+  console.log(chalk.red('==============='));
+}
+
+export function displayListWelcomeMessage(): void {
+  console.log(chalk.blue('\nMODEL LIST'));
+  console.log(chalk.blue('=========='));
+}
+
