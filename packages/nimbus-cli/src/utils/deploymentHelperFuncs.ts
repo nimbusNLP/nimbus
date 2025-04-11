@@ -38,15 +38,12 @@ export async function deployStack(
 ) {
   const spin = spinner();
   spin.start(startSpinnerMessage);
-
-  process.once("SIGINT", () => console.log("HIIIIII"));
-
   const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
 
   const res = await execPromise(command, {
     cwd: path.join(currentDir, "../nimbus-cdk"),
   });
-
+  
   spin.stop(stopSpinnerMessage);
   return res;
 }

@@ -1,6 +1,6 @@
-POST https://8z9bgrku83.execute-api.us-east-2.amazonaws.com/prod/story/predict
+POST https://ricys45jfl.execute-api.us-east-2.amazonaws.com/prod/fd/predict
 Content-Type: application/json
-x-api-key: IDVn92bcvIar2OdrxSbAP1e1759rMwnlahDbmRKT
+x-api-key: YXnJSeMD3u9CqbopQwQ8j8TgC3sVR1Mn7wyI1dq4
 
 {
   "text": "Your input data for the model goes here"

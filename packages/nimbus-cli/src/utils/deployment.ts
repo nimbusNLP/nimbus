@@ -180,9 +180,3 @@ export async function destroyStack(
     throw error;
   }
 }
-
-
-
-
-
-

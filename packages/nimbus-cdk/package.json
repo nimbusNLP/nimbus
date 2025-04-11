@@ -6,13 +6,13 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "watch": "npx tsc -w",
     "cdk": "cdk"
   },
   "devDependencies": {
     "aws-cdk": "2.1005.0",
     "ts-node": "^10.9.2"
   },
+  "type": "module",
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^1.203.0",
     "@aws-cdk/aws-apigatewayv2-alpha": "^2.114.1-alpha.0",
@@ -20,6 +20,7 @@
     "@aws-cdk/aws-ecr": "^1.203.0",
     "@aws-cdk/aws-lambda": "^1.203.0",
     "@aws-cdk/aws-lambda-event-sources": "^1.203.0",
+    "@types/node": "^22.14.0",
     "aws-cdk-lib": "2.181.1",
     "constructs": "^10.0.0"
   }
