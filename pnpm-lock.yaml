@@ -67,7 +67,7 @@ importers:
         specifier: ^5.4.1
         version: 5.4.1
       dotenv:
-        specifier: ^16.4.7
+        specifier: ^16.5.0
         version: 16.5.0
       figlet:
         specifier: ^1.8.0

@@ -1,36 +1,26 @@
 import express, { Request, Response } from 'express';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
 import open from 'open';
-import dotenv from 'dotenv';
 import axios from 'axios';
 
-dotenv.config();
 
-// Export the function so it can be imported and called by nimbus-cli
-export async function serveUi(nimbusLocalStoragePath: string) {
+export async function serveUi(nimbusLocalStoragePath: string, apiGatewayBaseUrl: string, nimbusApiKey: string) {
+  const port = 3001;
   const app = express();
-
-  // Restore JSON Middleware
   app.use(express.json());
 
-  // Use environment variable for port, defaulting to 3001
-  const port = process.env.PORT || 3001;
-  const apiGatewayBaseUrl = process.env.API_GATEWAY_URL;
-  const nimbusApiKey = process.env.API_KEY;
-
-  // Paths required for the API route
   const finishedDirPath = path.join(nimbusLocalStoragePath, 'finished_dir');
   const modelsConfigPath = path.join(finishedDirPath, 'models.json');
   const cdkOutputsPath = path.join(process.cwd(), '..', 'nimbus-cdk', 'outputs.json');
 
-  // Restore API Route
   app.get('/api/models', (req: Request, res: Response) => {
     try {
       // Check for models config file
       if (!fs.existsSync(modelsConfigPath)) {
         console.warn(`Models config not found at ${modelsConfigPath}`);
-        res.json([]); // Return empty if not found
+        res.json([]); 
         return;
       }
 
@@ -86,21 +76,18 @@ export async function serveUi(nimbusLocalStoragePath: string) {
   });
 
   // Calculate path to the frontend build directory
-  const clientBuildPath = path.join(process.cwd(), '..', 'nimbus-ui', 'client', 'dist');
-  console.log(clientBuildPath);
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const clientBuildPath = path.join(__dirname, 'frontend');
 
   // Restore Static Serving and Catch-all Logic
   if (fs.existsSync(clientBuildPath)) {
-    // Serve static files (HTML, JS, CSS) from the client build directory
     app.use(express.static(clientBuildPath));
 
-    // Catch-all route: For any GET request that doesn't match '/api/models' or a static file,
-    // serve the main index.html file. This is crucial for client-side routing (e.g., React Router).
     app.get(/^\/(?!api).*/, (req: Request, res: Response) => {
       res.sendFile(path.join(clientBuildPath, 'index.html'));
     });
   } else {
-    // Handle case where the frontend hasn't been built
     console.error(`Frontend build directory not found at ${clientBuildPath}`);
     console.error('Have you run "npm run build -w nimbus-ui-client"?');
     // Provide a fallback for GET requests if frontend isn't available

@@ -1,0 +1,8 @@
+{
+  "ApiGatewayStack": {
+    "ApiKeyId": "9n2iavsdo6",
+    "PredictRestApiEndpointCE56DB59": "https://fmtpvb4s3f.execute-api.us-east-2.amazonaws.com/prod/",
+    "ModelEndpointfirst": "https://fmtpvb4s3f.execute-api.us-east-2.amazonaws.com/prod/first/predict",
+    "RestApiUrl": "https://fmtpvb4s3f.execute-api.us-east-2.amazonaws.com/prod/"
+  }
+}

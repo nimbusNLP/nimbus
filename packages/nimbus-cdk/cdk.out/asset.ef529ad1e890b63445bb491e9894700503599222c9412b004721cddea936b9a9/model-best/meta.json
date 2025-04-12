@@ -1,0 +1,52 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.8.4,<3.9.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"85cc763",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null,
+    "mode":"default"
+  },
+  "labels":{
+    "tok2vec":[
+
+    ],
+    "ner":[
+      "FASHION_BRAND"
+    ]
+  },
+  "pipeline":[
+    "tok2vec",
+    "ner"
+  ],
+  "components":[
+    "tok2vec",
+    "ner"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "ents_f":0.6315789474,
+    "ents_p":0.7333333333,
+    "ents_r":0.5546218487,
+    "ents_per_type":{
+      "FASHION_BRAND":{
+        "p":0.7333333333,
+        "r":0.5546218487,
+        "f":0.6315789474
+      }
+    },
+    "tok2vec_loss":80.5078348749,
+    "ner_loss":28.2171325684
+  }
+}

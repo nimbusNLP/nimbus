@@ -4,9 +4,8 @@ import { deleteModel } from './deleteModel.js';
 import { listModels } from './list.js';
 import { destroy } from './destroy.js';
 import { configureApp } from './utils/config.js';
-import { serveUi } from 'nimbus-ui-server';
+import { displayUi } from './displayUi.js';
 import { displayCommandHelp } from './utils/coloredOutput.js';
-
 
 process.on('SIGINT', () => {
   console.log('\nExiting Nimbus CLI...');
@@ -37,8 +36,7 @@ async function main() {
       break;
     }
     case 'ui': {
-      console.log('Serving UI...');
-      await serveUi(nimbusLocalStoragePath);
+      await displayUi(nimbusLocalStoragePath);
       break;
     }
     default: {
