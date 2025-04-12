@@ -520,7 +520,7 @@
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:b84dd07753b976468b7bef39c19f4a1791a52484aaa17c5c3ba84ce827db5141"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:59938ac35c763fecf67f6c54fbc4391e141d07b85daddcdf1901032b7bee50f1"
      }
     },
     "MemorySize": 3008,
@@ -538,7 +538,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ApiGatewayStack/Lambda_first/Resource",
-    "aws:asset:path": "asset.b84dd07753b976468b7bef39c19f4a1791a52484aaa17c5c3ba84ce827db5141",
+    "aws:asset:path": "asset.59938ac35c763fecf67f6c54fbc4391e141d07b85daddcdf1901032b7bee50f1",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
