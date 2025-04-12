@@ -46,9 +46,11 @@ export async function deployStack(
  
   const command = `cdk deploy ApiGatewayStack --require-approval never -c finishedDirPath="${finishedDirPath}"`;
 
+  // Can remove currentDir being passed down multiple levels
+  // instead find __dirname and create path to nodemodules here 
   try {
     const res = await execPromise(command, {
-      cwd: path.join(currentDir, "../nimbus-cdk"),
+      cwd: path.join(currentDir, "../../node_modules/nimbus-cdk"),
     });
 
     spinner.succeed(chalk.green(stopSpinnerMessage));

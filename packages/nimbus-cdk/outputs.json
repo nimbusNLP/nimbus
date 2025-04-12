@@ -1,8 +1,8 @@
 {
   "ApiGatewayStack": {
-    "ApiKeyId": "kww5plfhgl",
-    "PredictRestApiEndpointCE56DB59": "https://8kajyz16s7.execute-api.us-east-2.amazonaws.com/prod/",
-    "ModelEndpointfirst": "https://8kajyz16s7.execute-api.us-east-2.amazonaws.com/prod/first/predict",
-    "RestApiUrl": "https://8kajyz16s7.execute-api.us-east-2.amazonaws.com/prod/"
+    "ApiKeyId": "l267obyied",
+    "ModelEndpointhelllllo": "https://9xq115ghf2.execute-api.us-east-2.amazonaws.com/prod/helllllo/predict",
+    "PredictRestApiEndpointCE56DB59": "https://9xq115ghf2.execute-api.us-east-2.amazonaws.com/prod/",
+    "RestApiUrl": "https://9xq115ghf2.execute-api.us-east-2.amazonaws.com/prod/"
   }
 }

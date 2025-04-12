@@ -2,10 +2,13 @@ import * as fs from "fs";
 import * as path from "path";
 import { intro, text, outro, isCancel } from "@clack/prompts";
 import chalk from "chalk";
+import { fileURLToPath } from "url";
+
 
 export async function configureApp(): Promise<string> {
-  const currentDir = process.cwd();
-  const configFilePath = path.join(currentDir, "nimbus-config.json");
+  const __filename = fileURLToPath(import.meta.url);
+  const currentDir = path.dirname(__filename);
+  const configFilePath = path.join(currentDir, '..', '..', '..', "nimbus-config.json");
 
   if (fs.existsSync(configFilePath)) {
     try {

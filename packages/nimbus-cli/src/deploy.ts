@@ -1,4 +1,5 @@
 import path from "path";
+import { fileURLToPath } from "url";
 import { displayWelcomeMessage, displayCompletionMessage } from "./utils/ui.js";
 import { deployUpdatedStack } from "./utils/deployment.js";
 import { shouldDeployModel } from "./utils/cli.js";
@@ -16,11 +17,15 @@ import {
   updateModelsConfig,
   copyModelDirectory,
 } from "./utils/fileSystem.js";
+
 export async function deploy(nimbusLocalStoragePath: string) {
   displayWelcomeMessage();
-  const currentDir = process.cwd();
+  const __filename = fileURLToPath(import.meta.url);
+  const currentDir = path.dirname(__filename);
+
   const finishedDir = path.join(nimbusLocalStoragePath, "finished_dir");
   const modelsConfigPath = path.join(finishedDir, "models.json");
+  
   ensureDirectoryExists(nimbusLocalStoragePath);
   ensureDirectoryExists(finishedDir);
   initializeModelsConfig(modelsConfigPath);
@@ -38,19 +43,14 @@ export async function deploy(nimbusLocalStoragePath: string) {
       : await getFineTunedModelPath();
       
   const modelDir = path.join(finishedDir, modelName);
-
   ensureDirectoryExists(modelDir);
-
-
 
   if (modelType === "fine-tuned") {
     const destination = path.join(modelDir, "model-best");
     copyModelDirectory(modelPathOrName, destination);
   }
 
-
   generateModelFiles(modelType, modelPathOrName, modelDir, modelDescription);
-
   updateModelsConfig(modelsConfigPath, {
     modelName,
     modelType,
@@ -59,6 +59,5 @@ export async function deploy(nimbusLocalStoragePath: string) {
   });
 
   await deployUpdatedStack(currentDir, finishedDir, modelName, modelDir);
-
   displayCompletionMessage();
 }
