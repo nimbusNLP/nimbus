@@ -1,4 +1,5 @@
 import path from "path";
+import { fileURLToPath } from "url";
 import {
   displayDeleteCompletionMessage,
   displayDeleteWelcomeMessage,
@@ -16,7 +17,8 @@ import {
 } from "./utils/coloredOutput.js";
 
 export async function deleteModel(nimbusLocalStoragePath: string) {
-  const currentDir = process.cwd();
+  const __filename = fileURLToPath(import.meta.url);
+  const currentDir = path.dirname(__filename);
   const finishedDir = path.join(nimbusLocalStoragePath, "finished_dir");
   
   if (!fs.existsSync(finishedDir)) {

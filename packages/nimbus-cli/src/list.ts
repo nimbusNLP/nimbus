@@ -1,8 +1,8 @@
 import path from "path";
-import fs from "fs";
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 import { displayModelList } from "./utils/coloredOutput.js";
-import chalk from "chalk";
-import { fetchApiKey } from "./utils/deployment.js";
+import { readModelsConfig } from "./utils/fileSystem.js"
 
 export interface ModelDataType {
   modelName: string;
@@ -14,58 +14,19 @@ export interface ModelDataType {
 export function listModels(nimbusLocalStoragePath: string) {
   const finishedDir = path.join(nimbusLocalStoragePath, "finished_dir");
   const modelsConfigPath = path.join(finishedDir, "models.json");
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const dotEnvFilePath = path.join(__dirname, '..', '..', '.env');
+  
+  dotenv.config({path: dotEnvFilePath});
+
+  const apiGatewayBaseUrl = process.env.API_GATEWAY_URL;
+  const nimbusApiKey = process.env.API_KEY;
 
   try {
-    const data = fs.readFileSync(modelsConfigPath, "utf8");
-    const json: ModelDataType[] = JSON.parse(data);
-
-    let baseUrl: string | undefined;
-    let apiKeyId: string | undefined;
-    
-
-    try {
-      const cdkDir = path.join(process.cwd(), "../nimbus-cdk");
-      const outputsPath = path.join(cdkDir, "outputs.json");
-      
-      if (fs.existsSync(outputsPath)) {
-        const outputsData = fs.readFileSync(outputsPath, "utf8");
-        const outputs = JSON.parse(outputsData);
-        
-        if (outputs.ApiGatewayStack && outputs.ApiGatewayStack.RestApiUrl) {
-          baseUrl = outputs.ApiGatewayStack.RestApiUrl;
-        }
-        
-        if (outputs.ApiGatewayStack && outputs.ApiGatewayStack.ApiKeyId) {
-          apiKeyId = outputs.ApiGatewayStack.ApiKeyId;
-
-          fetchApiKey(apiKeyId)
-            .then(apiKey => {
-              displayModelList(json, baseUrl, apiKey);
-            })
-            .catch(error => {
-              if (error.message.includes("API Key not found")) {
-                console.error(chalk.yellow(`Warning: ${error.message}`));
-                console.error(chalk.yellow(`Try redeploying your stack with 'nimbus deploy' to generate a new API key.`));
-              } else {
-                console.error(chalk.yellow(`Warning: Could not fetch API key: ${error.message}`));
-              }
-              displayModelList(json, baseUrl);
-            });
-          
-          return; 
-        }
-      }
-    } catch (error) {
-      console.error(chalk.yellow(`Warning: Could not read outputs.json: ${error.message}`));
-    }
-
-   
-    displayModelList(json, baseUrl);
+    const models = readModelsConfig(modelsConfigPath)
+    displayModelList(models, apiGatewayBaseUrl, nimbusApiKey)
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
       displayModelList([]);
-    } else {
-      console.error(chalk.red(`Error reading models configuration: ${error}`));
-    }
   }
 }
