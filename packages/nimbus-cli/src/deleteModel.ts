@@ -12,10 +12,8 @@ import * as fs from 'fs';
 import { 
   displayNoModelsToDelete, 
   displayNoModelSelected, 
-  displayRemovingModel 
+  displayRemovingModel
 } from "./utils/coloredOutput.js";
-
-
 
 export async function deleteModel(nimbusLocalStoragePath: string) {
   const currentDir = process.cwd();
@@ -27,7 +25,6 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
   }
 
   const modelsConfigPath = path.join(finishedDir, "models.json");
-  
   const models = readModelsConfig(modelsConfigPath);
   
   if (models.length === 0) {

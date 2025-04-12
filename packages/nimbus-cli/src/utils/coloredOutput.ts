@@ -45,6 +45,11 @@ export function displayModelList(
   if (apiKey) {
     console.log(chalk.white(`\nAPI Key: ${chalk.cyan(apiKey)}`));
   }
+
+  if (!apiKey && models.length > 0) {
+    console.log(chalk.yellow('\nWarning: API Key not found.'));
+    console.log(chalk.yellow('Try redeploying your stack with ' + chalk.green('`nimbus deploy`') + ' to generate a new API key.'));
+  }
   
   if (models.length === 0) {
     console.log(chalk.yellow('\nNo models deployed.'));
