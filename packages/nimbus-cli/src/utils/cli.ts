@@ -2,7 +2,6 @@ import { select, note } from "@clack/prompts";
 import { readModelsConfig } from "./fileSystem.js";
 import { optionToExitApp } from './validation.js';
 import { displayDeleteModelInterface } from './coloredOutput.js';
-import path from 'path';
 import chalk from "chalk";
 
 export async function shouldDeployModel(): Promise<boolean> {

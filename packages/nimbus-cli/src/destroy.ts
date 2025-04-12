@@ -1,3 +1,4 @@
+import { fileURLToPath } from "url";
 import { shouldDestroyStack } from "./utils/cli.js";
 import { destroyStack } from "./utils/deployment.js";
 import { deleteFinishedDir } from "./utils/fileSystem.js";
@@ -10,7 +11,8 @@ export async function destroy(nimbusLocalStoragePath: string) {
   displayDestroyWelcomeMessage();
   
   await shouldDestroyStack();
-  const currentDir = process.cwd();
+  const __filename = fileURLToPath(import.meta.url);
+  const currentDir = path.dirname(__filename);
   const finishedDirPath = path.join(nimbusLocalStoragePath, "finished_dir");
 
   if (!fs.existsSync(finishedDirPath)) {

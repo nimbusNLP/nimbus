@@ -144,7 +144,7 @@ export async function destroyStack(
     await execPromise(
       `cdk destroy ApiGatewayStack --force -c finishedDirPath="${finishedDirPath}"`,
       {
-        cwd: path.join(currentDir, "../nimbus-cdk"),
+        cwd: path.join(currentDir, "../../node_modules/nimbus-cdk"),
       }
     );
     spin.stop("Stack destroyed! 💥");
