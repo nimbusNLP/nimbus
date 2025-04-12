@@ -39,7 +39,7 @@ export async function deleteModel(nimbusLocalStoragePath: string) {
   const modelToRemove = await selectModelToRemove(modelsConfigPath);
 
   if (modelToRemove) {
-    await shouldRemoveModel(modelToRemove);
+    await shouldRemoveModel(modelToRemove, modelsConfigPath);
     displayRemovingModel(modelToRemove);
     await deleteModelFromStack(currentDir, finishedDir, modelToRemove);
     displayDeleteCompletionMessage();

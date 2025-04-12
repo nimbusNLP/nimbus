@@ -24,11 +24,7 @@ export async function shouldDeployModel(): Promise<boolean> {
   return deployModelChoice === "yes";
 }
 
-export async function shouldRemoveModel(modelName: string): Promise<void> {
-
-  const finishedDir = path.join(process.cwd(), "../nimbus-cli/finished_dir");
-  const modelsConfigPath = path.join(finishedDir, "models.json");
-  
+export async function shouldRemoveModel(modelName: string, modelsConfigPath: string): Promise<void> {
   let modelToDelete = null;
   try {
     const models = readModelsConfig(modelsConfigPath);
