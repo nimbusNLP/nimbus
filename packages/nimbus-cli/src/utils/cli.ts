@@ -110,7 +110,7 @@ export async function selectModelToRemove(
 }
 
 export async function shouldDestroyStack(): Promise<void> {
-  note(chalk.red.bold("WARNING: This will destroy all deployed models and infrastructure!"), "");
+  note(chalk.red.bold("This will destroy all deployed models and infrastructure!"), "WARNING!!");
 
   const destroyChoice = await select({
     message: chalk.red.bold("Are you sure you want to destroy the entire stack?"),

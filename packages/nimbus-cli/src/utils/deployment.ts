@@ -1,5 +1,6 @@
 import { note, spinner } from "@clack/prompts";
 import chalk from "chalk";
+import { fileURLToPath } from "url";
 import { exec } from "child_process";
 import { promisify } from "util";
 import {
@@ -54,7 +55,10 @@ export async function deployUpdatedStack(
 }
 
 function addToDotEnv(apiKey: string, apiGatewayURL: string) {
-  fs.writeFileSync("./.env", `API_KEY=${apiKey}\nAPI_GATEWAY_URL=${apiGatewayURL}\n`);
+  const __filename = fileURLToPath(import.meta.url);
+  const currentDir = path.dirname(__filename);
+  const envPath = path.join(currentDir, '..', '..', '..', '.env');
+  fs.writeFileSync(envPath, `API_KEY=${apiKey}\nAPI_GATEWAY_URL=${apiGatewayURL}\n`);
 }
 
 const client = new APIGatewayClient({ region: "us-east-2" });

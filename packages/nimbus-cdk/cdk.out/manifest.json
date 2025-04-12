@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3f51ee488368bf518eeb9b47704e3e347e8f92f149ebfea5247dd8cb440cc2b1.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9095d7e93cb979abdaf6131e4f3db44e18780edbb368f27ee6cc16e2f75b9f43.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -43,7 +43,7 @@
         "/ApiGatewayStack/PredictRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApiDeployment49622637f2a2f31342d289d027628e5477931520"
+            "data": "PredictRestApiDeployment496226373491991a8bd2fea92f299be5cd73993b"
           }
         ],
         "/ApiGatewayStack/PredictRestApi/DeploymentStage.prod/Resource": [
@@ -82,40 +82,112 @@
             "data": "PredictRestApiGETBBFCD66A"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/helllllo/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/first/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApihelllllo7A9AB1AA"
+            "data": "PredictRestApifirst8D0D4BC0"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/helllllo/predict/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/first/predict/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApihelllllopredict00F91DC8"
+            "data": "PredictRestApifirstpredict1B8A806D"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/helllllo/predict/OPTIONS/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/first/predict/OPTIONS/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApihelllllopredictOPTIONSF32B250B"
+            "data": "PredictRestApifirstpredictOPTIONS09676255"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/helllllo/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..helllllo.predict": [
+        "/ApiGatewayStack/PredictRestApi/Default/first/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..first.predict": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApihelllllopredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSThelllllopredict6E998DAF"
+            "data": "PredictRestApifirstpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTfirstpredictBC0FA5F2"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/helllllo/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..helllllo.predict": [
+        "/ApiGatewayStack/PredictRestApi/Default/first/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..first.predict": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApihelllllopredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSThelllllopredict8F8E3075"
+            "data": "PredictRestApifirstpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTfirstpredict2E18475B"
           }
         ],
-        "/ApiGatewayStack/PredictRestApi/Default/helllllo/predict/POST/Resource": [
+        "/ApiGatewayStack/PredictRestApi/Default/first/predict/POST/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PredictRestApihelllllopredictPOST993780DA"
+            "data": "PredictRestApifirstpredictPOST125F3C1C"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/second/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApisecond7AC7CE85"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/second/predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApisecondpredict3DB7222A"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/second/predict/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApisecondpredictOPTIONS9D7F5B59"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/second/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..second.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApisecondpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTsecondpredictB61C9C45"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/second/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..second.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApisecondpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTsecondpredictC6F3B995"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/second/predict/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApisecondpredictPOSTD05DB959"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/third/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApithird288899E8"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/third/predict/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApithirdpredictF083C19D"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/third/predict/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApithirdpredictOPTIONS24EF243F"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/third/predict/POST/ApiPermission.ApiGatewayStackPredictRestApi977BE848.POST..third.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApithirdpredictPOSTApiPermissionApiGatewayStackPredictRestApi977BE848POSTthirdpredict31B8E5AE"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/third/predict/POST/ApiPermission.Test.ApiGatewayStackPredictRestApi977BE848.POST..third.predict": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApithirdpredictPOSTApiPermissionTestApiGatewayStackPredictRestApi977BE848POSTthirdpredict016660ED"
+          }
+        ],
+        "/ApiGatewayStack/PredictRestApi/Default/third/predict/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PredictRestApithirdpredictPOSTAEF95594"
           }
         ],
         "/ApiGatewayStack/DefaultLambda/ServiceRole/Resource": [
@@ -130,22 +202,58 @@
             "data": "DefaultLambdaE5505F72"
           }
         ],
-        "/ApiGatewayStack/Lambda_helllllo/ServiceRole/Resource": [
+        "/ApiGatewayStack/Lambda_first/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "LambdahellllloServiceRoleF9E185B9"
+            "data": "LambdafirstServiceRole1DAFBDD4"
           }
         ],
-        "/ApiGatewayStack/Lambda_helllllo/Resource": [
+        "/ApiGatewayStack/Lambda_first/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "LambdahellllloB3C7955D"
+            "data": "LambdafirstEB895C7B"
           }
         ],
-        "/ApiGatewayStack/ModelEndpoint_helllllo": [
+        "/ApiGatewayStack/ModelEndpoint_first": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ModelEndpointhelllllo"
+            "data": "ModelEndpointfirst"
+          }
+        ],
+        "/ApiGatewayStack/Lambda_second/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdasecondServiceRoleC8038992"
+          }
+        ],
+        "/ApiGatewayStack/Lambda_second/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdasecondCD43C6FD"
+          }
+        ],
+        "/ApiGatewayStack/ModelEndpoint_second": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ModelEndpointsecond"
+          }
+        ],
+        "/ApiGatewayStack/Lambda_third/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdathirdServiceRole40DB33C6"
+          }
+        ],
+        "/ApiGatewayStack/Lambda_third/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Lambdathird288CF939"
+          }
+        ],
+        "/ApiGatewayStack/ModelEndpoint_third": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ModelEndpointthird"
           }
         ],
         "/ApiGatewayStack/NimbusApiKey/Resource": [

@@ -6,12 +6,11 @@ node_modules/
 **/dist/
 
 # CDK output directory
-nimbus-cdk/cdk.out/
-nimbus-cdk/outputs.json
+packages/nimbus-cdk/cdk.out/
+packages/nimbus-cdk/outputs.json
 
 # CLI specific files
-nimbus-cli/finished_dir/model-best
-nimbus-cli/nimbus-config.json
+packages/nimbus-cli/nimbus-config.json
 
 # IDE and OS specific files
 .DS_Store
@@ -20,4 +19,4 @@ nimbus-cli/nimbus-config.json
 .idea/
 
 # Environment variables
-.env
+**/.env
