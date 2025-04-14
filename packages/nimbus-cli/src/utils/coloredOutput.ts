@@ -48,7 +48,7 @@ export function displayModelList(
   
   if (models.length === 0) {
     console.log(chalk.yellow('\nNo models deployed.'));
-    console.log(chalk.white(`Use "${chalk.green('nimbus deploy')}" to deploy your first model.`));
+    console.log(chalk.white(`Use "${chalk.green('nimbusCLI deploy')}" to deploy your first model.`));
     return;
   }
   
@@ -136,7 +136,7 @@ export function displayDeleteSuccess(modelName: string): void {
 
 export function displayNoModelsToDelete(): void {
   console.log(chalk.yellow('\nNO MODELS TO DELETE'));
-  console.log(chalk.white('Deploy a model first with "nimbus deploy" before trying to delete.'));
+  console.log(chalk.white('Deploy a model first with "nimbusCLI deploy" before trying to delete.'));
 }
 
 

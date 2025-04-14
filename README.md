@@ -71,7 +71,7 @@ The Nimbus CLI provides several commands for managing your ML model deployments:
 ### Deploying a Model
 
 ```
-nimbus deploy
+nimbusCLI deploy
 ```
 
 This interactive command will:
@@ -87,7 +87,7 @@ This interactive command will:
 ### Listing Deployed Models
 
 ```
-nimbus list
+nimbusCLI list
 ```
 
 Lists all currently deployed models with their endpoints.
@@ -95,7 +95,7 @@ Lists all currently deployed models with their endpoints.
 ### Deleting a Model
 
 ```
-nimbus delete
+nimbusCLI delete
 ```
 
 An interactive command to select and delete a specific model from your deployment.
@@ -103,7 +103,7 @@ An interactive command to select and delete a specific model from your deploymen
 ### Destroying the Stack
 
 ```
-nimbus destroy
+nimbusCLI destroy
 ```
 
 Removes the entire AWS infrastructure created by Nimbus.
