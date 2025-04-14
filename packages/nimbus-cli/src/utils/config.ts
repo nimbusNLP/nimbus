@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { intro, text, outro, isCancel } from "@clack/prompts";
+import { intro, confirm, outro, isCancel } from "@clack/prompts";
 import chalk from "chalk";
 import { fileURLToPath } from "url";
 
@@ -27,62 +27,88 @@ export async function configureApp(): Promise<string> {
   }
 
   intro("Nimbus Configuration");
-  console.log(
-    chalk.blue("We need to set up a local storage path for your models."),
-  );
+  const shouldContinue = await confirm({
+    message: chalk.blue("We need to create a directory in order to store your local configurations and artifacts. That directory will be placed in the current working directory if you do not want to store the configurations here please exit and navigate to the directory within which you would like them to reside. Would you like to continue?"),
+  });
 
-  let storagePath = "";
-  let isValidPath = false;
+  if (isCancel(shouldContinue)) {
+    console.log('\nConfiguration cancelled. Exiting Nimbus CLI...');
+    process.exit(0);
+  }
 
-  while (!isValidPath) {
-    const pathInput = await text({
-      message: "Enter the path where your models should be stored:",
-      placeholder: "/path/to/model/storage",
-      validate(value) {
-        if (!value) return "Storage path is required";
-        return undefined;
-      },
-    });
-
-    if (isCancel(pathInput)) {
+  if (shouldContinue) {
+    try {
+      const dirPath = path.join(process.cwd(), 'nimbusStorage')
+      fs.mkdir(dirPath, () => {process.exit(0)})
+      fs.writeFileSync(
+        configFilePath,
+        JSON.stringify({ localStorage: dirPath }, null, 2),
+      );
+      console.log(chalk.green("Configuration saved successfully!"));
+      outro("Configuration complete!");
+      return dirPath;
+    } catch (error) {
       console.log('\nConfiguration cancelled. Exiting Nimbus CLI...');
       process.exit(0);
     }
-
-    storagePath = String(pathInput);
-
-    try {
-      const stats = fs.statSync(storagePath);
-      if (!stats.isDirectory()) {
-        console.log(
-          chalk.red("❌  The specified path is not a directory. Please try again."),
-        );
-        continue;
-      }
-      isValidPath = true;
-    } catch (error) {
-      console.log(
-        chalk.red(
-          "❌  Invalid path or directory does not exist. Please try again.",
-        ),
-      );
-    }
+  } else {
+    console.log('\nConfiguration cancelled. Exiting Nimbus CLI...');
+    process.exit(0);
   }
 
-  try {
-    fs.writeFileSync(
-      configFilePath,
-      JSON.stringify({ localStorage: storagePath }, null, 2),
-    );
-    console.log(chalk.green("Configuration saved successfully!"));
-  } catch (error) {
-    console.error(
-      chalk.red(
-        "❌  Error saving configuration. Using path for this session only.",
-      ),
-    );
-  }
 
-  outro("Configuration complete!");
-  return storagePath;
+  // let storagePath = "";
+  // let isValidPath = false;
+
+  // while (!isValidPath) {
+    // const pathInput = await text({
+    //   message: "Enter the path where your models should be stored:",
+    //   placeholder: "/path/to/model/storage",
+    //   validate(value) {
+    //     if (!value) return "Storage path is required";
+    //     return undefined;
+    //   },
+    // });
+
+    // if (isCancel(pathInput)) {
+    //   console.log('\nConfiguration cancelled. Exiting Nimbus CLI...');
+    //   process.exit(0);
+    // }
+
+  //   storagePath = String(pathInput);
+
+  //   try {
+  //     const stats = fs.statSync(storagePath);
+  //     if (!stats.isDirectory()) {
+  //       console.log(
+  //         chalk.red("❌  The specified path is not a directory. Please try again."),
+  //       );
+  //       continue;
+  //     }
+  //     isValidPath = true;
+  //   } catch (error) {
+  //     console.log(
+  //       chalk.red(
+  //         "❌  Invalid path or directory does not exist. Please try again.",
+  //       ),
+  //     );
+  //   }
+  // }
+
+  // try {
+  //   fs.writeFileSync(
+  //     configFilePath,
+  //     JSON.stringify({ localStorage: storagePath }, null, 2),
+  //   );
+  //   console.log(chalk.green("Configuration saved successfully!"));
+  // } catch (error) {
+  //   console.error(
+  //     chalk.red(
+  //       "❌  Error saving configuration. Using path for this session only.",
+  //     ),
+  //   );
+  // }
+
+  // outro("Configuration complete!");
+  // return storagePath;
 }
