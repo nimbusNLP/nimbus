@@ -1,6 +1,6 @@
 {
   "name": "nimbusnlp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/src/main.js",
   "bin": {
     "nimbusCLI": "dist/src/main.js"
@@ -23,7 +23,7 @@
     "chalk": "^5.4.1",
     "dotenv": "^16.5.0",
     "figlet": "^1.8.0",
-    "nimbus-cdk": "0.1.0",
+    "nimbus-cdk": "0.1.1",
     "nimbus-ui-server": "1.0.0",
     "ora": "^6.3.1"
   },

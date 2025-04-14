@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const CONFIG_PATH = path.resolve(__dirname, "../../nimbus-cli/nimbus-config.json");
+// const CONFIG_PATH = path.resolve(__dirname, "../../nimbus-cli/nimbus-config.json");
 
 interface ModelConfig {
   modelName: string;
@@ -51,11 +51,11 @@ export class ApiGatewayStack extends cdk.Stack {
       allowHeaders: ["Content-Type", "Authorization", "x-api-key"],
     });
 
-    const modelsPath = JSON.parse(
-      fs.readFileSync(CONFIG_PATH, "utf8")
-    );
+    // const modelsPath = JSON.parse(
+    //   fs.readFileSync(CONFIG_PATH, "utf8")
+    // );
     const modelsJSON = fs.readFileSync(
-      path.resolve(modelsPath.localStorage, "finished_dir/models.json"),
+      path.join(finishedDirPath, "models.json"),
       "utf8"
     );
 
