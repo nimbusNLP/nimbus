@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "main": "dist/src/main.js",
   "bin": {
-    "nimbus": "dist/src/main.js"
+    "nimbusCLI": "dist/src/main.js"
   },
   "scripts": {
     "build": "npx tsc",
