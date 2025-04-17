@@ -26,9 +26,9 @@ export async function configureApp(): Promise<string> {
     }
   }
 
-  intro(chalk.blue(`You are currently in ${currentDir}`));
+  intro(chalk.blue(`You are currently in ${process.cwd()}`));
   const shouldContinue = await confirm({
-    message: chalk.blue("Do you want to create your Nimbus configuration foler here?"),
+    message: chalk.blue("Do you want to create your Nimbus configuration folder here?"),
   });
 
   if (isCancel(shouldContinue)) {
