@@ -1,6 +1,6 @@
 {
   "name": "nimbusnlp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/src/main.js",
   "bin": {
     "nimbusCLI": "dist/src/main.js"
