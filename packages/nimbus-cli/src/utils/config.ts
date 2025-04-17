@@ -26,9 +26,9 @@ export async function configureApp(): Promise<string> {
     }
   }
 
-  intro("Nimbus Configuration");
+  intro(chalk.blue(`You are currently in ${currentDir}`));
   const shouldContinue = await confirm({
-    message: chalk.blue("We need to create a directory in order to store your local configurations and artifacts. That directory will be placed in the current working directory if you do not want to store the configurations here please exit and navigate to the directory within which you would like them to reside. Would you like to continue?"),
+    message: chalk.blue("Do you want to create your Nimbus configuration foler here?"),
   });
 
   if (isCancel(shouldContinue)) {
@@ -39,7 +39,7 @@ export async function configureApp(): Promise<string> {
   if (shouldContinue) {
     try {
       const dirPath = path.join(process.cwd(), 'nimbusStorage')
-      fs.mkdir(dirPath, () => {process.exit(0)})
+      fs.mkdir(dirPath, () => {})
       fs.writeFileSync(
         configFilePath,
         JSON.stringify({ localStorage: dirPath }, null, 2),
