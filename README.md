@@ -1,134 +1,148 @@
-# Nimbus
 
-Nimbus is a serverless ML model deployment platform that simplifies the process of deploying machine learning models to AWS Lambda and making them accessible through API Gateway endpoints.
+Nimbus is a lightweight, developer-friendly framework designed to help small teams deploy task-focused NLP models to the cloud with minimal friction. It combines the convenience of managed platforms with the affordability and control of DIY approaches.
 
-## Overview
+This guide walks through a typical user journey—from installation to deployment and management of models—using the Nimbus CLI and its web-based Playground.
 
-Nimbus streamlines the workflow of deploying ML models (both pre-trained and fine-tuned) to production without requiring extensive DevOps knowledge. The platform consists of two main components:
+----
 
-1. **nimbus-cli**: A command-line interface tool that handles model deployment, management, and configuration.
-2. **nimbus-cdk**: An AWS CDK application that creates and manages the cloud infrastructure required for model serving.
+✅ Prerequisites
 
-## Prerequisites
+Before getting started with Nimbus, make sure your environment includes the following:
 
-- Node.js (v14 or later)
-- AWS CLI configured with appropriate credentials
-- AWS CDK installed globally (`npm install -g aws-cdk`)
-- Docker (for containerizing models)
 
-## Installation
+|Tool	| Description	| Link| 
+|--|--|--|
+|Node.js v20+	| JavaScript runtime required to run Nimbus CLI. Includes npm.	|[Download Node.js](https://nodejs.org/en/download?utm_source=chatgpt.com)|
+|AWS CLI	| Required to authenticate and interact with AWS.	|[Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html?utm_source=chatgpt.com)|
+|AWS CDK	| Used to define and deploy cloud infrastructure as code.	|[AWS CDK Guide](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html?utm_source=chatgpt.com)|
+|Docker	| Required for building and bundling model containers.	|[Get Docker](https://docs.docker.com/get-started/get-docker/?utm_source=chatgpt.com)|
 
-1. Clone this repository:
+ℹ️ After installing the AWS CLI, run aws configure to set up your credentials.
 
-   ```
-   git clone https://github.com/yourusername/nimbus.git
-   cd nimbus
-   ```
+----
 
-2. Install dependencies for the CLI tool:
+🚀 Getting Started
 
-   ```
-   cd nimbus-cli
-   npm install
-   npm run build
-   ```
+Installation
 
-3. Install dependencies for the CDK application:
+Install Nimbus globally via NPM:
 
-   ```
-   cd ../nimbus-cdk
-   npm install
-   npm run build
-   ```
-
-4. For local development, create a global symlink for the CLI:
-   ```
-   cd ../nimbus-cli
-   npm link
-   ```
-
-## Project Structure
-
-```
-nimbus/
-├── nimbus-cli/        # CLI tool for model deployment
-│   ├── src/           # Source code for CLI commands
-│   └── dist/          # Compiled JavaScript code
-│
-├── nimbus-cdk/        # AWS CDK infrastructure code
-│   ├── bin/           # CDK app entry point
-│   ├── lib/           # Stack definitions
-│   └── test/          # Tests for CDK constructs
-│
-└── Nimbus_Model_Storage/  # Created during first deployment
-    └── finished_dir/      # Contains deployed model artifacts
+```bash
+npm install -g nimbusnlp
 ```
 
-## Using the Nimbus CLI
+ℹ️ Upon first use, Nimbus will create a .nimbusStorage directory in your current working directory to store configuration and deployment artifacts. To change its location, simply navigate to your desired directory before running any CLI commands.
 
-The Nimbus CLI provides several commands for managing your ML model deployments:
+----
 
-### Deploying a Model
+🔧 CLI Commands
 
+After installation, you can access the CLI by typing:
+
+```bash
+nimbusCLI
 ```
+
+This will display all available subcommands.
+
+Core Commands
+- `nimbusCLI deploy`
+Deploy a new NLP model. This also provisions the necessary infrastructure if it doesn’t exist.
+- `nimbusCLI list`
+View all models currently deployed, along with their names, descriptions, and endpoints.
+- `nimbusCLI delete`
+Delete a specific model and its associated resources, both locally and in the cloud.
+- `nimbusCLI destroy`
+Tear down the entire Nimbus deployment infrastructure (API Gateway, models, storage, etc.).
+- `nimbusCLI ui`
+Launch the Nimbus Playground, a local web UI to view and test your deployed models.
+
+----
+
+🧠 Deploying a Model
+
+To deploy a model, run:
+
+```bash
 nimbusCLI deploy
 ```
 
-This interactive command will:
+You will be guided through a series of interactive prompts:
+- Model type: pre-trained or fine-tuned
+- Unique model name
+- Source:
+- For pre-trained: a model identifier
+- For fine-tuned: a local file path
+- Optional description
 
-1. Set up the API Gateway (if it's your first deployment)
-2. Ask for the model type (pre-trained or fine-tuned)
-3. Prompt for a model name and description
-4. For pre-trained models, ask which model to use
-5. For fine-tuned models, ask for the path to your model
-6. Generate the necessary Docker and Lambda code
-7. Deploy your model to AWS
+Upon completion:
+- Nimbus will deploy the model to AWS.
+- You’ll receive:
+- An HTTPS endpoint URL for predictions.
+- An API key to access the endpoint.
 
-### Listing Deployed Models
+You can immediately begin sending requests to your deployed endpoint.
 
-```
+----
+
+📋 Listing Deployed Models
+
+To check which models are currently deployed:
+
+```bash
 nimbusCLI list
 ```
 
-Lists all currently deployed models with their endpoints.
+You’ll see a list of models with their associated information:
+- Model name
+- Description
+- Endpoint URL
 
-### Deleting a Model
+----
 
+🌐 The Nimbus Playground
+
+For a visual interface, run:
+
+```bash
+nimbusCLI ui
 ```
+
+This opens the Nimbus Playground in your browser, where you can:
+- View deployed models
+- Select a model
+- Send prediction requests directly in the UI
+
+It’s a great tool for testing before integrating endpoints into production.
+
+----
+
+🗑️ Deleting a Model
+
+To remove a model:
+
+```bash
 nimbusCLI delete
 ```
 
-An interactive command to select and delete a specific model from your deployment.
+You’ll be presented with a list of your deployed models. Select the one you wish to delete.
 
-### Destroying the Stack
+----
 
-```
+💥 Destroying All Infrastructure
+
+To completely remove your deployment (API Gateway, Lambda functions, models, and storage):
+
+```bash
 nimbusCLI destroy
 ```
 
-Removes the entire AWS infrastructure created by Nimbus.
+⚠️ This action is irreversible. Use it only when you’re done with Nimbus or want to reset everything.
 
-## Model Types Supported
+----
 
-1. **Pre-trained models**: Popular models that can be deployed directly without additional training.
-2. **Fine-tuned models**: Your custom-trained models that you've saved locally.
+📌 Final Notes
 
-## Architecture
+Nimbus is designed to make deploying NLP models as simple and cost-effective as possible, without sacrificing power or flexibility. Whether you’re a solo developer or a small team, Nimbus helps you go from model to API in minutes.
 
-Nimbus uses AWS Lambda with Docker containers to serve ML models and AWS API Gateway to provide HTTP endpoints. Each model is deployed as a separate Lambda function with its own API endpoint.
-
-The system automatically generates the necessary Docker configuration and API integration code based on the model type and specifications.
-
-## Limitations
-
-- Maximum model size is constrained by Lambda's limits (currently up to 10GB container images)
-- Cold start times may impact initial request latency
-- Default timeout for predictions is 60 seconds
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the ISC License.
+----
